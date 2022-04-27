@@ -1,1 +1,2 @@
 [![CircleCI](https://circleci.com/gh/atlp-rwanda/cabal-bn-fe/tree/dev.svg?style=svg&circle-token=3a828943dbcc261f53265b086a2e206c25d12cf4)](https://circleci.com/gh/atlp-rwanda/cabal-bn-fe/tree/dev)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/7af49c3e0f4c964ed6ba/test_coverage)](https://codeclimate.com/github/atlp-rwanda/cabal-bn-fe/test_coverage)
