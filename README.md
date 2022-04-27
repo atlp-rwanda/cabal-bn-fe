@@ -1,1 +1,1 @@
-Cabal Frontend
+[![CircleCI](https://circleci.com/gh/atlp-rwanda/cabal-bn-fe/tree/dev.svg?style=svg&circle-token=3a828943dbcc261f53265b086a2e206c25d12cf4)](https://circleci.com/gh/atlp-rwanda/cabal-bn-fe/tree/dev)
