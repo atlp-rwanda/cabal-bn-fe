@@ -1,0 +1,28 @@
+
+version: 2.1
+
+
+jobs:
+  build:
+    
+    docker:
+      - image: cimg/node:16.14.0
+    
+    steps:
+      - checkout
+      - run:
+          name: "Install dependencies"
+          command: "yarn install"
+
+      - run:
+          name: "run test"
+          command: "yarn test"
+
+      - run:
+          name: "coverage"
+          command: "yarn coverage"   
+
+workflows:
+  cabal-bn-fe-workflow:
+    jobs:
+      - build
