@@ -4,5 +4,11 @@
     "test": {
       "plugins": ["@babel/plugin-syntax-jsx"]
     }
-  }
+  },
+  "plugins": [
+    ["@babel/plugin-transform-runtime",       
+    {         
+      "regenerator": true       
+    }]
+]
 }

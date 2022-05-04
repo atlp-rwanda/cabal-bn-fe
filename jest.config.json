@@ -3,5 +3,11 @@
     "collectCoverage":true,
     "coverageReporters": ["lcov","text"],
     "coverageDirectory": "coverage",
-    "testTimeout":100000
+    "testTimeout":100000,
+    "transform": {
+      "\\.[jt]sx?$": "babel-jest",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$":
+      "./fileTransformer.js"
+    },
+    "testEnvironment": "jsdom"
   }
