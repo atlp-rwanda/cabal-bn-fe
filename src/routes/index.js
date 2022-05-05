@@ -6,6 +6,8 @@ import Dashboard from '../view/dashboard';
 import Signup from '../view/signup';
 import EmailVerification from '../view/verifyEmail';
 import GoogleLogin from '../view/google_login';
+import Forgot from '../view/Forgot';
+import ResetPassword from '../view/ResetPassword';
 
 const AllRoutes = (props) => (
   <BrowserRouter>
@@ -18,6 +20,12 @@ const AllRoutes = (props) => (
       <Route exact path="/login" element={<Login />} />
       <Route exact path="/signup" element={<Signup />} />
       <Route exact path="/verify" element={<EmailVerification {...props} />} />
+      <Route exact path="/forgot" element={<Forgot />} />
+      <Route
+        exact
+        path="/resetPassword"
+        element={<ResetPassword {...props} />}
+      />
     </Routes>
   </BrowserRouter>
 );
