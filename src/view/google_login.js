@@ -21,7 +21,7 @@ const GoogleLogin = () => {
   dispatch(socialLoginAction(retrieveParams(params)));
   if (store.getState().userReducer.isLogged) {
     window.setTimeout(() => {
-      navigate('../', { replace: true });
+      navigate('../dashboard/trips', { replace: true });
     }, 1000);
   }
   return (

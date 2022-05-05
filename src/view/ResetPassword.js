@@ -26,7 +26,7 @@ import { Reset } from '../redux/actions/ResetPassword.action';
 import store from '../redux/store';
 
 const StyledInputs = styled(TextField)(({ theme }) => ({
-  [theme.breakpoints.down('sm')]: {
+  [theme?.breakpoints.down('sm')]: {
     width: 280,
     height: 20,
     margin: '30px 0px',
@@ -144,24 +144,22 @@ const ResetPassword = (props) => {
   const state = useSelector((store) => store);
   const resetPasswsord = state.Reset;
 
-
   const validate = () => {
     // eslint-disable-next-line no-useless-escape
-    console.log(ConfirmPassword);
     const regexConfirmPassword = password;
     const regexPassword = /^(?=.*[A-Z])(?=.*[0-9])\w{8,}$/;
     const ConfirmPasswordError =
       ConfirmPassword !== password
         ? 'Confirm password should match password'
         : ConfirmPassword === password
-          ? ''
-          : 'Confirm password is required';
+        ? ''
+        : 'Confirm password is required';
     const passwordError =
       !password.match(regexPassword) && password.length > 6
         ? 'Must have at least one digit and capital letter'
         : password.match(regexPassword)
-          ? ''
-          : 'Password is required';
+        ? ''
+        : 'Password is required';
 
     setValidationError(() => ({
       ConfirmPassword: ConfirmPasswordError,
@@ -185,7 +183,6 @@ const ResetPassword = (props) => {
       await Reset(password, token)(dispatch);
       setLoading(false);
     }
-
   };
   const onChangePassword = (e) => {
     setPassword(e.target.value);
@@ -193,7 +190,6 @@ const ResetPassword = (props) => {
   const onchangeConfrimpassword = (e) => {
     setConfirmPassword(e.target.value);
   };
-
 
   return (
     <>
@@ -225,11 +221,7 @@ const ResetPassword = (props) => {
             Reset Password
           </Typography>
           {error ? (
-            <Alert
-              variant="outlined"
-              severity="error"
-              sx={errorresetPassword}
-            >
+            <Alert variant="outlined" severity="error" sx={errorresetPassword}>
               {store.getState().userReducer.error.data.message}
             </Alert>
           ) : null}

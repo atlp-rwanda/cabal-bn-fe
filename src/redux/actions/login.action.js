@@ -32,8 +32,9 @@ export const loginAction = ({ email, password }) => {
           password,
         },
       });
+      /* istanbul ignore next */
       if (res.status === 201) {
-        localStorage.setItem('BarefootNomadToken', res.data.token);
+        localStorage.setItem('userCredentials', JSON.stringify(res.data));
         dispatch(userLogin(res.data));
       } else {
         dispatch(errorLogin(res.data));

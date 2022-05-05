@@ -116,7 +116,7 @@ const Signup = () => {
       locationError,
     }).every((value) => value === '');
   };
-
+  /* istanbul ignore next */
   const handleClick = async () => {
     if (validate()) {
       setLoading(true);
@@ -278,6 +278,7 @@ const Signup = () => {
             <Select
               labelId="demo-simple-select-label"
               value={location}
+              /* istanbul ignore next */
               onChange={(e) => setLocation(e.target.value)}
               id="demo-simple-select"
               inputProps={{ 'data-testid': 'location-input' }}

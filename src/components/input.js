@@ -4,7 +4,7 @@ import React from 'react';
 import { TextField, styled } from '@mui/material';
 
 const StyledInputs = styled(TextField)(({ theme }) => ({
-  [theme.breakpoints.down('sm')]: {
+  [theme?.breakpoints.down('sm')]: {
     width: 280,
     height: 20,
     margin: '30px 0px',

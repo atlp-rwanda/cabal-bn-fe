@@ -30,7 +30,7 @@ export const SignupBtn = styled(Button)(({ theme }) => ({
     backgroundColor: '#00095E',
     color: '#FFC800',
   },
-  [theme.breakpoints.down('sm')]: {
+  [theme?.breakpoints.down('sm')]: {
     width: 280,
     height: 50,
     margin: '20px 0px',

@@ -8,6 +8,6 @@ export const userLogin = (data) => ({
 });
 
 export const socialLoginAction = (data) => async (dispatch) => {
-  localStorage.setItem('BarefootNomadToken', data.token);
+  localStorage.setItem('userCredentials', JSON.stringify(data));
   dispatch(userLogin(data));
 };

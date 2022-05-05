@@ -25,7 +25,6 @@ const Landscape = () => {
       backgroundColor: '#00095E',
       marginTop: '-15%',
       display: 'block',
-      width: '220px',
       height: '50px',
       transition: '0.4s linear',
       '&:hover': {
