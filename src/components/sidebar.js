@@ -3,8 +3,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { ImageListItem, Box, Typography, Grid } from '@mui/material';
-import { Link , matchPath } from 'react-router-dom';
-
+import { Link, matchPath } from 'react-router-dom';
 import { useTheme } from '@mui/styles';
 import DashboardLogo from '../assets/DashboardLogo.svg';
 

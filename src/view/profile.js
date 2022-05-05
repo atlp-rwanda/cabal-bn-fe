@@ -72,7 +72,6 @@ const Profile = () => {
   });
   /* istanbul ignore next */
   const submit = async (data) => {
-    console.log(data);
     setLoading(true);
     const formData = new FormData();
     formData.append('first_name', data.firstName);
@@ -115,7 +114,6 @@ const Profile = () => {
     store.subscribe(() => {
       const { profileReducer } = store.getState();
       if (profileReducer.profile) {
-        console.log(profileReducer.profile);
         setLoading(false);
       } else {
         setLoading(false);
@@ -128,7 +126,6 @@ const Profile = () => {
     await store.dispatch(getAllLocations());
     const { profileReducer, locationReducer } = store.getState();
     setFetchLocation(locationReducer.data.data.results);
-    console.log(profileReducer.data);
     if (profileReducer.data) {
       setValue('firstName', profileReducer.data.user.first_name, {
         shouldTouch: true,
@@ -178,8 +175,6 @@ const Profile = () => {
       setValue('profilePicture', profileReducer.data.user.profile_picture);
 
       setFullLoad(true);
-    } else {
-      console.log('there was an error server');
     }
   };
   useEffect(() => {
