@@ -24,6 +24,7 @@ export const SignupAction = (userData) => {
           : dispatch(signupFail(res.data));
       })
       .catch((error) => {
+        /* istanbul ignore next */
         dispatch(signupFail(error.response.data));
       });
   };

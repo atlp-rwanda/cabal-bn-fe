@@ -6,7 +6,6 @@ import React, { useState } from 'react';
 import {
   Box,
   styled,
-  Link,
   Typography,
   InputAdornment,
   IconButton,
@@ -19,15 +18,16 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useNavigate } from 'react-router-dom';
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
-import NavBar from '../components/navBar';
 import login from '../assets/login.svg';
-import Footer from '../components/footer';
 import { loginAction } from '../redux/actions/login.action';
 import store from '../redux/store';
 import InputField from '../components/input';
 import Buttons from '../components/button';
 import { urlSerializer } from '../helpers/login.helpers';
 import { errorAlert } from '../helpers/signup.helper';
+import Header from '../components/landing/header';
+import { Link } from 'react-router-dom';
+import LandingFooter from '../components/landing/footer';
 
 const LoginImage = styled('img')(() => ({
   width: 400,
@@ -38,10 +38,11 @@ const LoginImage = styled('img')(() => ({
 
 const SocialLoginLink = ({ type, variant, startIcon, sx, value }) => (
   <A
-    href={`${process.env.REACT_APP_BACKEND_URL
-      }/users/${type}/login/?${urlSerializer(
-        `${process.env.DEPLOY_PRIME_URL}/social/login`,
-      )}`}
+    href={`${
+      process.env.REACT_APP_BACKEND_URL
+    }/users/${type}/login/?${urlSerializer(
+      `${process.env.DEPLOY_PRIME_URL}/social/login`,
+    )}`}
   >
     <Buttons variant={variant} startIcon={startIcon} sx={sx} value={value} />
   </A>
@@ -68,6 +69,7 @@ const mediaStyles = {
 };
 
 const container = {
+  paddingTop: '100px',
   display: 'flex',
   flexDirection: {
     xs: 'column',
@@ -118,14 +120,14 @@ const Login = () => {
       !email.match(regexEmail) && email.length
         ? 'Invalid email'
         : email.match(regexEmail)
-          ? ''
-          : 'Email required';
+        ? ''
+        : 'Email required';
     const passwordError =
       !password.match(regexPassword) && password.length > 6
         ? 'Must have at least one digit and capital letter'
         : password.match(regexPassword)
-          ? ''
-          : 'Password required';
+        ? ''
+        : 'Password required';
 
     setValidationError(() => ({
       email: emailError,
@@ -152,7 +154,7 @@ const Login = () => {
 
   return (
     <>
-      <NavBar />
+      <Header />
       <Box sx={container}>
         <Box
           sx={{
@@ -288,8 +290,8 @@ const Login = () => {
             />
           </Box>
           <Link
-            href="/forgot"
-            sx={{
+            to="/forgot"
+            style={{
               color: '#00095E',
               fontFamily: 'Roboto, sans-serif',
               fontSize: '14px',
@@ -300,7 +302,7 @@ const Login = () => {
           </Link>
         </Box>
       </Box>
-      <Footer />
+      <LandingFooter />
     </>
   );
 };

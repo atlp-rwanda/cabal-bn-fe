@@ -20,8 +20,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import imgsvg from '../../public/image/Group 47.svg';
 import Buttons from '../components/button';
-import Footer from '../components/footer';
-import NavBar from '../components/navBar';
+import LandingFooter from '../components/landing/footer';
+import Header from '../components/landing/header';
 import { Reset } from '../redux/actions/ResetPassword.action';
 import store from '../redux/store';
 
@@ -197,7 +197,7 @@ const ResetPassword = (props) => {
 
   return (
     <>
-      <NavBar />
+      <Header />
       <Box sx={container}>
         <Box
           sx={{
@@ -347,7 +347,7 @@ const ResetPassword = (props) => {
           />
         </Box>
       </Box>
-      <Footer />
+      <LandingFooter />
     </>
   );
 };

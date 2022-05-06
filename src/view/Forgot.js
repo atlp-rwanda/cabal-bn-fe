@@ -13,8 +13,8 @@ import * as React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import img from '../../public/image/undraw_forgot_password_re_hxwm 1.svg';
-import Footer from '../components/footer';
-import NavBar from '../components/navBar';
+import LandingFooter from '../components/landing/footer';
+import Header from '../components/landing/header';
 import { sendEmail } from '../redux/actions/Forgot.action';
 
 const ResetImage = styled('img')(({ theme }) => ({
@@ -117,7 +117,7 @@ export default function Forgot() {
 
   return (
     <>
-      <NavBar />
+      <Header />
       <Box
         sx={{
           display: 'flex',
@@ -203,7 +203,7 @@ export default function Forgot() {
           </ResetBtn>{' '}
         </Box>
       </Box>{' '}
-      <Footer />
+      <LandingFooter />
     </>
   );
 }

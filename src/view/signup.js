@@ -15,9 +15,7 @@ import {
 } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import NavBar from '../components/navBar';
 import signup_img from '../assets/signup_img.svg';
-import Footer from '../components/footer';
 import { useSelector } from 'react-redux';
 import { SignupAction } from '../redux/actions/signup.action';
 import { getAllLocations } from '../redux/actions/location.action';
@@ -32,6 +30,8 @@ import {
   getUserLocation,
   errorAlert,
 } from '../helpers/signup.helper';
+import Header from '../components/landing/header';
+import LandingFooter from '../components/landing/footer';
 
 const mainBoxSx = {
   display: 'flex',
@@ -167,7 +167,7 @@ const Signup = () => {
   const classes = useStyle();
   return (
     <>
-      <NavBar />
+      <Header />
       <Box sx={mainBoxSx}>
         <Box
           sx={{
@@ -315,7 +315,7 @@ const Signup = () => {
           </div>
         </Box>
       </Box>
-      <Footer />
+      <LandingFooter />
     </>
   );
 };
