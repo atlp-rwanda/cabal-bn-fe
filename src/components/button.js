@@ -1,15 +1,8 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable object-curly-newline */
 import React from 'react';
 import { Button } from '@mui/material';
 
-const button = ({ buttonTheme }) => (
-  <Button
-    variant="contained"
-    sx={{ textDecoration: 'none' }}
-    color={buttonTheme}
-  >
-    Login
-  </Button>
-);
+const Buttons = ({ value, ...props }) => <Button {...props}>{value}</Button>;
 
-export default button;
+export default Buttons;

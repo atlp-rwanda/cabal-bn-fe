@@ -1,16 +1,26 @@
 /* eslint-disable import/named */
 /* eslint-disable import/prefer-default-export */
-import { LOGINUSER } from '../actionTypes/actionTypes';
+import { ERROR_LOGIN, LOGIN_USER } from '../types/login.types';
 
 const initialState = {
-  users: [],
+  data: [],
   loading: true,
+  isLogged: false,
+  error: ""
 };
 
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOGINUSER:
-      return { ...state, users: action.payload, loading: false };
+    case LOGIN_USER:
+      return { ...state, data: action.payload, loading: false, isLogged: true };
+
+    case ERROR_LOGIN:
+      return {
+        ...state,
+        error: action.payload,
+        isLogged: false,
+        loading: false
+      }
     default:
       return state;
   }

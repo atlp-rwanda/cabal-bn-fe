@@ -1,0 +1,203 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Navbar should render the menubar on click 1`] = `
+<header
+  className="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed mui-fixed css-131qkm5-MuiPaper-root-MuiAppBar-root"
+>
+  <div
+    className="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular css-j8xoiz-MuiToolbar-root"
+  >
+    <a
+      className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1ps4owl-MuiTypography-root-MuiLink-root"
+      href="#"
+      onBlur={[Function]}
+      onFocus={[Function]}
+    >
+      <img
+        alt="Logo"
+        src="Logo.svg"
+        style={
+          Object {
+            "height": 50,
+            "width": 100,
+          }
+        }
+      />
+    </a>
+    <div
+      className="MuiBox-root css-9np8v5"
+    >
+      <p
+        className="MuiTypography-root MuiTypography-body1 css-hfh7pe-MuiTypography-root"
+      >
+        <a
+          className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-pq7q13-MuiTypography-root-MuiLink-root"
+          href="#"
+          onBlur={[Function]}
+          onFocus={[Function]}
+        >
+          Home
+        </a>
+      </p>
+      <p
+        className="MuiTypography-root MuiTypography-body1 css-hfh7pe-MuiTypography-root"
+      >
+        <a
+          className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-pq7q13-MuiTypography-root-MuiLink-root"
+          href="#"
+          onBlur={[Function]}
+          onFocus={[Function]}
+        >
+          About Us
+        </a>
+      </p>
+      <p
+        className="MuiTypography-root MuiTypography-body1 css-hfh7pe-MuiTypography-root"
+      >
+        <a
+          className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-pq7q13-MuiTypography-root-MuiLink-root"
+          href="#"
+          onBlur={[Function]}
+          onFocus={[Function]}
+        >
+          Accommodation
+        </a>
+      </p>
+      <p
+        className="MuiTypography-root MuiTypography-body1 css-hfh7pe-MuiTypography-root"
+      >
+        <a
+          className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-pq7q13-MuiTypography-root-MuiLink-root"
+          href="#"
+          onBlur={[Function]}
+          onFocus={[Function]}
+        >
+          Sign Up
+        </a>
+      </p>
+      <p
+        className="MuiTypography-root MuiTypography-body1 css-hfh7pe-MuiTypography-root"
+      >
+        <a
+          className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-pq7q13-MuiTypography-root-MuiLink-root"
+          href="login"
+          onBlur={[Function]}
+          onFocus={[Function]}
+        >
+          Login In
+        </a>
+      </p>
+    </div>
+    <div
+      className="MuiBox-root css-1be6mpr"
+      onClick={[Function]}
+    >
+      <img
+        alt="menu bar"
+        src="MenuBar.svg"
+      />
+    </div>
+  </div>
+</header>
+`;
+
+exports[`Navbar should render the menubar on click 2`] = `
+<header
+  className="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed mui-fixed css-131qkm5-MuiPaper-root-MuiAppBar-root"
+>
+  <div
+    className="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular css-j8xoiz-MuiToolbar-root"
+  >
+    <a
+      className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1ps4owl-MuiTypography-root-MuiLink-root"
+      href="#"
+      onBlur={[Function]}
+      onFocus={[Function]}
+    >
+      <img
+        alt="Logo"
+        src="Logo.svg"
+        style={
+          Object {
+            "height": 50,
+            "width": 100,
+          }
+        }
+      />
+    </a>
+    <div
+      className="MuiBox-root css-9np8v5"
+    >
+      <p
+        className="MuiTypography-root MuiTypography-body1 css-hfh7pe-MuiTypography-root"
+      >
+        <a
+          className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-pq7q13-MuiTypography-root-MuiLink-root"
+          href="#"
+          onBlur={[Function]}
+          onFocus={[Function]}
+        >
+          Home
+        </a>
+      </p>
+      <p
+        className="MuiTypography-root MuiTypography-body1 css-hfh7pe-MuiTypography-root"
+      >
+        <a
+          className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-pq7q13-MuiTypography-root-MuiLink-root"
+          href="#"
+          onBlur={[Function]}
+          onFocus={[Function]}
+        >
+          About Us
+        </a>
+      </p>
+      <p
+        className="MuiTypography-root MuiTypography-body1 css-hfh7pe-MuiTypography-root"
+      >
+        <a
+          className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-pq7q13-MuiTypography-root-MuiLink-root"
+          href="#"
+          onBlur={[Function]}
+          onFocus={[Function]}
+        >
+          Accommodation
+        </a>
+      </p>
+      <p
+        className="MuiTypography-root MuiTypography-body1 css-hfh7pe-MuiTypography-root"
+      >
+        <a
+          className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-pq7q13-MuiTypography-root-MuiLink-root"
+          href="#"
+          onBlur={[Function]}
+          onFocus={[Function]}
+        >
+          Sign Up
+        </a>
+      </p>
+      <p
+        className="MuiTypography-root MuiTypography-body1 css-hfh7pe-MuiTypography-root"
+      >
+        <a
+          className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-pq7q13-MuiTypography-root-MuiLink-root"
+          href="login"
+          onBlur={[Function]}
+          onFocus={[Function]}
+        >
+          Login In
+        </a>
+      </p>
+    </div>
+    <div
+      className="MuiBox-root css-1be6mpr"
+      onClick={[Function]}
+    >
+      <img
+        alt="menu bar"
+        src="MenuBar.svg"
+      />
+    </div>
+  </div>
+</header>
+`;
