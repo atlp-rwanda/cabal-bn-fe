@@ -1,9 +1,5 @@
-import React from "react";
+import React from 'react';
 
-const Dashboard = () => {
-  return (
-    <h1>You are logged....</h1>
-  );
-}
+const Dashboard = () => <h1>You are logged....</h1>;
 
 export default Dashboard;
