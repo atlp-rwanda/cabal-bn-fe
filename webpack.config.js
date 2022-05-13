@@ -6,6 +6,13 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 dotenv.config();
 
+const envKeys = {
+  'process.env.DEPLOY_PRIME_URL': JSON.stringify(process.env.DEPLOY_PRIME_URL),
+  'process.env.REACT_APP_BACKEND_URL': JSON.stringify(
+    process.env.REACT_APP_BACKEND_URL,
+  ),
+};
+
 module.exports = {
   target: 'web',
   entry: path.join(__dirname, 'src', 'index.js'),
@@ -15,11 +22,9 @@ module.exports = {
     publicPath: '/',
   },
   mode: process.env.NODE_ENV || 'development',
-  resolve: {
-    extensions: ['*', '.js', '.jsx'],
-  },
+  resolve: { extensions: ['*', '.js', '.jsx'] },
   devServer: {
-    port: process.env.PORT || '3000',
+    port: process.env.PORT || '4000',
     historyApiFallback: true,
     headers: { 'Access-Control-Allow-Origin': '*' },
     open: true,
@@ -31,9 +36,7 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        options: {
-          presets: ['@babel/preset-env', '@babel/preset-react'],
-        },
+        options: { presets: ['@babel/preset-env', '@babel/preset-react'] },
       },
       {
         test: /\.(css|scss)$/,
@@ -47,9 +50,8 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebPackPlugin({
-      template: 'public/index.html',
-    }),
+    new HtmlWebPackPlugin({ template: 'public/index.html' }),
+    new webpack.DefinePlugin(envKeys),
     new CleanWebpackPlugin(),
   ],
 };

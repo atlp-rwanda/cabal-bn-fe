@@ -6,7 +6,7 @@ const initialState = {
   data: [],
   loading: true,
   isLogged: false,
-  error: ""
+  error: '',
 };
 
 export const userReducer = (state = initialState, action) => {
@@ -19,8 +19,8 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         error: action.payload,
         isLogged: false,
-        loading: false
-      }
+        loading: false,
+      };
     default:
       return state;
   }

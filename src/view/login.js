@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/react-in-jsx-scope */
@@ -11,13 +12,12 @@ import {
   IconButton,
   CircularProgress,
   Alert,
-  Stack,
+  Link as A,
 } from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
 import NavBar from '../components/navBar';
 import login from '../assets/login.svg';
@@ -26,13 +26,26 @@ import { loginAction } from '../redux/actions/login.action';
 import store from '../redux/store';
 import InputField from '../components/input';
 import Buttons from '../components/button';
+import { urlSerializer } from '../helpers/login.helpers';
 
-const LoginImage = styled('img')(({ theme }) => ({
+const LoginImage = styled('img')(() => ({
   width: 400,
   height: 320,
   objectFit: 'cover',
   marginBottom: '50px',
 }));
+
+const SocialLoginLink = ({ type, variant, startIcon, sx, value }) => (
+  <A
+    href={`${
+      process.env.REACT_APP_BACKEND_URL
+    }/users/${type}/login/?${urlSerializer(
+      `${process.env.DEPLOY_PRIME_URL}/social/login`,
+    )}`}
+  >
+    <Buttons variant={variant} startIcon={startIcon} sx={sx} value={value} />
+  </A>
+);
 
 const mediaStyles = {
   width: {
@@ -115,22 +128,23 @@ const Login = () => {
   };
 
   const validate = () => {
+    // eslint-disable-next-line no-useless-escape
     const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     const regexPassword = /^(?=.*[A-Z])(?=.*[0-9])\w{8,}$/;
     const emailError =
       !email.match(regexEmail) && email.length
         ? 'Invalid email'
         : email.match(regexEmail)
-          ? ''
-          : 'Email required';
+        ? ''
+        : 'Email required';
     const passwordError =
       !password.match(regexPassword) && password.length > 6
         ? 'Must have at least one digit and capital letter'
         : password.match(regexPassword)
-          ? ''
-          : 'Password required';
+        ? ''
+        : 'Password required';
 
-    setValidationError((state) => ({
+    setValidationError(() => ({
       email: emailError,
       password: passwordError,
     }));
@@ -275,13 +289,15 @@ const Login = () => {
               },
             }}
           >
-            <Buttons
+            <SocialLoginLink
+              type="google"
               variant="contained"
               startIcon={<GoogleIcon />}
               sx={mediaStyles}
               value="Login with Google"
             />
-            <Buttons
+            <SocialLoginLink
+              type="facebook"
               variant="contained"
               startIcon={<FacebookRoundedIcon />}
               sx={mediaStyles}
