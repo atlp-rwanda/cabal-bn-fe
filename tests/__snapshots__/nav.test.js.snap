@@ -72,7 +72,7 @@ exports[`Navbar should render the menubar on click 1`] = `
           onBlur={[Function]}
           onFocus={[Function]}
         >
-          Sign Up
+          Sign In
         </a>
       </p>
       <p
@@ -80,11 +80,11 @@ exports[`Navbar should render the menubar on click 1`] = `
       >
         <a
           className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-pq7q13-MuiTypography-root-MuiLink-root"
-          href="login"
+          href="#"
           onBlur={[Function]}
           onFocus={[Function]}
         >
-          Login In
+          Sign Up
         </a>
       </p>
     </div>
@@ -173,7 +173,7 @@ exports[`Navbar should render the menubar on click 2`] = `
           onBlur={[Function]}
           onFocus={[Function]}
         >
-          Sign Up
+          Sign In
         </a>
       </p>
       <p
@@ -181,11 +181,11 @@ exports[`Navbar should render the menubar on click 2`] = `
       >
         <a
           className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-pq7q13-MuiTypography-root-MuiLink-root"
-          href="login"
+          href="#"
           onBlur={[Function]}
           onFocus={[Function]}
         >
-          Login In
+          Sign Up
         </a>
       </p>
     </div>

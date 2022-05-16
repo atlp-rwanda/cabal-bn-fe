@@ -178,8 +178,6 @@ describe('testing login', () => {
 
     store.dispatch(loginAction(userData));
     await waitFor(() => {
-      // expect(localStorage.getItem("BarefootNomadToken")).not.toBeNull()
-      console.log(store.getState().userReducer);
       store.subscribe(() => {
         expect(store.getState().userReducer).toEqual(expection);
       });

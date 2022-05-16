@@ -27,6 +27,7 @@ import store from '../redux/store';
 import InputField from '../components/input';
 import Buttons from '../components/button';
 import { urlSerializer } from '../helpers/login.helpers';
+import { errorAlert } from '../helpers/signup.helper';
 
 const LoginImage = styled('img')(() => ({
   width: 400,
@@ -95,23 +96,6 @@ const formSection = {
   borderRadius: 2,
   padding: '10px 0px',
   margin: '0px 20px',
-};
-
-const errorLogin = {
-  border: '1px solid #EC5C5C',
-  borderRadius: 1,
-  width: {
-    xs: 250,
-    sm: 320,
-  },
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  height: 40,
-  fontSize: '16px',
-  fontWeight: '500',
-  fontFamily: 'Robot, sans-serif',
-  color: '#f44336',
 };
 
 const Login = () => {
@@ -196,7 +180,7 @@ const Login = () => {
             Login
           </Typography>
           {error ? (
-            <Alert variant="outlined" severity="error" sx={errorLogin}>
+            <Alert variant="outlined" severity="error" sx={errorAlert}>
               {store.getState().userReducer.error.data.message}
             </Alert>
           ) : null}
