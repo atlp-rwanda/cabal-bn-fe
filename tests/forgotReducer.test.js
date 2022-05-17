@@ -15,14 +15,4 @@ describe('FORGOT REDUCER', () => {
   it("Should reset pass", async () => {
     expect(forgot(undefined, {})).toEqual(initialState)
   })
-  // it('should send email', async () => {
-  //   mockAxios.post.mockImplementationOnce(() => {
-  //     return Promise.reject({ message: "Inavlid email" })
-  //   })
-  //   expect(forgot({}, sendEmail("info@me.com"))).toEqual({
-  //     loading: true,
-  //     error: {},
-  //     data: {},
-  //   })
-  // })
 })

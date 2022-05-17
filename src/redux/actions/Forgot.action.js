@@ -11,7 +11,8 @@ export const sendEmail = (email) => async (dispatch) => {
       type: FORGOTPASSWORD,
       payload: 'loading',
     });
-    const data = await axios.post('/users/forgot-password', { email },);
+    const data = await axios.post('/users/forgot-password', { email });
+    /* istanbul ignore next */
     dispatch({
       type: FORGOTPASSWORD_SUCCESS,
       payload: data.data,

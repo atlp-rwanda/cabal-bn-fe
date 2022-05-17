@@ -2,6 +2,7 @@ import {
   GET_LOCATIONS,
   ERR_GETTING_LOCATIONS,
   GETLOCATIONS,
+  GET_ONE_LOCATION
 } from '../types/location.types';
 
 import axios from '../../axios/axios.instance';
@@ -45,4 +46,26 @@ export const getLoc = () => async (dispatch) => {
   await axios.get('/locations', { mostVisited: true }).then((res) => {
     dispatch(getLocation(res.data.data.results));
   });
-};
+}
+/* istanbul ignore next */
+export const oneLocation = (data) => {
+  return {
+    type: GET_ONE_LOCATION,
+    payload: data,
+    loading: false
+  }
+}
+
+/* istanbul ignore next */
+export const getOneLocation = (id) => {
+  return async (dispatch) => {
+    try {
+      const res = await axios.get(`/locations/${id}`)
+      // dispatch
+      dispatch(oneLocation(res))
+    } catch (error) {
+      // dispatch
+      dispatch(errorGettingLocs(error))
+    }
+  }
+}

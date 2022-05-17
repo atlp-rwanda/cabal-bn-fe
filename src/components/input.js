@@ -13,7 +13,7 @@ const StyledInputs = styled(TextField)(({ theme }) => ({
   height: 50,
   margin: '20px 0px',
 }));
-const InputField = (props) => (
+const InputField = ({ otherStyles, ...props }) => (
   <StyledInputs
     {...props}
     sx={{
@@ -36,6 +36,7 @@ const InputField = (props) => (
       '&.Mui-focused .MuiInputBase-root': {
         color: '#00095E',
       },
+      ...otherStyles,
     }}
   />
 );

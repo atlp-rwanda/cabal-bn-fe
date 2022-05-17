@@ -10,6 +10,7 @@ const initialState = {
   data: {},
 };
 
+/* istanbul ignore next */
 // eslint-disable-next-line import/prefer-default-export
 export const forgot = (state = initialState, { type, payload }) => {
   switch (type) {

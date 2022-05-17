@@ -7,7 +7,7 @@ export const theme = createTheme({
       mobile: 0,
       tablet: 768,
       laptop: 1024,
-      desktop: 200,
+      desktop: 1200,
     },
   },
 });

@@ -8,6 +8,7 @@ import {
   GET_LOGGEDIN_USER_PROFILE_PENDING,
   GET_LOGGEDIN_USER_PROFILE_SUCCESS,
 } from '../types/login.types';
+import { ERROR_LOGOUT, LOGOUT_USER } from '../types/logout.types';
 
 const initialState = {
   data: [],
@@ -27,6 +28,22 @@ export const userReducer = (state = initialState, action) => {
         error: action.payload,
         isLogged: false,
         loading: false,
+      };
+    case LOGOUT_USER:
+      return {
+        ...state,
+        isLogged: false,
+        loading: true,
+        data: action.payload,
+        error: '',
+      };
+    case ERROR_LOGOUT:
+      return {
+        ...state,
+        isLogged: true,
+        loading: true,
+        data: [],
+        error: action.payload,
       };
     default:
       return state;

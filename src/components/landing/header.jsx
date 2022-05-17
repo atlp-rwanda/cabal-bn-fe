@@ -129,10 +129,11 @@ const Styledlogo = styled('div')(({ theme }) => ({
   height: '50px',
 }));
 
-const Header = ({aboutClass}) => {
+const Header = ({ aboutClass }) => {
   const [open, setOpen] = useState(false);
   return (
     <Styledappbar>
+      {/* istanbul ignore next */}
       <Dropdown status={open} close={(e) => setOpen(false)} />
       <Toolbar>
         <Styledlogo>
@@ -151,7 +152,11 @@ const Header = ({aboutClass}) => {
             }}
           >
             <Typography
-              sx={{ fontFamily: 'Josefin Sans, sans-serif', fontWeight: '600', fontSize: '15px' }}
+              sx={{
+                fontFamily: 'Josefin Sans, sans-serif',
+                fontWeight: '600',
+                fontSize: '15px',
+              }}
             >
               Home
             </Typography>
@@ -161,7 +166,11 @@ const Header = ({aboutClass}) => {
             style={{ color: '#00095E', textDecoration: 'none' }}
           >
             <Typography
-              sx={{ fontFamily: 'Josefin Sans, sans-serif', fontWeight: '600', fontSize: '15px' }}
+              sx={{
+                fontFamily: 'Josefin Sans, sans-serif',
+                fontWeight: '600',
+                fontSize: '15px',
+              }}
             >
               About
             </Typography>
@@ -171,7 +180,11 @@ const Header = ({aboutClass}) => {
             style={{ color: '#00095E', textDecoration: 'none' }}
           >
             <Typography
-              sx={{ fontFamily: 'Josefin Sans, sans-serif', fontWeight: '600', fontSize: '15px' }}
+              sx={{
+                fontFamily: 'Josefin Sans, sans-serif',
+                fontWeight: '600',
+                fontSize: '15px',
+              }}
             >
               Accommodation
             </Typography>
@@ -181,7 +194,11 @@ const Header = ({aboutClass}) => {
             style={{ color: '#00095E', textDecoration: 'none' }}
           >
             <Typography
-              sx={{ fontFamily: 'Josefin Sans, sans-serif', fontWeight: '600', fontSize: '15px' }}
+              sx={{
+                fontFamily: 'Josefin Sans, sans-serif',
+                fontWeight: '600',
+                fontSize: '15px',
+              }}
             >
               Sign In
             </Typography>
@@ -191,7 +208,11 @@ const Header = ({aboutClass}) => {
             style={{ color: '#00095E', textDecoration: 'none' }}
           >
             <Typography
-              sx={{ fontFamily: 'Josefin Sans, sans-serif', fontWeight: '600', fontSize: '15px' }}
+              sx={{
+                fontFamily: 'Josefin Sans, sans-serif',
+                fontWeight: '600',
+                fontSize: '15px',
+              }}
             >
               Sign Up
             </Typography>

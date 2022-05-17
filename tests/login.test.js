@@ -23,10 +23,6 @@ import { ERROR_LOGIN, LOGIN_USER } from '../src/redux/types/login.types';
 import { userReducer } from '../src/redux/reducers/userReducer';
 
 describe('testing login', () => {
-  // test("should render login component", () => {
-  //   render(<Login />)
-  //   screen.debug()
-  // })
   test('user email input', async () => {
     render(
       <Provider store={store}>
@@ -38,11 +34,6 @@ describe('testing login', () => {
 
     const email = screen.getByLabelText('Email');
     const password = screen.getByLabelText('Password');
-
-    // userEvent.type(email, "hello")
-    // await waitFor(() => {
-    //   expect(email).toHaveValue("hello");
-    // // });
 
     fireEvent.change(email, { target: { value: 'ishimwe@gmail.com' } });
     fireEvent.change(password, { target: { value: 'wordpass123' } });
