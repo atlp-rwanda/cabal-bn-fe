@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_BACKEND_URL,
+  // baseURL: process.env.REACT_APP_BACKEND_URL,
+  baseURL: 'https://barefoot-backend-development.herokuapp.com/api/v1',
 });
 
 // Add a request interceptor

@@ -30,13 +30,7 @@ const Links = styled(Typography)({
   fontFamily: 'Josefin Sans, sans-serif',
 });
 const NavBar = () => {
-  const pages = [
-    { navLink: 'Home', route: '#' },
-    { navLink: 'About Us', route: '#' },
-    { navLink: 'Accommodation', route: '#' },
-    { navLink: 'Sign Up', route: '#' },
-    { navLink: 'Login In', route: 'login' },
-  ];
+  const pages = ['Home', 'About Us', 'Accommodation', 'Sign In', 'Sign Up'];
   const [open, setOpen] = React.useState(false);
   const close = () => {
     setOpen(false);
@@ -56,10 +50,10 @@ const NavBar = () => {
             },
           }}
         >
-          {pages.map((link) => (
-            <Links key={link.navLink}>
-              <Link href={link.route} underline="none" color="#00095E">
-                {link.navLink}
+          {pages.map((link, index) => (
+            <Links key={index}>
+              <Link href="#" underline="none" color="#00095E">
+                {link}
               </Link>
             </Links>
           ))}
@@ -89,21 +83,20 @@ const NavBar = () => {
             vertical: 'top',
             horizontal: 'right',
           }}
-          data-testid="menu"
         >
-          {pages.map((link) => (
+          {pages.map((link, index) => (
             <MenuItem
+              key={index}
               sx={{
                 fontFamily: 'Josefin Sans, sans-serif',
                 color: '#00095E',
                 fontSize: '18px',
               }}
               onClick={close}
-              key={link.navLink}
             >
               <Links>
-                <Link href={link.route} underline="none" color="#00095E">
-                  {link.navLink}
+                <Link href="#" underline="none" color="#00095E">
+                  {link}
                 </Link>
               </Links>
             </MenuItem>

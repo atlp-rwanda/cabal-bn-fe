@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  Container,
-  Grid,
-  Typography,
-  styled,
-  Stack,
-  Link,
-} from '@mui/material';
+import { Container, Grid, Typography, styled, Stack } from '@mui/material';
 
 import logo from '../assets/Logo.svg';
 import facebookIcon from '../assets/facebook-icon.svg';
@@ -14,42 +7,31 @@ import twitterIcon from '../assets/twitter-icon.svg';
 import gmailIcon from '../assets/gmail-icon.svg';
 import linkedinIcon from '../assets/linkedin-icon.svg';
 
-const Header = styled(Typography)`
-  font-family: 'Roboto';
-  font-weight: bold;
-  color: white;
-  font-size: 16px;
-  @media (max-width: 485px) {
-    text-align: center;
-  }
-`;
-const Body = styled(Typography)`
-  font-family: 'Roboto';
-  font-weight: 700;
-  color: #8a8fab;
-  font-size: 14px;
-  @media (max-width: 485px) {
-    text-align: center;
-  }
-`;
-// xs, extra-small: 0px
-// sm, small: 600px
-// md, medium: 900px
-// lg, large: 1200px
-// xl, extra-large: 1536px
-const Icon = styled('img')(({ theme }) => ({
-  [theme.breakpoints.down('xl')]: { height: '51px', width: '40px' },
-  [theme.breakpoints.down('md')]: { height: '41px', width: '30px' },
-  [theme.breakpoints.down('sm')]: { height: '31px' },
-}));
 function Footer() {
-  const pages = [
-    { navLink: 'Home', route: '#' },
-    { navLink: 'About Us', route: '#' },
-    { navLink: 'Accommodation', route: '#' },
-    { navLink: 'Sign Up', route: '#' },
-    { navLink: 'Login In', route: 'login' },
-  ];
+  const Header = styled(Typography)`
+    font-family: 'Roboto';
+    font-weight: bold;
+    color: white;
+    font-size: 16px;
+    @media (max-width: 485px) {
+      text-align: center;
+    }
+  `;
+  const Body = styled(Typography)`
+    font-family: 'Roboto';
+    font-weight: 700;
+    color: #8a8fab;
+    font-size: 14px;
+    @media (max-width: 485px) {
+      text-align: center;
+    }
+  `;
+  const Icon = styled('img')(({ theme }) => ({
+    [theme.breakpoints.down('lg')]: { height: '51px' },
+    [theme.breakpoints.down('md')]: { height: '41px' },
+    [theme.breakpoints.down('sm')]: { height: '31px' },
+  }));
+
   return (
     <>
       <Container
@@ -99,13 +81,10 @@ function Footer() {
                 }}
               >
                 <Header>Navigation</Header>
-                {pages.map((link) => (
-                  <Body key={link.navLink}>
-                    <Link href={link.route} underline="none" color="#8a8fab">
-                      {link.navLink}
-                    </Link>
-                  </Body>
-                ))}
+                <Body>About Us</Body>
+                <Body>Accommodation</Body>
+                <Body>SignIn</Body>
+                <Body>Sign Up</Body>
               </Stack>
             </Grid>
             <Grid item>
