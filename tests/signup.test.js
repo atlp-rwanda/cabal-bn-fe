@@ -76,20 +76,16 @@ describe('SIGN UP TESTS', () => {
     fireEvent.change(fname, { target: { value: '' } });
     fireEvent.change(lname, { target: { value: '' } });
     fireEvent.change(email, { target: { value: 'hirwaelioutlook.com' } });
-    fireEvent.change(password, { target: { value: 'Passw' } });
+    fireEvent.change(password, { target: { value: '' } });
 
     userEvent.click(button);
 
     expect(await screen.findByText('First name is required')).toBeVisible();
     expect(await screen.findByText('Last name is required')).toBeVisible();
     expect(
-      await screen.findByText('Please insert a valid email address.'),
+      await screen.findByText('Please insert a valid email address'),
     ).toBeVisible();
-    expect(
-      await screen.findByText(
-        'Password must be 8 characters long with a number',
-      ),
-    ).toBeVisible();
+    expect(await screen.findByText('Password is required')).toBeVisible();
   });
 
   it('should test redux action of signup success', () => {

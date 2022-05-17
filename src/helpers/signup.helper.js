@@ -94,11 +94,12 @@ export const errorAlert = {
   fontFamily: 'Robot, sans-serif',
   color: '#f44336',
 };
-
+/* istanbul ignore next */
 export const getUserLocation = async () => {
   return new Promise((resolve, reject) => {
     if (navigator.geolocation) {
       try {
+        /* istanbul ignore next */
         const SuccessfullLookup = async (position) => {
           const { latitude, longitude } = position.coords;
           let apiLocation = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=f771ed1eb4474843aa7ddf98d865dc08`;
@@ -116,6 +117,7 @@ export const getUserLocation = async () => {
         };
         navigator.geolocation.getCurrentPosition(SuccessfullLookup);
       } catch (error) {
+        /* istanbul ignore next */
         reject(error.message);
       }
     }

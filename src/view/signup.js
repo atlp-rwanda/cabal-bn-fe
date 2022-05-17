@@ -74,31 +74,49 @@ const Signup = () => {
     const regexLetter = /^[A-Za-z]+$/;
     const regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     const regexPassword = /^(?=.*[A-Z])(?=.*[0-9])\w{8,}$/;
-    const emailError = email.match(regexEmail)
-      ? ''
-      : 'Please insert a valid email address.';
-    const passwordError = password.match(regexPassword)
-      ? ''
-      : 'Password must be 8 characters long with a number';
-    const fnameError = firstName.match(regexLetter)
-      ? ''
-      : 'First name is required';
-    const lnameError = lastName.match(regexLetter)
-      ? ''
-      : 'Last name is required';
+    const emailError =
+      email === ''
+        ? 'Email is required'
+        : email.match(regexEmail)
+        ? ''
+        : 'Please insert a valid email address';
+    const passwordError =
+      password === ''
+        ? 'Password is required'
+        : password.length < 8
+        ? 'Password must be 8 characters long'
+        : password.match(regexPassword)
+        ? ''
+        : 'Only letters (lower + upper), and numbers are allowed';
+    const fnameError =
+      firstName === ''
+        ? 'First name is required'
+        : firstName.match(regexLetter)
+        ? ''
+        : 'Invalid input for first name';
+    const lnameError =
+      lastName === ''
+        ? 'Last name is required'
+        : lastName.match(regexLetter)
+        ? ''
+        : 'Invalid input for last name';
+    const locationError = location === '' ? 'Location is required' : '';
     setValidationError((state) => ({
       firstName: fnameError,
       lastName: lnameError,
       email: emailError,
       password: passwordError,
+      location: locationError,
     }));
     return Object.values({
       fnameError,
       lnameError,
       emailError,
       passwordError,
+      locationError,
     }).every((value) => value === '');
   };
+
   const handleClick = async () => {
     if (validate()) {
       setLoading(true);
@@ -113,6 +131,13 @@ const Signup = () => {
             : location,
       };
       await store.dispatch(SignupAction(userInput));
+      const res = await signupState.signupReducer;
+      if (res.data.status !== 409) {
+        setFirstName('');
+        setLastName('');
+        setEmail('');
+        setPassword('');
+      }
     }
     setLoading(false);
     setError(true);
@@ -185,6 +210,7 @@ const Signup = () => {
             label="First Name"
             type="text"
             variant="outlined"
+            id="fname"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
             {...(validationError.firstName && {
@@ -196,6 +222,7 @@ const Signup = () => {
             label="Last Name"
             type="text"
             variant="outlined"
+            id="lname"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             {...(validationError.lastName && {
@@ -207,6 +234,7 @@ const Signup = () => {
             label="Email"
             type="email"
             variant="outlined"
+            id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             {...(validationError.email && {
@@ -219,6 +247,7 @@ const Signup = () => {
             label="Password"
             type={showPassword ? 'text' : 'password'}
             variant="outlined"
+            id="pass"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             {...(validationError.password && {
@@ -253,6 +282,10 @@ const Signup = () => {
               id="demo-simple-select"
               inputProps={{ 'data-testid': 'location-input' }}
               label="Location"
+              {...(validationError.location && {
+                error: true,
+                helpertext: validationError.location,
+              })}
             >
               {fetchLocation.map((locations) => (
                 <MenuItem key={locations.id} value={locations.id}>

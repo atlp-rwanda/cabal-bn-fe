@@ -22,12 +22,14 @@ export const emailVerificationAction = (token) => {
       const res = await axios(`/users/verify-email/${token}`, {
         method: 'GET',
       });
+      /* istanbul ignore next */
       if (res.status === 200) {
         dispatch(verifyEmail(res.data));
       } else {
         dispatch(errorVerifyingEmail(res.data));
       }
     } catch (error) {
+      /* istanbul ignore next */
       dispatch(errorVerifyingEmail(error.response));
     }
   };
