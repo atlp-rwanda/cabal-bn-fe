@@ -1,0 +1,335 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FORGOT PASSWORD should renders forgot component 1`] = `
+Array [
+  <header
+    className="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed mui-fixed css-131qkm5-MuiPaper-root-MuiAppBar-root"
+  >
+    <div
+      className="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular css-j8xoiz-MuiToolbar-root"
+    >
+      <a
+        className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-1ps4owl-MuiTypography-root-MuiLink-root"
+        href="#"
+        onBlur={[Function]}
+        onFocus={[Function]}
+      >
+        <img
+          alt="Logo"
+          src="Logo.svg"
+          style={
+            Object {
+              "height": 50,
+              "width": 100,
+            }
+          }
+        />
+      </a>
+      <div
+        className="MuiBox-root css-9np8v5"
+      >
+        <p
+          className="MuiTypography-root MuiTypography-body1 css-hfh7pe-MuiTypography-root"
+        >
+          <a
+            className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-pq7q13-MuiTypography-root-MuiLink-root"
+            href="#"
+            onBlur={[Function]}
+            onFocus={[Function]}
+          >
+            Home
+          </a>
+        </p>
+        <p
+          className="MuiTypography-root MuiTypography-body1 css-hfh7pe-MuiTypography-root"
+        >
+          <a
+            className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-pq7q13-MuiTypography-root-MuiLink-root"
+            href="#"
+            onBlur={[Function]}
+            onFocus={[Function]}
+          >
+            About Us
+          </a>
+        </p>
+        <p
+          className="MuiTypography-root MuiTypography-body1 css-hfh7pe-MuiTypography-root"
+        >
+          <a
+            className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-pq7q13-MuiTypography-root-MuiLink-root"
+            href="#"
+            onBlur={[Function]}
+            onFocus={[Function]}
+          >
+            Accommodation
+          </a>
+        </p>
+        <p
+          className="MuiTypography-root MuiTypography-body1 css-hfh7pe-MuiTypography-root"
+        >
+          <a
+            className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-pq7q13-MuiTypography-root-MuiLink-root"
+            href="#"
+            onBlur={[Function]}
+            onFocus={[Function]}
+          >
+            Sign In
+          </a>
+        </p>
+        <p
+          className="MuiTypography-root MuiTypography-body1 css-hfh7pe-MuiTypography-root"
+        >
+          <a
+            className="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineNone css-pq7q13-MuiTypography-root-MuiLink-root"
+            href="#"
+            onBlur={[Function]}
+            onFocus={[Function]}
+          >
+            Sign Up
+          </a>
+        </p>
+      </div>
+      <div
+        className="MuiBox-root css-1be6mpr"
+        onClick={[Function]}
+      >
+        <img
+          alt="menu bar"
+          src="MenuBar.svg"
+        />
+      </div>
+    </div>
+  </header>,
+  <div
+    className="MuiBox-root css-mhf6ze"
+  >
+    <div
+      className="MuiBox-root css-rntpfg"
+    >
+       
+      <img
+        alt="reset"
+        className="css-102cdgy"
+        src="undraw_forgot_password_re_hxwm 1.svg"
+      />
+    </div>
+    <div
+      className="MuiBox-root css-1429cz4"
+    >
+      <h4
+        className="MuiTypography-root MuiTypography-h4 css-3kp7dz-MuiTypography-root"
+      >
+         
+        Forgot Password
+      </h4>
+      <div
+        className="css-s3cggk-MuiStack-root"
+      >
+         
+         
+      </div>
+      <div
+        className="MuiFormControl-root MuiTextField-root css-1x1ecdk-MuiFormControl-root-MuiTextField-root"
+      >
+        <label
+          className="MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-root MuiFormLabel-colorPrimary css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
+          data-shrink={false}
+          htmlFor=":r0:"
+          id=":r0:-label"
+        >
+          Email
+        </label>
+        <div
+          className="MuiOutlinedInput-root MuiInputBase-root MuiInputBase-colorPrimary MuiInputBase-formControl css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root"
+          onClick={[Function]}
+        >
+          <input
+            aria-invalid={false}
+            autoFocus={false}
+            className="MuiOutlinedInput-input MuiInputBase-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+            disabled={false}
+            id=":r0:"
+            onAnimationStart={[Function]}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            required={false}
+            type="text"
+            value=""
+          />
+          <fieldset
+            aria-hidden={true}
+            className="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+          >
+            <legend
+              className="css-1ftyaf0"
+            >
+              <span>
+                Email
+              </span>
+            </legend>
+          </fieldset>
+        </div>
+      </div>
+      <button
+        className="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButtonBase-root css-1lp41e9-MuiButtonBase-root-MuiButton-root"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onContextMenu={[Function]}
+        onDragLeave={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex={0}
+        type="button"
+      >
+         
+        Submit
+      </button>
+       
+    </div>
+  </div>,
+  " ",
+  <div
+    className="MuiContainer-root MuiContainer-maxWidthXl css-1mb05um-MuiContainer-root"
+  >
+    <div
+      className="MuiGrid-root MuiGrid-container css-9x7x8m-MuiGrid-root"
+    >
+      <div
+        className="MuiGrid-root MuiGrid-container MuiGrid-item css-1mha57u-MuiGrid-root"
+      >
+        <div
+          className="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+        >
+          <div
+            className="css-le9e34-MuiStack-root"
+          >
+            <img
+              alt="logo"
+              height="62px"
+              src="Logo.svg"
+              width="130.2px"
+            />
+            <p
+              className="MuiTypography-root MuiTypography-body1 css-9wmnc6-MuiTypography-root"
+            >
+              Land behold it created good saw after she&aposd Our set living. Signs midst dominion creepeth morning laboris nisi ufsit aliquip.
+            </p>
+          </div>
+        </div>
+        <div
+          className="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+        >
+          <div
+            className="css-1f85j5c-MuiStack-root"
+          >
+            <p
+              className="MuiTypography-root MuiTypography-body1 css-s1fqaa-MuiTypography-root"
+            >
+              Navigation
+            </p>
+            <p
+              className="MuiTypography-root MuiTypography-body1 css-1235pdo-MuiTypography-root"
+            >
+              About Us
+            </p>
+            <p
+              className="MuiTypography-root MuiTypography-body1 css-1235pdo-MuiTypography-root"
+            >
+              Accommodation
+            </p>
+            <p
+              className="MuiTypography-root MuiTypography-body1 css-1235pdo-MuiTypography-root"
+            >
+              SignIn
+            </p>
+            <p
+              className="MuiTypography-root MuiTypography-body1 css-1235pdo-MuiTypography-root"
+            >
+              Sign Up
+            </p>
+          </div>
+        </div>
+        <div
+          className="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+        >
+          <div
+            className="css-1f85j5c-MuiStack-root"
+          >
+            <p
+              className="MuiTypography-root MuiTypography-body1 css-s1fqaa-MuiTypography-root"
+            >
+              Services
+            </p>
+            <p
+              className="MuiTypography-root MuiTypography-body1 css-1235pdo-MuiTypography-root"
+            >
+              Hotel Booking
+            </p>
+            <p
+              className="MuiTypography-root MuiTypography-body1 css-1235pdo-MuiTypography-root"
+            >
+              Trip Booking
+            </p>
+            <p
+              className="MuiTypography-root MuiTypography-body1 css-1235pdo-MuiTypography-root"
+            >
+              Destination Booking
+            </p>
+          </div>
+        </div>
+        <div
+          className="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+        >
+          <p
+            className="MuiTypography-root MuiTypography-body1 css-s1fqaa-MuiTypography-root"
+          >
+            Contact
+          </p>
+          <div
+            className="css-5jfrzp-MuiStack-root"
+          >
+            <img
+              alt="facebook icon"
+              className="css-4b494m"
+              src="facebook-icon.svg"
+            />
+            <img
+              alt="twitter icon"
+              className="css-4b494m"
+              src="twitter-icon.svg"
+            />
+            <img
+              alt="gmail icon"
+              className="css-4b494m"
+              src="gmail-icon.svg"
+            />
+            <img
+              alt="linkedin icon"
+              className="css-4b494m"
+              src="linkedin-icon.svg"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="MuiGrid-root MuiGrid-item css-13i4rnv-MuiGrid-root"
+      >
+        <p
+          className="MuiTypography-root MuiTypography-body1 css-1235pdo-MuiTypography-root"
+        >
+          Copyright ©2022 All rights reserved | This template is made by cabal
+        </p>
+      </div>
+    </div>
+  </div>,
+]
+`;

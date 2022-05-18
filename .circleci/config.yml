@@ -1,19 +1,15 @@
-
 version: 2.1
-
 
 jobs:
   build:
-  
-    
     docker:
       - image: cimg/node:16.14.0
-    
+
     steps:
       - checkout
       - run:
-          name: "Install dependencies"
-          command: "yarn install"
+          name: 'Install dependencies'
+          command: 'yarn install'
       - run:
           name: Install Test Reporter
           command: |
@@ -24,20 +20,16 @@ jobs:
           command: ./cc-test-reporter before-build
 
       - run:
-          name: "run test"
-          command: "yarn test"
+          name: 'run test'
+          command: 'yarn test'
 
       - run:
-          name: "coverage"
-          command: "yarn coverage"   
-
-      
+          name: 'coverage'
+          command: 'yarn coverage'
 
       - run:
-                name: Send coverage report to Code Climate
-                command:
-                   
-                    ./cc-test-reporter after-build -t lcov
+          name: Send coverage report to Code Climate
+          command: ./cc-test-reporter after-build -t lcov
 
       - store_artifacts:
           path: test-results

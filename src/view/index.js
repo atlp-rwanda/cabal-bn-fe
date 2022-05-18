@@ -14,6 +14,19 @@ const LandingPage = () => (
     <Link to="/signup" style={{ textDecoration: 'none', color: 'blue' }}>
       Signup
     </Link>
+    <Typography>
+      <Link to="/forgot" style={{ textDecoration: 'none', color: 'red' }}>
+        Forgot
+      </Link>
+    </Typography>
+    <Typography>
+      <Link
+        to="/resetPassword"
+        style={{ textDecoration: 'none', color: 'red' }}
+      >
+        ResetPassword
+      </Link>
+    </Typography>
   </Container>
 );
 

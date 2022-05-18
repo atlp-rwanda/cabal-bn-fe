@@ -38,11 +38,10 @@ const LoginImage = styled('img')(() => ({
 
 const SocialLoginLink = ({ type, variant, startIcon, sx, value }) => (
   <A
-    href={`${
-      process.env.REACT_APP_BACKEND_URL
-    }/users/${type}/login/?${urlSerializer(
-      `${process.env.DEPLOY_PRIME_URL}/social/login`,
-    )}`}
+    href={`${process.env.REACT_APP_BACKEND_URL
+      }/users/${type}/login/?${urlSerializer(
+        `${process.env.DEPLOY_PRIME_URL}/social/login`,
+      )}`}
   >
     <Buttons variant={variant} startIcon={startIcon} sx={sx} value={value} />
   </A>
@@ -119,14 +118,14 @@ const Login = () => {
       !email.match(regexEmail) && email.length
         ? 'Invalid email'
         : email.match(regexEmail)
-        ? ''
-        : 'Email required';
+          ? ''
+          : 'Email required';
     const passwordError =
       !password.match(regexPassword) && password.length > 6
         ? 'Must have at least one digit and capital letter'
         : password.match(regexPassword)
-        ? ''
-        : 'Password required';
+          ? ''
+          : 'Password required';
 
     setValidationError(() => ({
       email: emailError,
