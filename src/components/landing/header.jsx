@@ -176,7 +176,7 @@ const Header = ({ aboutClass }) => {
             </Typography>
           </Link>
           <Link
-            to="/Accommodation"
+            to="/accommodations"
             style={{ color: '#00095E', textDecoration: 'none' }}
           >
             <Typography

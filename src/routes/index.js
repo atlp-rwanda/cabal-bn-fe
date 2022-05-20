@@ -13,14 +13,17 @@ import EmailVerification from '../view/verifyEmail';
 import GoogleLogin from '../view/google_login';
 import Forgot from '../view/Forgot';
 import ResetPassword from '../view/ResetPassword';
+import TravelAdmin from '../view/travel-admin';
 import DashboardPreview from '../layouts/requester';
 import RequesterContent from '../view/requesterContent';
 import Profile from '../view/profile';
 import UserSettingsModal from '../components/user_role';
-import PageNotFound from '../components/PageNotFound';
+import { AccommodationDetails } from '../view/accommodationDetails';
+import AccommodationPage from '../view/allAccommodations';
+import BookingPage from '../view/bookingPage';
 
 const theme = createTheme({
-  pallete: {
+  palette: {
     primary: {
       main: '#1A2D6D',
       text: '#fff',
@@ -29,14 +32,14 @@ const theme = createTheme({
       main: '#0B2C5f',
       text: '#fff',
     },
-    text: {
-      primary: '#0000',
-      secondary: '#fff',
-    },
+    // text: {
+    //   primary: '#0000',
+    //   secondary: '#fff',
+    // },
   },
   typography: {
-    fontFamily: 'Josefin Sans, sans-serif',
-    fontSize: 15,
+    fontFamily: 'Roboto, sans-serif',
+    fontSize: 14,
     fontWeightLight: 300,
     fontWeightRegular: 400,
     fontWeightMedium: 500,
@@ -59,6 +62,12 @@ const AllRoutes = (props) => (
         <Route exact path="/" element={<LandingPage />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/signup" element={<Signup />} />
+        <Route path="/accommodations" element={<AccommodationPage />} />
+        <Route
+          exact
+          path="accommodations/:id"
+          element={<AccommodationDetails />}
+        />
         <Route
           exact
           path="/verify"
@@ -75,8 +84,14 @@ const AllRoutes = (props) => (
           <Route exact path="trips" element={<RequesterContent />} />
           <Route exact path="profile" element={<Profile />} />
           <Route exact path="roles" element={<UserSettingsModal />} />
+          <Route exact path="accommodations" element={<TravelAdmin />} />
+          <Route exact path="bookings" element={<BookingPage />} />
+          <Route
+            exact
+            path="accommodations/:id"
+            element={<AccommodationDetails />}
+          />
         </Route>
-        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
   </ThemeProvider>

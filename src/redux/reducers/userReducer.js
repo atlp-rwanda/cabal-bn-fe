@@ -16,7 +16,7 @@ const initialState = {
   isLogged: false,
   error: '',
 };
-
+/* istanbul ignore next */
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN_USER:
@@ -49,7 +49,7 @@ export const userReducer = (state = initialState, action) => {
       return state;
   }
 };
-
+/* istanbul ignore next */
 export const loggedInUserReducer = (state = initialState, action) => {
   /* istanbul ignore next */
   switch (action.type) {

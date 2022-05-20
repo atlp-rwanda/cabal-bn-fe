@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
@@ -5,7 +6,7 @@ import MenuItem from '@mui/material/MenuItem';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { deleteComment } from '../../redux/actions/accommodation.action';
 
 export default function PositionedMenu({
@@ -21,7 +22,7 @@ export default function PositionedMenu({
     setAnchorEl(event.currentTarget);
   };
   const handleEdit = () => {
-    setAnchorEl(commentId);
+    setAnchorEl(null);
   };
   const handleDelete = () => {
     dispatch(deleteComment(accommodationId, commentId));

@@ -84,7 +84,6 @@ describe('profile page test', () => {
     // import and pass your custom axios instance to this method
     moxios.uninstall(axiosInstance);
   });
- 
 
   test('redux retrieve profile action', async () => {
     // Match against an exact URL value

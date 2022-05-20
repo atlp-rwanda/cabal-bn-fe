@@ -25,6 +25,8 @@ const Links = styled(Typography)({
   padding: '20px',
   fontFamily: 'Josefin Sans, sans-serif',
 });
+
+/* istanbul ignore next */
 const NavBar = ({ pages, requester, logo }) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -56,7 +58,7 @@ const NavBar = ({ pages, requester, logo }) => {
               <Link
                 href="#"
                 underline="none"
-                color={theme?.pallete.primary.main}
+                color={theme?.palette.primary.main}
               >
                 {link}
               </Link>
