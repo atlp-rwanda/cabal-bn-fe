@@ -21,6 +21,6 @@ export const logoutUser = () => async (dispatch) => {
   } catch (error) {
     console.log(error);
     await dispatch(errorLogout(error));
-    toast.error("Error occured logging out")
+    toast.error('Error occured logging out');
   }
 };

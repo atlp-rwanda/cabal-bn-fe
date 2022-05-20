@@ -11,8 +11,9 @@ export const Reset = (password, token) => async (dispatch) => {
       type: RESETPASSWORD,
       payload: 'loading',
     });
-    const data = await axios.patch(
-      `/users/reset-password/${token}`, { password });
+    const data = await axios.patch(`/users/reset-password/${token}`, {
+      password,
+    });
     /* istanbul ignore next */
     dispatch({
       type: RESETPASSWORD_SUCCESS,

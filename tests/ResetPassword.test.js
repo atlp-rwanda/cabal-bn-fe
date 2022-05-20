@@ -28,7 +28,7 @@ describe('RESET PASSWORD TEST', () => {
       .toJSON();
     expect(element).toMatchSnapshot();
   });
-  it("should testing invalid empty password", () => {
+  it('should testing invalid empty password', () => {
     render(
       <Provider store={store}>
         <Router>
@@ -40,8 +40,8 @@ describe('RESET PASSWORD TEST', () => {
     fireEvent.change(email, { target: { value: '' } });
     const button = screen.getByRole('button', { name: 'Change Password' });
     fireEvent.click(button);
-  })
-  it("should testing valid password and comfirm password", () => {
+  });
+  it('should testing valid password and comfirm password', () => {
     render(
       <Provider store={store}>
         <Router>
@@ -56,8 +56,8 @@ describe('RESET PASSWORD TEST', () => {
     const button = screen.getByRole('button', { name: 'Change Password' });
     fireEvent.click(button);
     expect(Reset(password));
-  })
-  it("should testing Password and confirm password does not match", async () => {
+  });
+  it('should testing Password and confirm password does not match', async () => {
     render(
       <Provider store={store}>
         <Router>
@@ -72,9 +72,11 @@ describe('RESET PASSWORD TEST', () => {
     const button = screen.getByRole('button', { name: 'Change Password' });
     fireEvent.click(button);
     waitFor(async () => {
-      expect('Password and confirm password does not match').toBeInTheDocument();
+      expect(
+        'Password and confirm password does not match',
+      ).toBeInTheDocument();
     });
-  })
+  });
 
   test('show password', async () => {
     render(
@@ -109,5 +111,4 @@ describe('RESET PASSWORD TEST', () => {
       expect(password).toHaveAttribute('type', 'text');
     });
   });
-
 });

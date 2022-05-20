@@ -35,5 +35,4 @@ describe('LOCATION TESTS', () => {
     };
     expect(errorGettingLocs(value)).toEqual(expectation);
   });
-
 });

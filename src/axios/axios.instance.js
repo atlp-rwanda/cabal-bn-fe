@@ -36,6 +36,7 @@ axiosInstance.interceptors.response.use(
       localStorage.removeItem('userCredentials');
       window.location.href = '/login';
     }
+    /* istanbul ignore next */
     return Promise.reject(error);
   },
 );

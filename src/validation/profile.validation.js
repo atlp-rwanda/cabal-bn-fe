@@ -1,9 +1,9 @@
 /* eslint-disable import/prefer-default-export */
-import * as yup from "yup"
+import * as yup from 'yup';
 
 const profileSchema = yup.object().shape({
-  firstName: yup.string().required("First name is required"),
-  lastName: yup.string().required("Last name is required"),
+  firstName: yup.string().required('First name is required'),
+  lastName: yup.string().required('Last name is required'),
   age: yup.number().typeError('Age must be a number').min(0),
   occupation: yup.string().nullable(),
   country: yup.string().nullable(),
@@ -16,7 +16,7 @@ const profileSchema = yup.object().shape({
   appNotification: yup.bool(),
   emailNotification: yup.bool(),
   location: yup.string().nullable(),
-  profilePicture: yup.mixed()
-})
+  profilePicture: yup.mixed(),
+});
 
-export { profileSchema }
+export { profileSchema };

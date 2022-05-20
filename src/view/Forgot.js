@@ -1,10 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Typography,
-} from '@mui/material';
+import { Box, Button, CircularProgress, Typography } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import { styled } from '@mui/material/styles';
@@ -22,7 +17,7 @@ const ResetImage = styled('img')(({ theme }) => ({
   height: 320,
   marginBottom: '10px',
 }));
- /* istanbul ignore next */
+/* istanbul ignore next */
 const StyledInputs = styled(TextField)(({ theme }) => ({
   [theme?.breakpoints.down('sm')]: {
     width: 280,
@@ -78,7 +73,7 @@ export default function Forgot() {
   // eslint-disable-next-line no-unused-vars
   const dispatch = useDispatch();
   const state = useSelector((store) => store);
-  const forgot = state.forgot;
+  const { forgot } = state;
 
   const validate = () => {
     // eslint-disable-next-line no-useless-escape
@@ -87,15 +82,13 @@ export default function Forgot() {
       !email.match(regexEmail) && email.length
         ? 'Invalid email'
         : email.match(regexEmail)
-          ? ''
-          : 'Email required';
+        ? ''
+        : 'Email required';
     setValidationError(() => ({
       email: emailError,
     }));
 
-    return Object.values(emailError).every(
-      (value) => value === '',
-    );
+    return Object.values(emailError).every((value) => value === '');
   };
 
   const onSubmitHandler = async () => {
@@ -106,8 +99,7 @@ export default function Forgot() {
       if (forgot.data.message) {
         setEmail('');
       }
-    }
-    else {
+    } else {
       setEmail('');
     }
   };

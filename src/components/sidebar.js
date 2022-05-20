@@ -3,8 +3,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { ImageListItem, Box, Typography, Grid } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { matchPath } from 'react-router-dom';
+import { Link , matchPath } from 'react-router-dom';
+
 import { useTheme } from '@mui/styles';
 import DashboardLogo from '../assets/DashboardLogo.svg';
 
@@ -33,6 +33,7 @@ const SideBar = ({ sideBarLinks }) => {
       <Box sx={{ paddingTop: '50px', textAlign: 'center' }}>
         {sideBarLinks.map((links) => (
           <Grid
+            key={links.id}
             container
             sx={{
               backgroundColor: matchPath(window.location.pathname, links.to)

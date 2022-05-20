@@ -6,16 +6,14 @@ const skeletonCss = {
   paddingBottom: '10px',
 };
 
-export const TableSkeleton = () => {
-  return (
-    <Box>
-      <Skeleton animation="wave" sx={skeletonCss} />
-      <Skeleton animation="wave" sx={skeletonCss} />
-      <Skeleton animation="wave" sx={skeletonCss} />
-      <Skeleton animation="wave" sx={skeletonCss} />
-      <Skeleton animation="wave" sx={skeletonCss} />
-      <Skeleton animation="wave" sx={skeletonCss} />
-      <Skeleton animation="wave" sx={skeletonCss} />
-    </Box>
-  );
-};
+export const TableSkeleton = () => (
+  <Box>
+    <Skeleton animation="wave" sx={skeletonCss} />
+    <Skeleton animation="wave" sx={skeletonCss} />
+    <Skeleton animation="wave" sx={skeletonCss} />
+    <Skeleton animation="wave" sx={skeletonCss} />
+    <Skeleton animation="wave" sx={skeletonCss} />
+    <Skeleton animation="wave" sx={skeletonCss} />
+    <Skeleton animation="wave" sx={skeletonCss} />
+  </Box>
+);

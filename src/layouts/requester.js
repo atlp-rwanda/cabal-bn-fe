@@ -60,35 +60,48 @@ const DashboardPreview = () => {
   useEffect(() => {
     fetchProfile();
   }, []);
-  // const pages = [
-  //   name,
-  //   <Badge badgeContent="12" color="error" badge sx={{ color: '#FFC800' }}>
-  //     <NotificationsIcon />
-  //   </Badge>,
-  //   <Avatar src={profile} alt="profile image" onClick={handleClick} />,
-  // ];
 
+  const pages = [
+    `${roleId?.first_name}`,
+    <Badge
+      badgeContent="12"
+      color="error"
+      badge="true"
+      sx={{ color: '#FFC800' }}
+    >
+      <NotificationsIcon />
+    </Badge>,
+    data.status === 200 ? (
+      <Avatar src={data.data?.user.profile_picture} alt="profle image" />
+    ) : (
+      <Avatar src={roleId.profile_picture} alt="profle image" />
+    ),
+  ];
   const sideBarLinks = [
     {
       to: '/dashboard/trips',
       link: 'Trips',
       icon: tripIcon,
+      id: 1,
     },
     {
       to: '/dashboard/accommodations',
       link: 'Accommodation',
       icon: accommodationIcon,
+      id: 2,
     },
 
     {
       to: '/dashobard/notifications',
       link: 'Notifications',
       icon: notificationIcon,
+      id: 3,
     },
     {
       to: '/dashboard/chats',
       link: 'Chats',
       icon: chatIcon,
+      id: 4,
     },
   ];
 

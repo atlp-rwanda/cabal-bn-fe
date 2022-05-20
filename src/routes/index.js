@@ -2,7 +2,7 @@
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -16,7 +16,7 @@ import Forgot from '../view/Forgot';
 import ResetPassword from '../view/ResetPassword';
 import DashboardPreview from '../layouts/requester';
 import RequesterContent from '../view/requesterContent';
-import Profile from "../view/profile"
+import Profile from '../view/profile';
 import UserSettingsModal from '../components/user_role';
 
 const theme = createTheme({
@@ -70,8 +70,8 @@ const AllRoutes = (props) => (
           path="/resetPassword"
           element={<ResetPassword {...props} />}
         />
-        <Route exact path="/dashboard/" element={<DashboardPreview />}>
-          <Route exact path="" element={<RequesterContent />} />
+        <Route exact path="/dashboard/*" element={<DashboardPreview />}>
+          <Route exact path="" element={<Navigate to="trips" />} />
           <Route exact path="trips" element={<RequesterContent />} />
           <Route exact path="profile" element={<Profile />} />
           <Route exact path="roles" element={<UserSettingsModal />} />

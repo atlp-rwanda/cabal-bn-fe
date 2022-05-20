@@ -19,9 +19,7 @@ import { theme } from '../styles/styles';
 import Buttons from '../components/button';
 import { profileSchema } from '../validation/profile.validation';
 import nationalities from '../data/nationality.json';
-import {
-  getAllLocations,
-} from '../redux/actions/location.action';
+import { getAllLocations } from '../redux/actions/location.action';
 import store from '../redux/store';
 import {
   retrieveAction,
@@ -92,9 +90,9 @@ const Profile = () => {
     data.dateOfBirth === null
       ? formData.append('date_of_birth', '')
       : formData.append(
-        'date_of_birth',
-        new Date(data.dateOfBirth).toISOString(),
-      );
+          'date_of_birth',
+          new Date(data.dateOfBirth).toISOString(),
+        );
     data.bio === null
       ? formData.append('bio', '')
       : formData.append('bio', data.bio);
@@ -226,7 +224,7 @@ const Profile = () => {
                         }}
                       >
                         {watch('profilePicture') &&
-                          typeof watch('profilePicture') === 'string' ? (
+                        typeof watch('profilePicture') === 'string' ? (
                           <Avatar
                             alt="profile picture"
                             name="imagePreview"
@@ -246,9 +244,8 @@ const Profile = () => {
                           />
                         )}
                         <ControlledFile
-                          name={"profilePicture"}
+                          name="profilePicture"
                           control={control}
-
                         />
                       </Box>
                     ) : (
@@ -428,7 +425,7 @@ const Profile = () => {
                           >
                             <ControlledDate
                               name="dateOfBirth"
-                              label={"Date of birth"}
+                              label="Date of birth"
                               control={control}
                             />
                           </Grid>
@@ -441,14 +438,14 @@ const Profile = () => {
                               menu={
                                 fetchLocation
                                   ? fetchLocation.map((locations) => (
-                                    <MenuItem
-                                      value={locations.id}
-                                      key={locations.id}
-                                      data-testid={`id-${locations.id}`}
-                                    >
-                                      {locations.name}
-                                    </MenuItem>
-                                  ))
+                                      <MenuItem
+                                        value={locations.id}
+                                        key={locations.id}
+                                        data-testid={`id-${locations.id}`}
+                                      >
+                                        {locations.name}
+                                      </MenuItem>
+                                    ))
                                   : null
                               }
                               currentLocation={
@@ -475,16 +472,16 @@ const Profile = () => {
                             <ControlledSwitch
                               name="emailNotification"
                               control={control}
-                              label={"Email notification"}
+                              label="Email notification"
                             />
                           </Grid>
                           <Grid item mobile={12}>
                             <ControlledSwitch
                               name="appNotification"
                               control={control}
-                              label={"App notification"}
+                              label="App notification"
                               sx={{
-                                marginTop: 0
+                                marginTop: 0,
                               }}
                             />
                           </Grid>
