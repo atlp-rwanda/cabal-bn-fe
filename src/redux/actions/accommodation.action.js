@@ -22,6 +22,8 @@ import axios from '../../axios/axios.instance';
 import { FETCHACCOMMODATIONS } from '../actionTypes/actionTypes';
 import axiosInstance from '../../axios/axios.instance';
 
+import { toast } from 'react-toastify';
+
 export const getAccommodations = (payload) => (dispatch) => {
   dispatch({
     type: FETCHACCOMMODATIONS,
