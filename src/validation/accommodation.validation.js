@@ -1,0 +1,10 @@
+import * as yup from 'yup';
+
+export const accommodationSchema = yup.object().shape({
+  name: yup.string().required('Name is required'),
+  description: yup.string().required('Description is required'),
+  services: yup.string().required('Service is required'),
+  amenities: yup.string().required('Amenities required'),
+  images: yup.mixed().required('At least one image is required'),
+  location_id: yup.string().required('Please select a location'),
+});

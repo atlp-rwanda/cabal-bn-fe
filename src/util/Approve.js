@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Button } from '@mui/material';
-
+/* istanbul ignore next */
 export default ({ row, handleApprove, handleReject }) => (
   <Grid container justifyContent="center" alignItems="center">
     <Button

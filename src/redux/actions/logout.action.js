@@ -16,10 +16,8 @@ const errorLogout = (action) => ({
 export const logoutUser = () => async (dispatch) => {
   try {
     const res = await axiosInstance.post('/users/logout');
-    console.log(res);
     await dispatch(logoutAction(res));
   } catch (error) {
-    console.log(error);
     await dispatch(errorLogout(error));
     toast.error('Error occured logging out');
   }

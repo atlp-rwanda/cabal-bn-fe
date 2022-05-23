@@ -14,10 +14,13 @@ import EmailVerification from '../view/verifyEmail';
 import GoogleLogin from '../view/google_login';
 import Forgot from '../view/Forgot';
 import ResetPassword from '../view/ResetPassword';
+import TravelAdmin from '../view/travel-admin';
 import DashboardPreview from '../layouts/requester';
 import RequesterContent from '../view/requesterContent';
 import Profile from '../view/profile';
 import UserSettingsModal from '../components/user_role';
+import { AccommodationDetails } from '../view/accommodationDetails';
+import AccommodationPage from '../view/allAccommodations';
 
 const theme = createTheme({
   pallete: {
@@ -59,6 +62,12 @@ const AllRoutes = (props) => (
         <Route exact path="/" element={<LandingPage />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/signup" element={<Signup />} />
+        <Route path="/accommodations" element={<AccommodationPage />} />
+        <Route
+          exact
+          path="accommodations/:id"
+          element={<AccommodationDetails />}
+        />
         <Route
           exact
           path="/verify"
@@ -75,6 +84,12 @@ const AllRoutes = (props) => (
           <Route exact path="trips" element={<RequesterContent />} />
           <Route exact path="profile" element={<Profile />} />
           <Route exact path="roles" element={<UserSettingsModal />} />
+          <Route exact path="accommodations" element={<TravelAdmin />} />
+          <Route
+            exact
+            path="accommodations/:id"
+            element={<AccommodationDetails />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>

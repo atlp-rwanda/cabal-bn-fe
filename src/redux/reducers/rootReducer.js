@@ -13,6 +13,14 @@ import { profileReducer } from './profileReducer';
 import { assignRoleReducer } from './user_role_settings.reducer';
 import { getRoleReducer } from './get_roles_reducer';
 import { getUserReducer } from './get_users_reducer';
+import {
+  fetchSingleAccommodationReducer,
+  fetchAllAccommodations,
+  createAccommodationReducer,
+  deleteAccommodationReducer,
+  updateAccommodationReducer,
+} from './accommodation.reducer';
+import { createRoomReducer, fetchRoomsReducer } from './room.reducer';
 
 const rootReducer = combineReducers({
   getUserReducer,
@@ -23,12 +31,18 @@ const rootReducer = combineReducers({
   locationReducer,
   landingReducer,
   emailVerificationReducer,
+  fetchAllAccommodations,
+  fetchSingleAccommodationReducer,
+  createAccommodationReducer,
+  updateAccommodationReducer,
+  deleteAccommodationReducer,
+  createRoomReducer,
+  fetchRoomsReducer,
   forgot,
   Reset,
   accommodationReducer,
   requestsReducer,
   profileReducer,
   assignRoleReducer,
-  
 });
 export default rootReducer;
