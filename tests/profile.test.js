@@ -84,61 +84,6 @@ describe('profile page test', () => {
     // import and pass your custom axios instance to this method
     moxios.uninstall(axiosInstance);
   });
-  // test.only('update profile', async () => {
-  //   const { rerender } = render(
-  //     <Provider store={store}>
-  //       <Router>
-  //         <ToastContainer />
-  //         <Profile />
-  //       </Router>
-  //     </Provider>,
-  //   );
-  //   moxios.stubRequest('/users/getOne', {
-  //     status: 200,
-  //     response: {
-  //       message: 'found all users',
-  //       results: {
-  //         user: {
-  //           first_name: 'ishimwe',
-  //           last_name: 'gabin',
-  //           profile: {
-  //             age: 20,
-  //             bio: 'developer',
-  //           },
-  //         },
-  //       },
-  //     },
-  //   });
-  //   // await testStore.dispatch(retrieveAction());
-  //   await store.dispatch(retrieveAction())
-  //   console.log(testStore.getState())
-  //   console.log(store.getState())
-  //   rerender(
-  //     <Provider store={store}>
-  //       <Router>
-  //         <ToastContainer />
-  //         <Profile />
-  //       </Router>
-  //     </Provider>,
-  //   );
-  //   console.log(store.getState().profileReducer);
-  //   const firstName = await screen?.findByTestId('firstName-input');
-  //   const lastName = await screen.findByText('Last name');
-  //   const age = await screen.findByText('Age');
-  //   const occupation = await screen.findByText('occupation');
-  //   const dateOfBirth = await screen.findByText('Date of birth');
-  //   const submit = await screen.findByText('Update profile');
-  //   fireEvent.change(firstName, { target: { value: 'gabin' } });
-  //   fireEvent.change(lastName, { target: { value: 'ishimwe' } });
-  //   fireEvent.change(age, { target: { value: 19 } });
-  //   fireEvent.change(dateOfBirth, { target: { value: '02/02/2002' } });
-  //   fireEvent.change(occupation, { target: { value: 'software engineer' } });
-
-  //   fireEvent.click(submit);
-  //   await waitFor(() => {
-  //     expect(screen.getByTestId('spinner')).toBeInTheDocument();
-  //   });
-  // });
 
   test('redux retrieve profile action', async () => {
     // Match against an exact URL value
