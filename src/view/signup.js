@@ -297,7 +297,6 @@ const Signup = () => {
                 Use my current location
               </MenuItem>
             </Select>
-            <FormHelperText></FormHelperText>
           </FormControl>
           <div>
             <SignupBtn variant="contained" onClick={handleClick}>

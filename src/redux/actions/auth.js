@@ -17,7 +17,7 @@ export const loggedInUser = () => async (dispatch) => {
       error: null,
     });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     await dispatch({
       type: types.GET_LOGGEDIN_USER_PROFILE_ERROR,
       payload: err,

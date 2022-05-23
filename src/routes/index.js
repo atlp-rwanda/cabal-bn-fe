@@ -14,9 +14,12 @@ import EmailVerification from '../view/verifyEmail';
 import GoogleLogin from '../view/google_login';
 import Forgot from '../view/Forgot';
 import ResetPassword from '../view/ResetPassword';
+import TravelAdmin from '../view/travel-admin';
 import DashboardPreview from '../layouts/requester';
 import RequesterContent from '../view/requesterContent';
-import Profile from "../view/profile"
+import Profile from '../view/profile';
+import { AccommodationDetails } from '../view/accommodationDetails';
+
 const theme = createTheme({
   pallete: {
     primary: {
@@ -68,10 +71,17 @@ const AllRoutes = (props) => (
           path="/resetPassword"
           element={<ResetPassword {...props} />}
         />
+
         <Route exact path="/dashboard/" element={<DashboardPreview />}>
           <Route exact path="" element={<RequesterContent />} />
           <Route exact path="trips" element={<RequesterContent />} />
           <Route exact path="profile" element={<Profile />} />
+          <Route exact path="accommodations" element={<TravelAdmin />} />
+          <Route
+            exact
+            path="accommodations/:id"
+            element={<AccommodationDetails />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>

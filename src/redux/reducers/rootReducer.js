@@ -10,6 +10,13 @@ import { Reset } from './ResetPasswordReducer';
 import accommodationReducer from './accommodation.reducer';
 import { requestsReducer } from './requesterDashboard';
 import { profileReducer } from './profileReducer';
+import {
+  fetchSingleAccommodationReducer,
+  fetchAllAccommodations,
+  createAccommodationReducer,
+  deleteAccommodationReducer,
+  updateAccommodationReducer,
+} from './accommodation.reducer';
 
 const rootReducer = combineReducers({
   loggedInUser: loggedInUserReducer,
@@ -18,6 +25,11 @@ const rootReducer = combineReducers({
   locationReducer,
   landingReducer,
   emailVerificationReducer,
+  fetchAllAccommodations,
+  fetchSingleAccommodationReducer,
+  createAccommodationReducer,
+  updateAccommodationReducer,
+  deleteAccommodationReducer,
   forgot,
   Reset,
   accommodationReducer,

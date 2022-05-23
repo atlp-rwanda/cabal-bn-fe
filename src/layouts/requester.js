@@ -59,13 +59,6 @@ const DashboardPreview = () => {
   useEffect(() => {
     fetchProfile();
   }, []);
-  // const pages = [
-  //   name,
-  //   <Badge badgeContent="12" color="error" badge sx={{ color: '#FFC800' }}>
-  //     <NotificationsIcon />
-  //   </Badge>,
-  //   <Avatar src={profile} alt="profile image" onClick={handleClick} />,
-  // ];
 
   const sideBarLinks = [
     {
