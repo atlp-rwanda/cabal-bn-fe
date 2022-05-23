@@ -31,7 +31,7 @@ describe('testing login', () => {
         <Router>
           <Login />
         </Router>
-      </Provider>,
+      </Provider>
     );
 
     const email = screen.getByLabelText('Email');
@@ -54,7 +54,7 @@ describe('testing login', () => {
         <Router>
           <Login />
         </Router>
-      </Provider>,
+      </Provider>
     );
     const visibilityIcon = screen.getByTestId('visibility-button');
     const password = screen.getByLabelText('Password');
@@ -72,7 +72,7 @@ describe('testing login', () => {
         <Router>
           <Login />
         </Router>
-      </Provider>,
+      </Provider>
     );
     const email = screen.getByLabelText('Email');
     const password = screen.getByLabelText('Password');

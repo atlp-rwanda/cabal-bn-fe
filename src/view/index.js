@@ -1,33 +1,27 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/react-in-jsx-scope */
 import React from 'react';
-import { Container, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Box } from '@mui/material';
+import Header from '../components/landing/header';
+import Welcome from '../components/landing/welcome';
+import Landscape from '../components/landing/landscape';
+import About from '../components/landing/about';
+import Service from '../components/landing/service';
+import LandingFooter from '../components/landing/footer';
+import FooterImage from '../components/landing/footerimages.component';
+import Slide from '../components/landing/slide';
 
 const LandingPage = () => (
-  <Container>
-    <Typography variant="subtitle1">please click here to login</Typography>
-    <Link to="/login" style={{ textDecoration: 'none', color: 'red' }}>
-      login
-    </Link>
-    <Typography variant="subtitle1">please click here to signup</Typography>
-    <Link to="/signup" style={{ textDecoration: 'none', color: 'blue' }}>
-      Signup
-    </Link>
-    <Typography>
-      <Link to="/forgot" style={{ textDecoration: 'none', color: 'red' }}>
-        Forgot
-      </Link>
-    </Typography>
-    <Typography>
-      <Link
-        to="/resetPassword"
-        style={{ textDecoration: 'none', color: 'red' }}
-      >
-        ResetPassword
-      </Link>
-    </Typography>
-  </Container>
+  <Box sx={{ backgroundColor: '#F8F9FA' }}>
+    <Header aboutClass={'to'}/>
+    <Welcome />
+    <Landscape />
+    <Slide />
+    <About aboutClass={'to'}/>
+    <Service />
+    <FooterImage />
+    <LandingFooter />
+  </Box>
 );
 
 export default LandingPage;

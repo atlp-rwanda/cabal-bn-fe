@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "env": {
     "browser": true,
@@ -21,3 +22,50 @@
     "no-undef": "off"
   }
 }
+=======
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["plugin:react/recommended", "airbnb", "prettier"],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+      "js": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "prettier"],
+  "rules": {
+    "prettier/prettier": ["error"],
+    "react/jsx-no-undef": "off",
+    "react/jsx-filename-extension": "off",
+    "react/jsx-wrap-multilines": "off",
+    "no-undef": "off"
+  }
+}
+
+// {
+//   "env": {
+//     "browser": true,
+//     "es2021": true
+//   },
+//   "extends": ["plugin:react/recommended", "airbnb"],
+//   "parserOptions": {
+//     "ecmaFeatures": {
+//       "jsx": true,
+//       "js":true
+//     },
+//     "ecmaVersion": 12,
+//     "sourceType": "module"
+//   },
+//   "plugins": ["react"],
+//   "rules": {
+//     "react/jsx-no-undef": "off",
+//     "react/jsx-filename-extension": "off",
+//     "no-undef": "off"
+//   }
+// }
+>>>>>>> landing page design

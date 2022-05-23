@@ -20,7 +20,9 @@ describe('FORGOT PASSWORD', () => {
     const element = renderer
       .create(
         <Provider store={store}>
+          <Router>
           <Forgot />
+          </Router>
         </Provider>,
       ).toJSON();
     expect(element).toMatchSnapshot();
