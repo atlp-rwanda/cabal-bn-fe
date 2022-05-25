@@ -12,6 +12,7 @@ import chatIcon from '../assets/chatIcon.svg';
 import notificationIcon from '../assets/notificationIcon.svg';
 import tripIcon from '../assets/tripIcon.svg';
 import logo from '../assets/Logo.svg';
+import settingsIcon from '../assets/settings-icon.svg'
 
 const DashboardPreview = () => {
   const dispatch = useDispatch();
@@ -32,7 +33,8 @@ const DashboardPreview = () => {
       <NotificationsIcon />
     </Badge>,
     data.status === 200 ? (
-      <Avatar src={data.data?.user.profile_picture} alt="prifle image" />
+      // <Avatar src={data.data?.user.profile_picture} alt="prifle image" />
+      <Avatar src={roleId.profile_picture} salt="prifle image" />
     ) : (
       <Avatar src={roleId.profile_picture} salt="prifle image" />
     ),
@@ -60,6 +62,17 @@ const DashboardPreview = () => {
       icon: chatIcon,
     },
   ];
+
+  if(roleId.role_id===1){
+    sideBarLinks.push(
+      {
+        to: '/dashboard/roles',
+        link: 'Settings',
+        icon: settingsIcon,
+      },
+    )
+  }
+
   return (
     <Box sx={{ display: 'flex' }}>
       <SideBar sideBarLinks={sideBarLinks} />

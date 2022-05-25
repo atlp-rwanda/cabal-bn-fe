@@ -32,6 +32,7 @@ import Dialog from '../helpers/Dialog';
 import Approve from '../util/Approve';
 import { TableSkeleton } from '../util/tableSkeleton';
 import Error from '../assets/error.svg';
+import DetailsDialog from '../components/dialog';
 
 const RequesterTable = () => {
   const [page, setPage] = useState(0);
@@ -90,6 +91,12 @@ const RequesterTable = () => {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data?.results.length) : 0;
   return (
     <>
+    {/* <DetailsDialog 
+                     label="details" 
+                     id={1} 
+                     locations={'kk'} 
+                     user={2} 
+                     manager={3} /> */}
       <TableContainer component={Paper} elevation={0} sx={{ padding: '10px' }}>
         {loading && <Spinner />}
         {pending ? (
@@ -105,6 +112,7 @@ const RequesterTable = () => {
                 <StyledTableCell align="center">Status</StyledTableCell>
                 <StyledTableCell align="center">Trip date</StyledTableCell>
                 <StyledTableCell align="center">Return Date</StyledTableCell>
+                <StyledTableCell align="center">Details</StyledTableCell>
                 <StyledTableCell align="center">Actions</StyledTableCell>
               </TableRow>
             </TableHead>
@@ -139,6 +147,18 @@ const RequesterTable = () => {
                     </StyledTableCell>
                     <StyledTableCell align="center">
                       {new Date(row.tripDate).toDateString()}
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                    <DetailsDialog 
+                     label="details" 
+                     id={row.id} 
+                     locations={row.arrivalLocations} 
+                     user={row.user_id} 
+                     manager={row.manager_id} 
+                     tripDate= {new Date(row.tripDate)}
+                     returnDate={new Date(row.returnDate)}
+                     role={role.role_id}
+                     />
                     </StyledTableCell>
                     <StyledTableCell align="center">
                       {role.role_id === 3 && (
