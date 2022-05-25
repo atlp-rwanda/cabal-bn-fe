@@ -36,9 +36,4 @@ describe('LOCATION TESTS', () => {
     expect(errorGettingLocs(value)).toEqual(expectation);
   });
 
-  // it('should test get user location helper', async () => {
-  //   const userLocation = await getUserLocation();
-  //   jest.advanceTimersByTime(10000);
-  //   console.log(userLocation);
-  // });
 });

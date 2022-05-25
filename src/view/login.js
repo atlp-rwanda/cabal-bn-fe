@@ -1,4 +1,7 @@
 /* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-useless-escape */
+/* eslint-disable prettier/prettier */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/react-in-jsx-scope */
@@ -12,13 +15,16 @@ import {
   CircularProgress,
   Alert,
   Link as A,
+  Stack,
 } from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useNavigate } from 'react-router-dom';
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
+import NavBar from '../components/navBar';
 import login from '../assets/login.svg';
+// import Footer from '../components/footer';
 import { loginAction } from '../redux/actions/login.action';
 import store from '../redux/store';
 import InputField from '../components/input';
@@ -100,6 +106,7 @@ const formSection = {
 };
 
 const Login = () => {
+  const pages = ['Home', 'About Us', 'Accommodation', 'Sign In', 'Sign Up'];
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -144,7 +151,7 @@ const Login = () => {
       setLoading(true);
       await store.dispatch(loginAction({ email, password }));
       if (store.getState().userReducer.isLogged) {
-        navigate('/dashboard');
+        navigate('/dashboard/trips');
       } else {
         setLoading(false);
         setError(true);
@@ -154,7 +161,7 @@ const Login = () => {
 
   return (
     <>
-      <Header />
+      <NavBar pages={pages} />
       <Box sx={container}>
         <Box
           sx={{

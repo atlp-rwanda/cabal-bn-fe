@@ -22,9 +22,9 @@ const ResetImage = styled('img')(({ theme }) => ({
   height: 320,
   marginBottom: '10px',
 }));
-
+ /* istanbul ignore next */
 const StyledInputs = styled(TextField)(({ theme }) => ({
-  [theme.breakpoints.down('sm')]: {
+  [theme?.breakpoints.down('sm')]: {
     width: 280,
     height: 20,
     margin: '30px 0px',
@@ -64,7 +64,7 @@ const ResetBtn = styled(Button)(({ theme }) => ({
     backgroundColor: '#00095E',
     color: '#FFC800',
   },
-  [theme.breakpoints.down('sm')]: {
+  [theme?.breakpoints.down('sm')]: {
     width: 280,
     height: 50,
     margin: '30px 0px',

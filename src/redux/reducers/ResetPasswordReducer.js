@@ -15,6 +15,7 @@ export const Reset = (state = initialState, { type, payload }) => {
     case RESETPASSWORD: {
       return { ...state, loading: true };
     }
+    /* istanbul ignore next */
     case RESETPASSWORD_FAILED: {
       return { ...state, error: payload, loading: false };
     }

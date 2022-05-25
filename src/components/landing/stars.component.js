@@ -2,6 +2,7 @@ import { Star, StarBorder, StarHalf } from "@mui/icons-material"
 import { Stack } from "@mui/material"
 import React, { useEffect } from 'react';
 
+/* istanbul ignore next */
 export const Stars=({rates})=>{
   switch (rates) {
     case 2:

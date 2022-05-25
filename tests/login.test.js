@@ -1,10 +1,12 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable no-unused-vars */
 import * as React from 'react';
 import {
   render,
   screen,
   waitFor,
   fireEvent,
-  act,
+  act
 } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
@@ -15,7 +17,7 @@ import Login from '../src/view/login';
 import {
   errorLogin,
   userLogin,
-  loginAction,
+  loginAction
 } from '../src/redux/actions/login.action';
 import { ERROR_LOGIN, LOGIN_USER } from '../src/redux/types/login.types';
 import { userReducer } from '../src/redux/reducers/userReducer';
@@ -85,9 +87,7 @@ describe('testing login', () => {
 
     expect(await screen.findByText('Invalid email')).toBeVisible();
     expect(
-      await screen.findByText(
-        'Must have at least one digit and capital letter',
-      ),
+      await screen.findByText('Must have at least one digit and capital letter')
     ).toBeVisible();
   });
 
@@ -97,7 +97,7 @@ describe('testing login', () => {
         <Router>
           <Login />
         </Router>
-      </Provider>,
+      </Provider>
     );
 
     const email = screen.getByLabelText('Email');
@@ -119,7 +119,7 @@ describe('testing login', () => {
         <Router>
           <Login />
         </Router>
-      </Provider>,
+      </Provider>
     );
 
     const email = screen.getByLabelText('Email');
@@ -136,14 +136,14 @@ describe('testing login', () => {
   it('should test redux action of userLogin', () => {
     const value = {
       message: 'logged in successfully',
-      token: 'asdfasdfasdfa',
+      token: 'asdfasdfasdfa'
     };
 
     const expectation = {
       type: LOGIN_USER,
       payload: value,
       isLogged: true,
-      loading: false,
+      loading: false
     };
 
     expect(userLogin(value)).toEqual(expectation);
@@ -151,14 +151,14 @@ describe('testing login', () => {
 
   it('should test redux action of errorLogin', () => {
     const value = {
-      error: 'there was an error on the server',
+      error: 'there was an error on the server'
     };
 
     const expectation = {
       type: ERROR_LOGIN,
       payload: value,
       isLogged: false,
-      loading: false,
+      loading: false
     };
 
     expect(errorLogin(value)).toEqual(expectation);
@@ -167,13 +167,13 @@ describe('testing login', () => {
   it('should test loginAction', async () => {
     const userData = {
       email: 'REQUESTER@gmail',
-      password: 'REQUESTER2gmail',
+      password: 'REQUESTER2gmail'
     };
     const expection = {
       type: LOGIN_USER,
       payload: userData,
       isLogged: true,
-      loading: false,
+      loading: false
     };
 
     store.dispatch(loginAction(userData));
@@ -187,44 +187,44 @@ describe('testing login', () => {
   it('should test reducers', () => {
     const userData = {
       email: 'REQUESTER@gmail',
-      password: 'REQUESTER2gmail',
+      password: 'REQUESTER2gmail'
     };
     const expection = {
       type: LOGIN_USER,
       payload: userData,
       isLogged: true,
       loading: false,
-      error: '',
+      error: ''
     };
     const initialState = {
       data: [],
       loading: true,
       isLogged: false,
-      error: '',
+      error: ''
     };
 
     expect(
       userReducer(initialState, {
         type: LOGIN_USER,
-        payload: userData,
-      }),
+        payload: userData
+      })
     ).toEqual({
       data: userData,
       loading: false,
       isLogged: true,
-      error: '',
+      error: ''
     });
 
     expect(
       userReducer(initialState, {
         type: ERROR_LOGIN,
-        payload: userData,
-      }),
+        payload: userData
+      })
     ).toEqual({
       data: [],
       loading: false,
       isLogged: false,
-      error: userData,
+      error: userData
     });
   });
 });

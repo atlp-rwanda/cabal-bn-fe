@@ -10,19 +10,18 @@ import { Spinner } from './spinner';
 
 const Stylepaper = styled(Paper)(({ theme }) => ({
   height: '220px',
-  width: '80%',
+  width: '90%',
   marginTop: '40px',
   marginLeft: '15%',
-  [theme.breakpoints.up('sm')]: {
+  [theme?.breakpoints.up('sm')]: {
     height: '220px',
-    width: '230px',
     marginLeft: '10%',
   },
 }));
 
 const Slide = () => {
   const locations = useSelector((state) => state.landingReducer);
-  const [loading,setLoading]=useState(true)
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     store.dispatch(getLoc());
@@ -31,17 +30,16 @@ const Slide = () => {
   const responsive = [
     { breakPoint: 4000, cardsToShow: 3 },
     { breakPoint: 1024, cardsToShow: 3 },
-    { breakPoint: 900, cardsToShow: 3 },
+    { breakPoint: 800, cardsToShow: 3 },
     { breakPoint: 600, cardsToShow: 2 },
     { breakPoint: 0, cardsToShow: 1 },
   ];
-  console.log()
 
-  useEffect(()=>{
-    if(locations.locations.length>2){
-      setLoading(false)
+  useEffect(() => {
+    if (locations.locations.length > 2) {
+      setLoading(false);
     }
-  })
+  });
 
   return (
     <Grid container direction="column" alignItems="center" paddingTop={10}>
@@ -53,60 +51,60 @@ const Slide = () => {
           LOCATIONS
         </Typography>
       </Grid>
-      {loading===true?(
-          <Grid item paddingTop={10}>
-            <Spinner />
-          </Grid>
-        ):(
-          <Grid
-        item
-        width={{
-          md: '60%',
-          sm: '65%',
-          xs: '75%',
-        }}
-        paddingTop={10}
-      >
-        <Slider responsive={responsive} showDots={false} autoSlide={5000}>
-          {locations.locations.map((value) => (
-            <Stylepaper elevation={3} key={value.id}>
-              <div
-                style={{
-                  width: '100%',
-                  height: '145px',
-                  background: '#F8F9FA',
-                }}
-              >
-                <LocationCity
-                  sx={{ color: '#00095E', width: '50%', height: '145px' }}
-                />
-              </div>
-              <p
-                style={{
-                  color: '#00095E',
-                  float: 'left',
-                  marginTop: '40px',
-                  marginLeft: '10px',
-                }}
-              >
-                {value.name}
-              </p>
-              <p
-                style={{
-                  color: '#7EA0FF',
-                  float: 'left',
-                  position: 'absolute',
-                  bottom: '7%',
-                  marginLeft: '10px',
-                }}
-              >
-                {value.country}
-              </p>
-            </Stylepaper>
-          ))}
-        </Slider>
-      </Grid>
-        )}
+      {loading === true ? (
+        <Grid item paddingTop={10}>
+          <Spinner />
+        </Grid>
+      ) : (
+        <Grid
+          item
+          width={{
+            md: '60%',
+            sm: '65%',
+            xs: '75%',
+          }}
+          paddingTop={10}
+        >
+          <Slider responsive={responsive} showDots={false} autoSlide={5000}>
+            {locations.locations.map((value) => (
+              <Stylepaper elevation={3} key={value.id}>
+                <div
+                  style={{
+                    width: '100%',
+                    height: '145px',
+                    background: '#F8F9FA',
+                  }}
+                >
+                  <LocationCity
+                    sx={{ color: '#00095E', width: '50%', height: '145px' }}
+                  />
+                </div>
+                <p
+                  style={{
+                    color: '#00095E',
+                    float: 'left',
+                    marginTop: '40px',
+                    marginLeft: '10px',
+                  }}
+                >
+                  {value.name}
+                </p>
+                <p
+                  style={{
+                    color: '#7EA0FF',
+                    float: 'left',
+                    position: 'absolute',
+                    bottom: '7%',
+                    marginLeft: '10px',
+                  }}
+                >
+                  {value.country}
+                </p>
+              </Stylepaper>
+            ))}
+          </Slider>
+        </Grid>
+      )}
     </Grid>
   );
 };

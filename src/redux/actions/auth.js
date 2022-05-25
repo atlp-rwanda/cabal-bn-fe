@@ -1,10 +1,25 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable import/prefer-default-export */
-import { LOGINUSER } from '../actionTypes/actionTypes';
+import axios from '../../axios/axios.instance';
+import * as types from '../types/login.types';
 
-export const getUsers = () => (dispatch) => {
-  dispatch({
-    type: LOGINUSER,
-    payload,
-  });
+/* istanbul ignore next */
+export const loggedInUser = () => async (dispatch) => {
+  try {
+    await dispatch({
+      type: types.GET_LOGGEDIN_USER_PROFILE_PENDING,
+    });
+    const res = await axios(`/users`, { method: 'GET' });
+    console.log(res.data);
+    await dispatch({
+      type: types.GET_LOGGEDIN_USER_PROFILE_SUCCESS,
+      payload: res,
+      error: null,
+    });
+  } catch (err) {
+    await dispatch({
+      type: types.GET_LOGGEDIN_USER_PROFILE_ERROR,
+      payload: err.response.data,
+    });
+  }
 };
