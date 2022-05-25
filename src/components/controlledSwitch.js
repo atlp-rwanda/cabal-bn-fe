@@ -23,6 +23,7 @@ const ControlledSwitch = ({ name, control, label, ...props }) => (
       <FormControlLabel
         checked={value}
         onChange={(e) => {
+          /* istanbul ignore next */
           onChange(e.target.checked);
         }}
         control={<NotificationSwitch />}

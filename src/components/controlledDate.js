@@ -20,6 +20,7 @@ const ControlledDate = ({ name, label, control }) => (
             <TextField
               {...params}
               onKeyDown={(e) => {
+                /* istanbul ignore next */
                 e.preventDefault();
               }}
               sx={{

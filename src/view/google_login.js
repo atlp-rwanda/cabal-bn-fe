@@ -21,6 +21,7 @@ const GoogleLogin = () => {
   dispatch(socialLoginAction(retrieveParams(params)));
   if (store.getState().userReducer.isLogged) {
     window.setTimeout(() => {
+      /* istanbul ignore next */
       navigate('../dashboard/trips', { replace: true });
     }, 1000);
   }

@@ -10,6 +10,7 @@ const ControlledFile = ({ name, control }) => (
       render={({ field: { onChange } }) => (
         <input
           onChange={(e) => {
+            /* istanbul ignore next */
             onChange(e.target.files[0]);
           }}
           accept="image/*"

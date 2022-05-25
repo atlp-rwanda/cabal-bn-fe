@@ -20,6 +20,7 @@ import logo from '../assets/Logo.svg';
 import store from '../redux/store';
 import { logoutUser } from '../redux/actions/logout.action';
 import { retrieveAction } from '../redux/actions/profile.action';
+import settingsIcon from '../assets/settings-icon.svg';
 
 const DashboardPreview = () => {
   const [name, setName] = useState('');
@@ -90,6 +91,15 @@ const DashboardPreview = () => {
       icon: chatIcon,
     },
   ];
+
+  if (roleId.role_id === 1) {
+    sideBarLinks.push({
+      to: '/dashboard/roles',
+      link: 'Settings',
+      icon: settingsIcon,
+    });
+  }
+
   return (
     <Box sx={{ display: 'flex' }}>
       <SideBar sideBarLinks={sideBarLinks} />

@@ -40,6 +40,7 @@ export const loginAction = ({ email, password }) => {
         dispatch(errorLogin(res.data));
       }
     } catch (error) {
+      /* istanbul ignore next */
       dispatch(errorLogin(error.response));
     }
   };

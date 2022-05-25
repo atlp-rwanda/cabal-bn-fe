@@ -17,6 +17,8 @@ import ResetPassword from '../view/ResetPassword';
 import DashboardPreview from '../layouts/requester';
 import RequesterContent from '../view/requesterContent';
 import Profile from "../view/profile"
+import UserSettingsModal from '../components/user_role';
+
 const theme = createTheme({
   pallete: {
     primary: {
@@ -72,6 +74,7 @@ const AllRoutes = (props) => (
           <Route exact path="" element={<RequesterContent />} />
           <Route exact path="trips" element={<RequesterContent />} />
           <Route exact path="profile" element={<Profile />} />
+          <Route exact path="roles" element={<UserSettingsModal />} />
         </Route>
       </Routes>
     </BrowserRouter>

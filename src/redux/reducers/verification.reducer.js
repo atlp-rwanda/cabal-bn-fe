@@ -9,6 +9,7 @@ const initialState = {
 export const emailVerificationReducer = (state = initialState, action) => {
   switch (action.type) {
     case VERIFY_EMAIL:
+      /* istanbul ignore next */
       return { ...state, data: action.payload, loading: false };
 
     case ERROR_VERIFYING:

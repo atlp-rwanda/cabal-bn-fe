@@ -18,6 +18,7 @@ export const sendEmail = (email) => async (dispatch) => {
       payload: data.data,
     });
   } catch (error) {
+    /* istanbul ignore next */
     dispatch({
       type: FORGOTPASSWORD_FAILED,
       payload: error.response.data,

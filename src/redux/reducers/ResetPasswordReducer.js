@@ -20,6 +20,7 @@ export const Reset = (state = initialState, { type, payload }) => {
       return { ...state, error: payload, loading: false };
     }
     case RESETPASSWORD_SUCCESS: {
+      /* istanbul ignore next */
       return { ...state, data: payload, loading: false };
     }
     default: {
