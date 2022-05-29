@@ -7,15 +7,15 @@ import CardContent from '@mui/material/CardContent';
 import { Add } from '@mui/icons-material';
 import { useSelector, useDispatch } from 'react-redux';
 import SimpleImageSlider from 'react-simple-image-slider';
+import Button from '@mui/material/Button';
 import { fetchSingleAccommodation } from '../redux/actions/accommodation.action';
 import { Stars } from '../components/landing/stars.component';
 import Buttons from '../components/button';
 import { unloggedInUser } from '../helpers/login.helpers';
 import Header from '../components/landing/header';
 import { RoomModal } from '../components/RoomModal';
-import { RatingModal } from "../components/RatingModal";
+import { RatingModal } from '../components/RatingModal';
 import AccommodationComment from '../components/accommodation/accommodation.comment';
-import Button from '@mui/material/Button';
 
 const papeStyles = {
   display: 'flex',
@@ -61,9 +61,8 @@ export const AccommodationDetails = () => {
   const [openRating, setopenRating] = useState(false);
   const handleRating = () => {
     setopenRating(true);
-  }
+  };
   const handleCloseRating = () => setopenRating(false);
-
 
   const handleOpen = () => {
     setOpen(true);
@@ -153,10 +152,14 @@ export const AccommodationDetails = () => {
             <Grid item md={3} lg={3} sm={4}>
               <Card sx={cardStyles}>
                 <Typography sx={styles}>Ratings:</Typography>
-                <Grid sx={itemStyles}><Stars rates={data?.rates} /></Grid>
+                <Grid sx={itemStyles}>
+                  <Stars rates={data?.rates} />
+                </Grid>
                 <CardContent>
                   <Grid sx={itemStyles}>
-                    <Button onClick={handleRating} variant="contained">Give Ratings</Button>
+                    <Button onClick={handleRating} variant="contained">
+                      Give Ratings
+                    </Button>
                   </Grid>
                 </CardContent>
               </Card>
@@ -290,7 +293,7 @@ export const AccommodationDetails = () => {
         <RoomModal open={open} title="Create Room" handleClose={handleClose} />
         <RatingModal
           open={openRating}
-          title={'Rate This Accomodation'}
+          title="Rate This Accomodation"
           handleClose={handleCloseRating}
           pathId={id}
         />

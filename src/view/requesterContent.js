@@ -7,33 +7,32 @@ import {
   Select,
   MenuItem,
 } from '@mui/material';
-import {
-  FormControlSX,
-} from '../helpers/signup.helper';
-import RequesterTable from './requester-table';
 import { styled } from '@mui/material/styles';
 import React, { useState, useEffect, createRef } from 'react';
 import IconButton from '@mui/material/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import Modal from '@mui/material/Modal';
-import Header from '../components/header';
-import Buttons from '../components/button';
-import InputField from '../components/input';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import CloseIcon from '@mui/icons-material/Close';
+import { toast } from 'react-toastify';
+import { v4 } from 'uuid';
+import moment from 'moment';
+import { Toast } from 'bootstrap';
 import { getAcc } from '../redux/actions/accommodation.action';
 import { getAllLocations } from '../redux/actions/location.action';
 import { CreateTrip } from '../redux/actions/CreateTrip.action';
 import { updateTrip } from '../redux/actions/UpdateTrip.action';
-import { toast } from 'react-toastify';
 
-import { v4 } from 'uuid';
-import moment from 'moment';
-import { Toast } from 'bootstrap';
-const format = "YYYY-MM-DD";
+import InputField from '../components/input';
+import Buttons from '../components/button';
+import Header from '../components/header';
+import RequesterTable from './requester-table';
+import { FormControlSX } from '../helpers/signup.helper';
+
+const format = 'YYYY-MM-DD';
 /* istanbul ignore next */
 const ListItem = styled('span')(({ theme }) => ({
   margin: theme.spacing(1),
@@ -75,7 +74,8 @@ const RequesterContent = () => {
   const [open, setOpen] = useState(false);
   const [reason, setReason] = useState('');
   const [days, setDays] = useState(0);
-  const { accommodationReducer, locationReducer, CreateTripReducer } = useSelector(state => state);
+  const { accommodationReducer, locationReducer, CreateTripReducer } =
+    useSelector((state) => state);
   const { loading } = CreateTripReducer;
   const locations = locationReducer.data?.data?.results;
   const [arrivalLocations, setArrivalLocations] = useState([]);
@@ -88,9 +88,7 @@ const RequesterContent = () => {
   const dispatch = useDispatch();
   const [locationAccommodations, setLocationAccommodations] = useState([]);
   const { accommodations } = accommodationReducer;
-  const getName = (id) => {
-    return accommodations.find(accom => accom.id == id);
-  }
+  const getName = (id) => accommodations.find((accom) => accom.id == id);
   const handleClose = () => {
     setTripTobeUpdated({});
     setOpen(false);
@@ -101,19 +99,25 @@ const RequesterContent = () => {
     setTripDate('');
   };
 
-
   const addLocation = () => {
-    const newAccomodation = { id: v4(), accommodation_id: accommodationId, days: days }
-    const accomodationExist = arrivalLocations.find((accommodation) => accommodation.accommodation_id === newAccomodation.accommodation_id)
+    const newAccomodation = {
+      id: v4(),
+      accommodation_id: accommodationId,
+      days,
+    };
+    const accomodationExist = arrivalLocations.find(
+      (accommodation) =>
+        accommodation.accommodation_id === newAccomodation.accommodation_id,
+    );
 
     if (validate()) {
       if (!accomodationExist) {
         setArrivalLocations([...arrivalLocations, newAccomodation]);
-        return
+        return;
       }
       toast.error("You can't choose the same accommodation twice");
     }
-  }
+  };
   const validate = () => {
     // eslint-disable-next-line no-useless-escape
     const regexLetter = /^^[A-Za-z0-9 _]*[A-Za-z0-9][A-Za-z0-9 _]*$/;
@@ -122,101 +126,94 @@ const RequesterContent = () => {
       reason === ''
         ? 'Reasons is required'
         : reason.match(regexLetter)
-          ? ''
-          : 'Invalid input for Reason';
-    const dayError =
-      days > 0
         ? ''
-        : 'Day can be greater than Zero';
+        : 'Invalid input for Reason';
+    const dayError = days > 0 ? '' : 'Day can be greater than Zero';
     setValidationError(() => ({
       reason: reasonError,
-      days: dayError
-
+      days: dayError,
     }));
     return Object.values({ reasonError, dayError }).every(
       (value) => value === '',
     );
   };
 
-
   useEffect(() => {
     if (tripTobeEdited.arrivalLocations) {
-      const mp = tripTobeEdited.arrivalLocations.map(loc => {
-        return { id: v4(), ...loc }
-      });
+      const mp = tripTobeEdited.arrivalLocations.map((loc) => ({
+        id: v4(),
+        ...loc,
+      }));
       setReason(tripTobeEdited.reason);
       setDepartLocationId(tripTobeEdited.depart_location_id);
       setReturnDate(moment(new Date(tripTobeEdited.returnDate)).format(format));
       setTripDate(moment(new Date(tripTobeEdited.tripDate)).format(format));
       setArrivalLocations(mp);
     }
-
-  }, [tripTobeEdited])
-
+  }, [tripTobeEdited]);
 
   useEffect(() => {
     if (departLocationId) {
-      setLocationAccommodations(accommodations.filter(acmdtn => acmdtn.location_id == departLocationId));
+      setLocationAccommodations(
+        accommodations.filter(
+          (acmdtn) => acmdtn.location_id == departLocationId,
+        ),
+      );
     }
-  }, [departLocationId])
-
-
+  }, [departLocationId]);
 
   const classes = useStyles();
   useEffect(() => {
     getAcc()(dispatch);
     getAllLocations()(dispatch);
-  }, [])
+  }, []);
   const handleChange = (event) => {
     setAccommodationId(event.target.value);
   };
   const handleOpen = () => {
-    setOpen(true)
+    setOpen(true);
   };
   const handleSubmitone = async (e) => {
-
     try {
-      e.preventDefault()
+      e.preventDefault();
       const data = {
-        reason: reason,
+        reason,
         depart_location_id: departLocationId,
         tripDate,
         returnDate,
-        arrivalLocations: arrivalLocations.map(({ accommodation_id, days }) => {
-          return { accommodation_id, days };
-        })
-      }
+        arrivalLocations: arrivalLocations.map(
+          ({ accommodation_id, days }) => ({ accommodation_id, days }),
+        ),
+      };
       if (!isEditing) {
         const create = await CreateTrip(data)(dispatch);
-        toast.success(create.data.message)
+        toast.success(create.data.message);
         const form = document.getElementById('modalForm');
         form.reset();
         handleClose();
       } else {
         const update = await updateTrip(data, tripTobeEdited.id)(dispatch);
         console.log(data);
-        toast.success(update.data.message)
+        toast.success(update.data.message);
         handleClose();
-
       }
-
     } catch (error) {
       toast.error(error.message);
     }
-  }
+  };
 
   const handleDelete = (chipToDelete) => () => {
-
-    setArrivalLocations(() => arrivalLocations.filter((chip) => chip.id !== chipToDelete.id));
-  }
+    setArrivalLocations(() =>
+      arrivalLocations.filter((chip) => chip.id !== chipToDelete.id),
+    );
+  };
   const handleEdit = (dataTobeUpdated) => {
     setIsEditing(true);
     handleOpen();
     setTripTobeUpdated(dataTobeUpdated);
 
     console.log(dataTobeUpdated);
-
-  }
+  };
 
   return (
     <Box>
@@ -230,9 +227,8 @@ const RequesterContent = () => {
           aria-describedby="modal-modal-description"
           sx={{ '& .MuiBox-root': { maxHeight: 758, overflow: 'auto' } }}
         >
-
           <Box sx={style}>
-            <form id='modalForm' onSubmit={handleSubmitone}>
+            <form id="modalForm" onSubmit={handleSubmitone}>
               <div style={{ display: 'flex' }}>
                 <Typography
                   id="modal-modal-title"
@@ -244,22 +240,26 @@ const RequesterContent = () => {
                     color: '#00095E',
                   }}
                 >
-                  {!isEditing ? "Create Trip" : "Edit Trip"}
+                  {!isEditing ? 'Create Trip' : 'Edit Trip'}
                 </Typography>
                 <IconButton
                   onClick={handleClose}
                   sx={{
                     color: '#00095E',
-                    position: "relative",
-                    left: { sm: "70%", xs: "48%" },
-                    float: "left",
+                    position: 'relative',
+                    left: { sm: '70%', xs: '48%' },
+                    float: 'left',
                     bottom: '30px',
                   }}
                 >
-                  <CloseIcon data-testid='close-icon' />
+                  <CloseIcon data-testid="close-icon" />
                 </IconButton>
               </div>
-              <FormControl fullWidth className={classes.formControl} sx={FormControlSX}>
+              <FormControl
+                fullWidth
+                className={classes.formControl}
+                sx={FormControlSX}
+              >
                 <InputLabel id="demo-simple-select-label">Location</InputLabel>
                 <Select
                   labelId="demo-simple-select-outlined-label"
@@ -269,14 +269,16 @@ const RequesterContent = () => {
                   label="Location"
                   ref={selectBox}
                 >
-                  {locations?.map(location => (<MenuItem value={location.id}>{location.name}</MenuItem>))}
+                  {locations?.map((location) => (
+                    <MenuItem value={location.id}>{location.name}</MenuItem>
+                  ))}
                 </Select>
               </FormControl>
 
               <InputField
                 label="Reason"
                 type="text"
-                big={true}
+                big
                 variant="outlined"
                 defaultValue={tripTobeEdited?.reason}
                 onChange={(e) => setReason(e.target.value)}
@@ -287,9 +289,13 @@ const RequesterContent = () => {
                   helperText: validationError.reason,
                 })}
               />
-              <FormControl fullWidth className={classes.formControl} sx={FormControlSX}>
-                <InputLabel id="demo-simple-select-label">Accomodation
-
+              <FormControl
+                fullWidth
+                className={classes.formControl}
+                sx={FormControlSX}
+              >
+                <InputLabel id="demo-simple-select-label">
+                  Accomodation
                 </InputLabel>
                 <Select
                   labelId="demo-simple-select-outlined-label"
@@ -297,15 +303,17 @@ const RequesterContent = () => {
                   onChange={handleChange}
                   label="Acomodation"
                   ref={selectBox}
-
                 >
-                  {locationAccommodations.map(accomodation => (<MenuItem key={accomodation.id} value={accomodation.id}>{accomodation.name}</MenuItem>))}
+                  {locationAccommodations.map((accomodation) => (
+                    <MenuItem key={accomodation.id} value={accomodation.id}>
+                      {accomodation.name}
+                    </MenuItem>
+                  ))}
                 </Select>
-
               </FormControl>
               <InputField
                 label="Day"
-                big={true}
+                big
                 type="number"
                 value={days}
                 onChange={(e) => setDays(parseInt(e.target.value))}
@@ -313,7 +321,6 @@ const RequesterContent = () => {
                   error: true,
                   helperText: validationError.dayError,
                 })}
-
               />
               <Buttons
                 variant="contained"
@@ -321,7 +328,7 @@ const RequesterContent = () => {
                 sx={{
                   width: {
                     xs: 280,
-                    sm: "100%",
+                    sm: '100%',
                   },
                   height: 50,
                   margin: {
@@ -337,27 +344,29 @@ const RequesterContent = () => {
                     backgroundColor: '#00095E',
                   },
                 }}
-                value={'+ Add Accomodation'}
+                value="+ Add Accomodation"
               />
               <div style={{ display: 'flex', flexWrap: 'wrap', width: '100%' }}>
                 {arrivalLocations.map((data) => (
-
                   <ListItem key={data.accommodation_id}>
                     <Chip
-                      label={getName(data.accommodation_id).name + ' -' + data.days + ' Days'}
+                      label={`${getName(data.accommodation_id).name} -${
+                        data.days
+                      } Days`}
                       onDelete={handleDelete(data)}
-                      size={'9px'}
+                      size="9px"
                     />
                   </ListItem>
                 ))}
               </div>
 
-
-
-              <Typography id="modal-modal-title" sx={{
-                fontSize: '18px',
-                color: '#00095E',
-              }}>
+              <Typography
+                id="modal-modal-title"
+                sx={{
+                  fontSize: '18px',
+                  color: '#00095E',
+                }}
+              >
                 Trip Date
               </Typography>
               <Stack component="form" noValidate spacing={3}>
@@ -367,7 +376,9 @@ const RequesterContent = () => {
                   id="date"
                   label=" "
                   type="date"
-                  defaultValue={moment(new Date(tripTobeEdited.tripDate)).format(format)}
+                  defaultValue={moment(
+                    new Date(tripTobeEdited.tripDate),
+                  ).format(format)}
                   variant="outlined"
                   InputLabelProps={{
                     shrink: true,
@@ -375,10 +386,13 @@ const RequesterContent = () => {
                   onChange={(e) => setTripDate(e.target.value)}
                 />
               </Stack>
-              <Typography id="modal-modal-title" sx={{
-                fontSize: '18px',
-                color: '#00095E',
-              }}>
+              <Typography
+                id="modal-modal-title"
+                sx={{
+                  fontSize: '18px',
+                  color: '#00095E',
+                }}
+              >
                 Return Date
               </Typography>
               <Stack component="form" noValidate spacing={3}>
@@ -387,7 +401,9 @@ const RequesterContent = () => {
                   label=" "
                   type="date"
                   variant="outlined"
-                  defaultValue={moment(new Date(tripTobeEdited.returnDate)).format(format)}
+                  defaultValue={moment(
+                    new Date(tripTobeEdited.returnDate),
+                  ).format(format)}
                   onChange={(e) => setReturnDate(e.target.value)}
                   sx={FormControlSX}
                   InputLabelProps={{
@@ -399,11 +415,10 @@ const RequesterContent = () => {
               <Buttons
                 variant="contained"
                 type="submit"
-
                 sx={{
                   width: {
                     xs: 280,
-                    sm: "100%",
+                    sm: '100%',
                   },
                   height: 50,
                   margin: {
@@ -427,17 +442,19 @@ const RequesterContent = () => {
                       size={20}
                       thickness={4}
                     />
+                  ) : !isEditing ? (
+                    'Create Trip'
                   ) : (
-                    !isEditing ? "Create Trip" : "Edit Trip"
+                    'Edit Trip'
                   )
                 }
               />
             </form>
           </Box>
         </Modal>
-      </Box >
+      </Box>
       <RequesterTable handleOpen={handleOpen} handleEdit={handleEdit} />
-    </Box >
+    </Box>
   );
 };
 export default RequesterContent;

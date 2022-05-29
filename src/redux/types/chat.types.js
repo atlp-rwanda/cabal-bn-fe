@@ -2,5 +2,5 @@ export const SEND_CHATS = 'SEND_CHATS';
 export const RECEIVE_CHATS = 'RECEIVE_CHATS';
 export const SEND_CHAT_ERROR = 'SEND_CHAT_ERROR';
 export const RECEIVE_CHAT_ERROR = 'RECEIVE_CHAT_ERROR';
-export const USER_LEAVING = 'USER_LEAVING'
+export const USER_LEAVING = 'USER_LEAVING';
 export const SOCKET_CONNECT = 'SOCKET_CONNECT';

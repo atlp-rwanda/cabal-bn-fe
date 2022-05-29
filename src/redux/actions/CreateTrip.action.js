@@ -1,5 +1,9 @@
 import axios from '../../axios/axios.instance';
-import { CREATETRIP, CREATETRIP_FAILED, CREATETRIP_SUCCESS } from '../types/CreateTrip.type';
+import {
+  CREATETRIP,
+  CREATETRIP_FAILED,
+  CREATETRIP_SUCCESS,
+} from '../types/CreateTrip.type';
 /* istanbul ignore next */
 export const CreateTrip = (data) => async (dispatch) => {
   try {

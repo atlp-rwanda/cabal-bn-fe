@@ -9,8 +9,8 @@ const OnlineNotify = ({ message }) => (
       margin: '20px auto',
       padding: '10px',
       textAlign: 'center',
-      border: "1px solid #dfd087",
-      borderRadius: "10px",
+      border: '1px solid #dfd087',
+      borderRadius: '10px',
     }}
   >
     {message}
@@ -26,8 +26,8 @@ const UserNotify = ({ user }) => (
       margin: '20px auto',
       padding: '10px',
       textAlign: 'center',
-      border: "1px solid #97C6E3",
-      borderRadius: "10px",
+      border: '1px solid #97C6E3',
+      borderRadius: '10px',
     }}
   >
     {user}

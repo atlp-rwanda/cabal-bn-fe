@@ -32,6 +32,7 @@ import {
 import { getTripReducer } from './read_one_trip.reducer';
 import chatReducer from './chat.reducer';
 import { assignManagerReducer } from './assign_manager.reducer';
+import tripCommentReducer from './tripComment.reducer';
 
 const rootReducer = combineReducers({
   getUserReducer,
@@ -64,5 +65,6 @@ const rootReducer = combineReducers({
   getTripReducer,
   chatReducer,
   assignManagerReducer,
+  tripCommentReducer,
 });
 export default rootReducer;

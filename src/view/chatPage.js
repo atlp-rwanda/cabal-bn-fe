@@ -22,37 +22,37 @@ import { socketContext } from '../helpers/context';
 const useStyles = makeStyles(() =>
   createStyles({
     paper: {
-      width: "80vw",
-      height: "80vh",
-      maxWidth: "1000px",
-      display: "flex",
-      alignItems: "center",
-      flexDirection: "column",
-      position: "relative",
-      backgroundColor: '#F2F2F2'
+      width: '100%',
+      height: '80vh',
+      maxWidth: '1000px',
+      display: 'flex',
+      alignItems: 'center',
+      flexDirection: 'column',
+      position: 'relative',
+      backgroundColor: '#F2F2F2',
     },
     paper2: {
-      width: "80vw",
-      maxWidth: "500px",
-      display: "flex",
-      alignItems: "center",
-      flexDirection: "column",
-      position: "relative"
+      width: '80vw',
+      maxWidth: '500px',
+      display: 'flex',
+      alignItems: 'center',
+      flexDirection: 'column',
+      position: 'relative',
     },
     container: {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      padding: '20px'
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '20px',
     },
     messagesBody: {
-      width: "calc( 100% - 20px )",
+      width: 'calc( 100% - 20px )',
       margin: 10,
-      overflowY: "scroll",
-      height: "calc( 100% - 80px )",
+      overflowY: 'scroll',
+      height: 'calc( 100% - 80px )',
       backgroundColor: '#F2F2F2',
-    }
-  })
+    },
+  }),
 );
 
 const ChatPage = () => {
@@ -126,10 +126,13 @@ const ChatPage = () => {
       <Paper className={classes.paper}>
         <Paper id="style-1" className={classes.messagesBody} elevation={0}>
           {loading ? (
-            <Box sx={{ width: "100%" }}>
-              <CircularProgress size={"80px"} sx={{
-                margin: "50%"
-              }} />
+            <Box sx={{ width: '100%' }}>
+              <CircularProgress
+                size="80px"
+                sx={{
+                  margin: '50%',
+                }}
+              />
             </Box>
           ) : (
             <>
@@ -157,8 +160,8 @@ const ChatPage = () => {
               />
               {receivedMessage.map((message, index) =>
                 message.User?.first_name ===
-                  JSON.parse(localStorage.getItem('userCredentials'))
-                    ?.first_name ? (
+                JSON.parse(localStorage.getItem('userCredentials'))
+                  ?.first_name ? (
                   <MessageRight
                     message={message.message}
                     timestamp={`${new Date(

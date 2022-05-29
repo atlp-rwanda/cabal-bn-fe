@@ -19,7 +19,7 @@ const Navlinks = styled(Box)({
   alignItems: 'center',
 });
 
-const Links = styled(Typography)({
+const Links = styled('div')({
   fontSize: '14px',
   fontWeight: 500,
   padding: '20px',
@@ -99,7 +99,7 @@ const NavBar = ({ pages, requester, logo }) => {
                 color: '#00095E',
                 fontSize: theme?.typography.fontSize,
               }}
-            // onClick={close}
+              // onClick={close}
             >
               <Links>
                 <Link href="#" underline="none" color="#00095E">

@@ -49,11 +49,3 @@ describe('REQUESTER MODALS TEST', () => {
     expect(closeIcon).not.toBeInTheDocument();
   });
 });
-
-
-
-
-
-
-
-

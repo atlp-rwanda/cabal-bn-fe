@@ -4,9 +4,8 @@ import axios from '../../axios/axios.instance';
 export const Rating = async (pathId, rate) => {
   try {
     const data = await axios.put(`/accommodations/${pathId}/rate`, { rate });
-    toast.success(data.data.message)
-
+    toast.success(data.data.message);
   } catch (error) {
-    toast.error(error.response.data.message)
+    toast.error(error.response.data.message);
   }
 };

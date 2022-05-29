@@ -125,10 +125,7 @@ export default ({ handleClose, open }) => {
                   >
                     <Typography
                       sx={{
-                        fontWeight:
-                          notification.isRead === false
-                            ? 500
-                            : 300,
+                        fontWeight: notification.isRead === false ? 500 : 300,
                       }}
                     >
                       from:{' '}

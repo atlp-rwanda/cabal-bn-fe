@@ -6,6 +6,7 @@ const initialState = {
   loading: '',
 };
 
+/* istanbul ignore next */
 export const getTripReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ONE_TRIP_PENDING:

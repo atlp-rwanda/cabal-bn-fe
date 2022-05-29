@@ -3,7 +3,7 @@ import {
   RECEIVE_CHAT_ERROR,
   SEND_CHATS,
   SEND_CHAT_ERROR,
-  SOCKET_CONNECT
+  SOCKET_CONNECT,
 } from '../types/chat.types';
 
 const initialState = {
@@ -11,7 +11,7 @@ const initialState = {
   sendMessage: [],
   error: [],
   connected: false,
-  socket: null
+  socket: null,
 };
 
 const chatReducer = (state = initialState, action) => {
@@ -49,12 +49,11 @@ const chatReducer = (state = initialState, action) => {
         ...state,
         error: null,
         socket: action.payload,
-        connected: true
-      }
+        connected: true,
+      };
     default:
       return state;
   }
 };
-
 
 export default chatReducer;
