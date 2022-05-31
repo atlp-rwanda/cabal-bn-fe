@@ -1,5 +1,6 @@
-/* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { Box, Badge, Avatar, Paper, Typography } from '@mui/material';
+import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Link, Outlet, useNavigate, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Menu from '@mui/material/Menu';
@@ -7,7 +8,6 @@ import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Logout from '@mui/icons-material/Logout';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import { Box, Badge, Avatar, Paper, Typography } from '@mui/material';
 import io from 'socket.io-client';
 import { toast } from 'react-toastify';
 import { loggedInUser } from '../redux/actions/auth';
@@ -25,16 +25,12 @@ import { logoutUser } from '../redux/actions/logout.action';
 import { retrieveAction } from '../redux/actions/profile.action';
 import settingsIcon from '../assets/settings-icon.svg';
 import { fetchNotifications } from '../redux/actions/notifications.action';
-
-const token = JSON.parse(localStorage.getItem('userCredentials'))?.token;
-const socket = io('https://barefoot-backend-development.herokuapp.com/', {
-  auth: { token },
-});
+import { chatLeave, receiveMessage, socketConnecting } from '../redux/actions/chat.action';
+import { socketContext } from '../helpers/context';
 
 const DashboardPreview = () => {
   const [name, setName] = useState('');
   const [profile, setProfile] = useState('');
-  const dispatch = useDispatch();
   const { data } = useSelector((state) => state.loggedInUser);
   const { notifications, unread } = useSelector((state) => state.notifications);
   const { user } = useSelector((state) => state.profileReducer.data);
@@ -42,9 +38,11 @@ const DashboardPreview = () => {
   const redirect = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const dispatch = useDispatch()
   if (!roleId) {
     return <Navigate to="/login" />;
   }
+  const socket = useContext(socketContext)
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -53,9 +51,9 @@ const DashboardPreview = () => {
   };
   const logoutClick = async () => {
     await store.dispatch(logoutUser());
-    const { userReducer } = store.getState();
-    console.log(userReducer, 'these are logout');
+    const { userReducer, chatReducer } = store.getState();
     if (userReducer.isLogged === false) {
+      socket.emit('user:leaving', JSON.parse(localStorage.getItem('userCredentials')))
       localStorage.removeItem('userCredentials');
       redirect('/login');
     }
@@ -71,13 +69,26 @@ const DashboardPreview = () => {
   useEffect(() => {
     fetchProfile();
     dispatch(loggedInUser());
-    // if (user && notifications.to_user_id === user.profile?.user_id) {
+    socket.connect()
+  }, []);
+  useEffect(() => {
+    socket.on("connect", () => {
+      console.log(socket.connected); // true
+    });
+    socket.on('authFailed', data => {
+      console.log(data)
+    })
+    socket.on("connect_error", (error) => {
+      if (error.message) {
+        socket.auth.token = JSON.parse(localStorage.getItem('userCredentials'))?.token
+        socket.connect()
+      }
+    });
     socket.on('notification', (notification) => {
       toast.success(notification);
       dispatch(fetchNotifications(1, 10));
     });
-    // }
-  }, []);
+  }, [])
 
   const pages = [
     `${roleId?.first_name}`,
@@ -118,14 +129,14 @@ const DashboardPreview = () => {
       id: 3,
     },
     {
-      to: '/dashboard/chats',
+      to: '/dashboard/chat',
       link: 'Chats',
       icon: chatIcon,
       id: 4,
     },
   ];
 
-  if (roleId.role_id === 1) {
+  if (roleId?.role_id === 1) {
     sideBarLinks.push({
       to: '/dashboard/roles',
       link: 'Settings',

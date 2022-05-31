@@ -9,12 +9,14 @@ import {
   GET_LOGGEDIN_USER_PROFILE_SUCCESS,
 } from '../types/login.types';
 import { ERROR_LOGOUT, LOGOUT_USER } from '../types/logout.types';
+import { USER_LEAVING } from "../types/chat.types"
 
 const initialState = {
   data: [],
   loading: true,
   isLogged: false,
   error: '',
+  chatDisconnect: []
 };
 /* istanbul ignore next */
 export const userReducer = (state = initialState, action) => {
@@ -68,3 +70,13 @@ export const loggedInUserReducer = (state = initialState, action) => {
       return state;
   }
 };
+
+export const chatLeaving = (state = initialState, action) => {
+  switch (action.type) {
+    case USER_LEAVING:
+      return { ...state, chatDisconnect: action.payload }
+
+    default:
+      return state
+  }
+}

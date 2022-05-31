@@ -30,6 +30,7 @@ import {
   fetchAllBookingsReducer,
 } from './booking.reducer';
 import { getTripReducer } from './read_one_trip.reducer';
+import chatReducer from './chat.reducer';
 
 const rootReducer = combineReducers({
   getUserReducer,
@@ -60,5 +61,6 @@ const rootReducer = combineReducers({
   notifications: fetchNotifications,
   accommodationComments: fetchCommentsReducer,
   getTripReducer,
+  chatReducer
 });
 export default rootReducer;

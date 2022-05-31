@@ -16,7 +16,6 @@ import {
   CircularProgress,
   Alert,
   Link as A,
-  Stack,
 } from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -33,7 +32,6 @@ import { urlSerializer } from '../helpers/login.helpers';
 import { errorAlert } from '../helpers/signup.helper';
 import Header from '../components/landing/header';
 import LandingFooter from '../components/landing/footer';
-import { loggedInUser } from '../redux/actions/auth';
 import { retrieveAction } from '../redux/actions/profile.action';
 
 const LoginImage = styled('img')(() => ({
