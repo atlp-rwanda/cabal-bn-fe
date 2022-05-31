@@ -9,6 +9,7 @@ import React, { useState } from 'react';
 import {
   Box,
   styled,
+  // Link,
   Typography,
   InputAdornment,
   IconButton,
@@ -34,7 +35,8 @@ import { errorAlert } from '../helpers/signup.helper';
 import Header from '../components/landing/header';
 import { Link } from 'react-router-dom';
 import LandingFooter from '../components/landing/footer';
-
+import { loggedInUser } from '../redux/actions/auth';
+import { retrieveAction } from '../redux/actions/profile.action';
 const LoginImage = styled('img')(() => ({
   width: 400,
   height: 320,
@@ -44,11 +46,10 @@ const LoginImage = styled('img')(() => ({
 
 const SocialLoginLink = ({ type, variant, startIcon, sx, value }) => (
   <A
-    href={`${
-      process.env.REACT_APP_BACKEND_URL
-    }/users/${type}/login/?${urlSerializer(
-      `${process.env.DEPLOY_PRIME_URL}/social/login`,
-    )}`}
+    href={`${process.env.REACT_APP_BACKEND_URL
+      }/users/${type}/login/?${urlSerializer(
+        `${process.env.DEPLOY_PRIME_URL}/social/login`,
+      )}`}
   >
     <Buttons variant={variant} startIcon={startIcon} sx={sx} value={value} />
   </A>
@@ -75,14 +76,14 @@ const mediaStyles = {
 };
 
 const container = {
-  paddingTop: '100px',
+  paddingTop: '30px',
   display: 'flex',
   flexDirection: {
     xs: 'column',
     md: 'row',
   },
   alignItems: 'center',
-  margin: '50px 20px',
+  margin: '100px 20px',
   background: 'F8F9FA',
   justifyContent: 'space-evenly',
 };
@@ -127,14 +128,14 @@ const Login = () => {
       !email.match(regexEmail) && email.length
         ? 'Invalid email'
         : email.match(regexEmail)
-        ? ''
-        : 'Email required';
+          ? ''
+          : 'Email required';
     const passwordError =
       !password.match(regexPassword) && password.length > 6
         ? 'Must have at least one digit and capital letter'
         : password.match(regexPassword)
-        ? ''
-        : 'Password required';
+          ? ''
+          : 'Password required';
 
     setValidationError(() => ({
       email: emailError,
@@ -151,6 +152,7 @@ const Login = () => {
       setLoading(true);
       await store.dispatch(loginAction({ email, password }));
       if (store.getState().userReducer.isLogged) {
+        await store.dispatch(retrieveAction());
         navigate('/dashboard/trips');
       } else {
         setLoading(false);
@@ -161,7 +163,7 @@ const Login = () => {
 
   return (
     <>
-      <NavBar pages={pages} />
+      <Header aboutClass={'to'} />
       <Box sx={container}>
         <Box
           sx={{

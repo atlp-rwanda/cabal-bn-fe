@@ -13,6 +13,7 @@ export const Reset = (password, token) => async (dispatch) => {
     });
     const data = await axios.patch(
       `/users/reset-password/${token}`, { password });
+    /* istanbul ignore next */
     dispatch({
       type: RESETPASSWORD_SUCCESS,
       payload: data.data,

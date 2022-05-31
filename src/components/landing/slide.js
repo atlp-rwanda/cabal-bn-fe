@@ -21,7 +21,7 @@ const Stylepaper = styled(Paper)(({ theme }) => ({
 
 const Slide = () => {
   const locations = useSelector((state) => state.landingReducer);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     store.dispatch(getLoc());
@@ -37,7 +37,7 @@ const Slide = () => {
 
   useEffect(() => {
     if (locations.locations.length > 2) {
-      setLoading(false);
+      setLoading(false)
     }
   });
 

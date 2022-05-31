@@ -107,10 +107,6 @@ describe.only('LANDING-PAGE TESTS', () => {
     expect(images).toBeInTheDocument();
   });
 
-  // it('should test the display of stars', () => {
-  //   render(<Stars rates={2.5} />);
-  // });
-
   it('should test location action', async () => {
     const location = [];
 

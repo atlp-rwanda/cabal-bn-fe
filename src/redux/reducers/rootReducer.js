@@ -9,6 +9,7 @@ import { forgot } from './ForgotReducer';
 import { Reset } from './ResetPasswordReducer';
 import accommodationReducer from './accommodation.reducer';
 import { requestsReducer } from './requesterDashboard';
+import { profileReducer } from './profileReducer';
 
 const rootReducer = combineReducers({
   loggedInUser: loggedInUserReducer,
@@ -21,5 +22,6 @@ const rootReducer = combineReducers({
   Reset,
   accommodationReducer,
   requestsReducer,
+  profileReducer,
 });
 export default rootReducer;
