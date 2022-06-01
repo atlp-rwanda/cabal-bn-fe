@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from 'react';
 
 import {
@@ -47,6 +48,7 @@ const RequesterTable = () => {
   const { data } = useSelector((state) => state.requestsReducer.requests);
 
   const handleChangePage = (event, newPage) => {
+    /* istanbul ignore next */
     setPage(newPage);
   };
 
@@ -55,6 +57,7 @@ const RequesterTable = () => {
     setRequesterId(id);
   };
 
+  /* istanbul ignore next */
   const handleClose = () => {
     setOpen(false);
   };
@@ -141,13 +144,14 @@ const RequesterTable = () => {
                       {new Date(row.tripDate).toDateString()}
                     </StyledTableCell>
                     <StyledTableCell align="center">
-                      {role.role_id === 3 && (
-                        <Approve
-                          row={row}
-                          handleApprove={handleApprove}
-                          handleReject={handleReject}
-                        />
-                      )}
+                      {role.role_id === 3 ||
+                        (role.role_id === 1 && (
+                          <Approve
+                            row={row}
+                            handleApprove={handleApprove}
+                            handleReject={handleReject}
+                          />
+                        ))}
                       {role.role_id === 4 && (
                         <Grid
                           container
@@ -226,6 +230,6 @@ const RequesterTable = () => {
       />
     </>
   );
-};;
+};
 
 export default RequesterTable;

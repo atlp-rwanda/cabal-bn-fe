@@ -181,6 +181,7 @@ const ResetPassword = (props) => {
     if (validate()) {
       setLoading(true);
       await Reset(password, token)(dispatch);
+      /* istanbul ignore next */
       setLoading(false);
     }
   };

@@ -29,6 +29,7 @@ const FooterImage = () => {
   }, []);
 
 if(window.innerWidth<600){
+  /* istanbul ignore next */
   accommodations=accommodation.accommodations.slice(0,1)
 }
 else{
@@ -49,7 +50,9 @@ else{
       cols={accommodations.length}
     >
       {accommodations.length>0?(
+        /* istanbul ignore next */
         accommodations.map((item) => (
+          /* istanbul ignore next */
         <ImageListItem key={item.id}>
           <img
             src={`${item.images[0]}?w=248&fit=crop&auto=format`}

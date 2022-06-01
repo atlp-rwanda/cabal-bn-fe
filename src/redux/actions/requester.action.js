@@ -27,6 +27,7 @@ export const retrieveRequests = (page, rowsPerPage) => async (dispatch) => {
     const res = await axios(`/trips/?page=${page + 1}&limit=${rowsPerPage}`, {
       method: 'GET',
     });
+    /* istanbul ignore next */
     await dispatch({
       type: FETCH_REQUESTS_SUCCESS,
       payload: res.data,

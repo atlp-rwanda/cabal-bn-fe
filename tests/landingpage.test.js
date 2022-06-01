@@ -27,7 +27,7 @@ import store from '../src/redux/store';
 import accommodationReducer from '../src/redux/reducers/accommodation.reducer';
 import LandingFooter from '../src/components/landing/footer';
 
-describe.only('LANDING-PAGE TESTS', () => {
+describe('LANDING-PAGE TESTS', () => {
   const history = createMemoryHistory();
   it('should test the display of welcome text', () => {
     render(
