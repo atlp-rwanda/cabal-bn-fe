@@ -54,8 +54,8 @@ const DashboardPreview = () => {
     await store.dispatch(retrieveAction());
     store.subscribe(() => {
       const { profileReducer } = store.getState();
-      setName(profileReducer.data.user.first_name);
-      setProfile(profileReducer.data.user.profile_picture);
+      setName(profileReducer.data.user?.first_name);
+      setProfile(profileReducer.data.user?.profile_picture);
     });
   };
   useEffect(() => {

@@ -19,6 +19,7 @@ import {
   createAccommodationReducer,
   deleteAccommodationReducer,
   updateAccommodationReducer,
+  fetchCommentsReducer,
 } from './accommodation.reducer';
 import { createRoomReducer, fetchRoomsReducer } from './room.reducer';
 import {
@@ -50,5 +51,6 @@ const rootReducer = combineReducers({
   requestsReducer,
   profileReducer,
   assignRoleReducer,
+  accommodationComments: fetchCommentsReducer,
 });
 export default rootReducer;

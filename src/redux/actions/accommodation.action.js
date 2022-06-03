@@ -1,3 +1,6 @@
+/* eslint-disable camelcase */
+/* eslint-disable import/no-duplicates */
+/* eslint-disable no-unused-vars */
 /* eslint-disable import/prefer-default-export */
 import { toast } from 'react-toastify';
 import {
@@ -17,12 +20,14 @@ import {
   UPDATE_ACCOMMODATION_SUCCESS,
   UPDATE_ACCOMMODATION_FAILED,
   FILTER_ACCOMMODATION,
+  FETCH_COMMENTS,
+  CREATE_COMMENTS,
+  UPDATE_COMMENTS,
+  DELETE_COMMENTS,
 } from '../types/accommodation.types';
 import axios from '../../axios/axios.instance';
 import { FETCHACCOMMODATIONS } from '../actionTypes/actionTypes';
 import axiosInstance from '../../axios/axios.instance';
-
-import { toast } from 'react-toastify';
 
 export const getAccommodations = (payload) => (dispatch) => {
   dispatch({
@@ -159,9 +164,89 @@ export const filterAccommodationsAction =
   };
 
 export const fetchComments =
-  (accommodationId, page, limit) => async (dispatch) => {
+  (accommodationId, pages, limit) => async (dispatch) => {
     try {
+      const res = await await axios(
+        `/accommodations/${accommodationId}/comment/?pages=${pages}&limit=${limit}`,
+        { method: 'GET' },
+      );
+      await dispatch({
+        type: `${FETCH_COMMENTS}_SUCCESS`,
+        payload: res.data,
+      });
     } catch (err) {
-      await dispatch({ type: `${FETCH_COMMENTS}_FAILED` });
+      await dispatch({
+        type: `${FETCH_COMMENTS}_FAILED`,
+        payload: err.response.data,
+      });
+    }
+  };
+
+export const createFeedback =
+  (accommodationId, comment) => async (dispatch) => {
+    try {
+      await dispatch({
+        type: `${CREATE_COMMENTS}_PENDING`,
+      });
+      const res = await axios(`/accommodations/${accommodationId}/comment`, {
+        method: 'POST',
+        data: { comment },
+      });
+      await dispatch({
+        type: `${CREATE_COMMENTS}_SUCCESS`,
+        payload: res.data,
+      });
+      toast.success(res.data.message);
+    } catch (err) {
+      console.log(err.response.data, 'these are the error');
+      await dispatch({
+        type: `${CREATE_COMMENTS}_FAILED`,
+        payload: err.response.data,
+      });
+      toast.error(err.response.data.message);
+    }
+  };
+
+export const updateComments =
+  (accommodationId, commentId, comment) => async (dispatch) => {
+    try {
+      const res = await axios(
+        `/accommodations/${accommodationId}/comment/${commentId}`,
+        { method: 'PUT', data: { comment } },
+      );
+      await dispatch({
+        type: `${UPDATE_COMMENTS}_SUCCESS`,
+        payload: { commentId, res, comment },
+      });
+      console.log(res.data.message);
+      toast.success(res.data?.message);
+    } catch (err) {
+      console.log(err);
+      await dispatch({
+        type: `${UPDATE_COMMENTS}_FAILED`,
+        // payload: err.response.data,
+      });
+      toast.error(err.response.data.message);
+    }
+  };
+
+export const deleteComment =
+  (accommodationId, commentId) => async (dispatch) => {
+    try {
+      const res = await axios(
+        `/accommodations/${accommodationId}/comment/${commentId}`,
+        { method: 'DELETE' },
+      );
+      await dispatch({
+        type: `${DELETE_COMMENTS}_SUCCESS`,
+        payload: { commentId, res },
+      });
+      toast.success(res.data.message);
+    } catch (err) {
+      await dispatch({
+        type: `${DELETE_COMMENTS}_FAILED`,
+        payload: err.response.data,
+      });
+      toast.error(err.response.data.message);
     }
   };

@@ -1,4 +1,6 @@
 /* eslint-disable no-plusplus */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-unused-vars */
 /* eslint-disable consistent-return */
 /* eslint-disable prettier/prettier */
 import { FETCHACCOMMODATIONS } from '../actionTypes/actionTypes';
@@ -19,6 +21,10 @@ import {
   UPDATE_ACCOMMODATION_SUCCESS,
   UPDATE_ACCOMMODATION_FAILED,
   FILTER_ACCOMMODATION,
+  FETCH_COMMENTS,
+  CREATE_COMMENTS,
+  UPDATE_COMMENTS,
+  DELETE_COMMENTS,
 } from '../types/accommodation.types';
 
 const initialState1 = {
@@ -43,6 +49,8 @@ const initialState = {
   accommodations: [],
   error: null,
   pending: false,
+  loading: false,
+  comments: [],
 };
 const initialStateAllAccommodation = {
   accommodations: [],
@@ -206,6 +214,74 @@ export const updateAccommodationReducer = (state = initialState, action) => {
         accommodations: [],
         error: action.payload,
       };
+    default:
+      return state;
+  }
+};
+
+export const fetchCommentsReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case `${FETCH_COMMENTS}_SUCCESS`:
+      return {
+        ...state,
+        comments: action.payload,
+      };
+    case `${FETCH_COMMENTS}_FAILED`:
+      return {
+        ...state,
+        error: action.payload,
+      };
+    case `${CREATE_COMMENTS}_PENDING`:
+      return { ...state, pending: true };
+    case `${CREATE_COMMENTS}_SUCCESS`:
+      return {
+        ...state,
+        comments: {
+          ...state.comments,
+          data: {
+            ...state.comments.data,
+            results: [action.payload.data, ...state.comments.data.results],
+          },
+        },
+        pending: false,
+      };
+    case `${CREATE_COMMENTS}_FAILED`:
+      return { ...state, pending: false };
+    case `${UPDATE_COMMENTS}_PENDING`:
+      return { ...state, loading: true };
+    case `${UPDATE_COMMENTS}_SUCCESS`:
+      return {
+        ...state,
+        comments: {
+          ...state.comments,
+          data: {
+            ...state.comments.data,
+            results: state.comments.data.results.map((comment) =>
+              comment.id === action.payload.commentId
+                ? { ...comment, comment: action.payload.comment }
+                : comment,
+            ),
+          },
+        },
+        loading: false,
+      };
+    case `${UPDATE_COMMENTS}_FAILED`:
+      return { ...state, loading: false };
+    case `${DELETE_COMMENTS}_SUCCESS`:
+      return {
+        ...state,
+        comments: {
+          ...state.comments,
+          data: {
+            ...state.comments.data,
+            results: state.comments.data.results.filter(
+              (comment) => comment.id !== action.payload.commentId,
+            ),
+          },
+        },
+      };
+    case `${DELETE_COMMENTS}_FAILED`:
+      return state;
     default:
       return state;
   }
