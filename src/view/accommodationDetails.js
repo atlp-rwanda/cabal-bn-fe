@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import React, { useEffect, useState } from 'react';
 import { Typography, Grid, CardActionArea, Paper, styled } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -16,6 +17,7 @@ import { fetchSingleAccommodation } from '../redux/actions/accommodation.action'
 import { useSelector, useDispatch } from 'react-redux';
 import SimpleImageSlider from 'react-simple-image-slider';
 import Buttons from '../components/button';
+import AccommodationComment from '../components/accommodation/accommodation.comment';
 
 const styles = {
   display: 'flex',
@@ -132,6 +134,7 @@ export const AccommodationDetails = () => {
           </div>
         </Grid>
       )}
+      {!accommodationState.pending === true && <AccommodationComment />}
       {!accommodationState?.pending === true && (
         <Grid
           container
@@ -169,7 +172,7 @@ export const AccommodationDetails = () => {
               },
             }}
             startIcon={<Add />}
-            value={'Create a Room'}
+            value="Create a Room"
           />
           <Grid item>
             <Grid
@@ -192,7 +195,7 @@ export const AccommodationDetails = () => {
                         height={150}
                         images={room.images}
                         showBullets={true}
-                        showNavs={true}
+                        showNavs
                       />
                     </CardActionArea>
                     <CardContent>

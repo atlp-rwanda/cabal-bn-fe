@@ -133,3 +133,11 @@ export const deleteAccommodationAction = (acc_id) => async (dispatch) => {
     });
   }
 };
+
+export const fetchComments =
+  (accommodationId, page, limit) => async (dispatch) => {
+    try {
+    } catch (err) {
+      await dispatch({ type: `${FETCH_COMMENTS}_FAILED` });
+    }
+  };
