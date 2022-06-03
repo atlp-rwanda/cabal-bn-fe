@@ -99,7 +99,7 @@ const NavBar = ({ pages, requester, logo }) => {
                 color: '#00095E',
                 fontSize: theme?.typography.fontSize,
               }}
-              // onClick={close}
+            // onClick={close}
             >
               <Links>
                 <Link href="#" underline="none" color="#00095E">

@@ -82,8 +82,8 @@ export default function Forgot() {
       !email.match(regexEmail) && email.length
         ? 'Invalid email'
         : email.match(regexEmail)
-        ? ''
-        : 'Email required';
+          ? ''
+          : 'Email required';
     setValidationError(() => ({
       email: emailError,
     }));

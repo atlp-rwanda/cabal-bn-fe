@@ -17,6 +17,10 @@ import { retrieveRequests } from '../src/redux/actions/requester.action';
 import { requestsReducer } from '../src/redux/reducers/requesterDashboard';
 import RequesterContent from '../src/view/requesterContent';
 
+jest.mock('uuid', () => {
+  let value = 0;
+  return () => value++;
+});
 test('Render all requests', async () => {
   await renderWithProviders(
     <MemoryRouter>

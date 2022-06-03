@@ -21,7 +21,7 @@ export default ({ row, handleApprove, handleReject }) => (
           color: '#fff',
         },
       }}
-      /* istanbul ignore next */
+
       onClick={() => handleApprove(row.id)}
     >
       Approve
@@ -42,7 +42,6 @@ export default ({ row, handleApprove, handleReject }) => (
           color: '#fff',
         },
       }}
-      /* istanbul ignore next */
       onClick={() => handleReject(row.id)}
     >
       Reject

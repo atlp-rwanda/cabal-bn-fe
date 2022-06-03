@@ -12,9 +12,8 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (request) => {
     // Do something before request is sent
-    request.headers.authorization = `${'Bearer' + ' '}${
-      JSON.parse(localStorage.getItem('userCredentials'))?.token
-    }`;
+    request.headers.authorization = `${'Bearer' + ' '}${JSON.parse(localStorage.getItem('userCredentials'))?.token
+      }`;
     return request;
   },
   (error) =>

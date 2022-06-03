@@ -4,7 +4,7 @@ import {
   FORGOTPASSWORD_SUCCESS,
   FORGOTPASSWORD_FAILED,
 } from '../types/ForgotType';
-
+/* istanbul ignore next */
 export const sendEmail = (email) => async (dispatch) => {
   try {
     dispatch({

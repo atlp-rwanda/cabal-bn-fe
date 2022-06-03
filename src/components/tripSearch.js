@@ -68,7 +68,7 @@ const theme = createTheme({
   },
 });
 
-function TripSearch({ page, rowsPerPage }) {
+function TripSearch({ page, rowsPerPage, handleOpen }) {
   const inputWidth = 150;
   const dispatch = useDispatch();
   const locationsState = useSelector((state) => state.locationReducer);
@@ -270,6 +270,20 @@ function TripSearch({ page, rowsPerPage }) {
                 onClick={searchLocation}
               >
                 Search Trip
+              </Button>
+            </Grid>
+            <Grid item width={inputWidth}>
+              <Button
+                data-testid="createTripbutton"
+                variant="contained"
+                fullWidth
+                sx={{
+                  backgroundColor: '#1A2D6D',
+                  height: 37,
+                }}
+                onClick={handleOpen}
+              >
+                + CREATE TRIP
               </Button>
             </Grid>
           </Grid>

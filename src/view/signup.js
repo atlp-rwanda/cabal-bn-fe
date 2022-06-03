@@ -78,28 +78,28 @@ const Signup = () => {
       email === ''
         ? 'Email is required'
         : email.match(regexEmail)
-        ? ''
-        : 'Please insert a valid email address';
+          ? ''
+          : 'Please insert a valid email address';
     const passwordError =
       password === ''
         ? 'Password is required'
         : password.length < 8
-        ? 'Password must be 8 characters long'
-        : password.match(regexPassword)
-        ? ''
-        : 'Only letters (lower + upper), and numbers are allowed';
+          ? 'Password must be 8 characters long'
+          : password.match(regexPassword)
+            ? ''
+            : 'Only letters (lower + upper), and numbers are allowed';
     const fnameError =
       firstName === ''
         ? 'First name is required'
         : firstName.match(regexLetter)
-        ? ''
-        : 'Invalid input for first name';
+          ? ''
+          : 'Invalid input for first name';
     const lnameError =
       lastName === ''
         ? 'Last name is required'
         : lastName.match(regexLetter)
-        ? ''
-        : 'Invalid input for last name';
+          ? ''
+          : 'Invalid input for last name';
     const locationError = location === '' ? 'Location is required' : '';
     setValidationError((state) => ({
       firstName: fnameError,

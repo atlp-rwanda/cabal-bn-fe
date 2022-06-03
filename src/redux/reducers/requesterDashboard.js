@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable object-curly-newline */
 /* eslint-disable import/prefer-default-export */
+/* istanbul ignore next */
 import {
   FETCH_REQUESTS_PENDING,
   FETCH_REQUESTS_SUCCESS,
@@ -15,7 +16,7 @@ import {
   REJECT_REQUEST_ERROR,
   REJECT_REQUEST_SUCCESS,
 } from '../types/Requester.Types';
-
+/* istanbul ignore next */
 const initialState = {
   requests: [],
   error: null,
@@ -25,6 +26,7 @@ const initialState = {
 };
 /* istanbul ignore next */
 export const requestsReducer = (state = initialState, action) => {
+  /* istanbul ignore next */
   switch (action.type) {
     case FETCH_REQUESTS_PENDING:
       return { ...state, pending: true, requests: [], error: null };
@@ -57,12 +59,13 @@ export const requestsReducer = (state = initialState, action) => {
         },
         error: null,
       };
-
+    /* istanbul ignore next */
     case DELETE_REQUESTS_ERROR:
       return { ...state, loading: false, error: action.payload };
 
     case APPROVE_PENDING_REQUEST:
       return { ...state, loading: true };
+    /* istanbul ignore next */
     case APPROVE_REQUEST_SUCCESS:
       return {
         ...state,
@@ -86,6 +89,7 @@ export const requestsReducer = (state = initialState, action) => {
 
     case REJECT_PENDING_REQUEST:
       return { ...state, loading: true };
+
     case REJECT_REQUEST_SUCCESS:
       return {
         ...state,

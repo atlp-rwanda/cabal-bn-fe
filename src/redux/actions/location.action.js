@@ -1,12 +1,13 @@
 import axios from '../../axios/axios.instance';
 import { GETLOCATIONS } from '../actionTypes/actionTypes';
+
 import {
   GET_LOCATIONS,
   ERR_GETTING_LOCATIONS,
   GET_ONE_LOCATION,
   LOADING_LOCATIONS,
 } from '../types/location.types';
-
+/* istanbul ignore next */
 export const getLocs = (data) => ({
   type: GET_LOCATIONS,
   payload: data,

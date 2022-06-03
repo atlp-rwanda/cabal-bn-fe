@@ -133,6 +133,7 @@ const BookingTable = () => {
   const bookings = useSelector((state) => state.fetchAllBookingsReducer);
   const dispatch = useDispatch();
   const history = useNavigate();
+  /* istanbul ignore next */
   useEffect(() => {
     const roleId = JSON.parse(localStorage.getItem('userCredentials'));
     if (roleId?.role_id === 3) {
@@ -262,13 +263,12 @@ const BookingTable = () => {
                   <TableCell
                     style={{
                       width: 160,
-                      color: `${
-                        row.status === 'APPROVED'
-                          ? '#018786'
-                          : row.status === 'REJECTED'
+                      color: `${row.status === 'APPROVED'
+                        ? '#018786'
+                        : row.status === 'REJECTED'
                           ? '#EC5C5C'
                           : '#FFC800'
-                      }`,
+                        }`,
                     }}
                     align="center"
                   >
@@ -316,7 +316,7 @@ const BookingTable = () => {
                           sx={{
                             backgroundColor:
                               row.status === 'APPROVED' ||
-                              row.status === 'REJECTED'
+                                row.status === 'REJECTED'
                                 ? '#EC5C5C'
                                 : '#0ABDA0',
                             color: '#fff',
@@ -342,7 +342,7 @@ const BookingTable = () => {
                           sx={{
                             backgroundColor:
                               row.status === 'REJECTED' ||
-                              row.status === 'APPROVED'
+                                row.status === 'APPROVED'
                                 ? '#EC5C5C'
                                 : '#E13535',
                             color: '#fff',
@@ -359,7 +359,7 @@ const BookingTable = () => {
                         </Button>
                       </div>
                     ) : JSON.parse(localStorage.getItem('userCredentials'))
-                        ?.role_id === 2 ? (
+                      ?.role_id === 2 ? (
                       <div
                         className="idIs4"
                         style={{

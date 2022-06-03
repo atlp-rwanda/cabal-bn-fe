@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { Paper, Typography } from '@mui/material';
-
+/* istanbul ignore next */
 const MobileNav = ({ mobileLinks }) => (
   <Paper
     elevation={0}
