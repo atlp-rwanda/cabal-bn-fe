@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Typography, Grid, CardActionArea, Paper, styled } from '@mui/material';
@@ -12,6 +13,7 @@ import Buttons from '../components/button';
 import { unloggedInUser } from '../helpers/login.helpers';
 import Header from '../components/landing/header';
 import { RoomModal } from '../components/RoomModal';
+import AccommodationComment from '../components/accommodation/accommodation.comment';
 
 const papeStyles = {
   display: 'flex',
@@ -168,6 +170,7 @@ export const AccommodationDetails = () => {
             </Grid>
           </Grid>
         )}
+        {!accommodationState.pending === true && <AccommodationComment />}
         {!accommodationState?.pending === true && (
           <Grid
             container

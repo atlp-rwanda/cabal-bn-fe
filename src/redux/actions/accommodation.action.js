@@ -157,3 +157,11 @@ export const filterAccommodationsAction =
       });
     }
   };
+
+export const fetchComments =
+  (accommodationId, page, limit) => async (dispatch) => {
+    try {
+    } catch (err) {
+      await dispatch({ type: `${FETCH_COMMENTS}_FAILED` });
+    }
+  };
