@@ -21,13 +21,14 @@ describe('FORGOT PASSWORD', () => {
       .create(
         <Provider store={store}>
           <Router>
-          <Forgot />
+            <Forgot />
           </Router>
         </Provider>,
-      ).toJSON();
+      )
+      .toJSON();
     expect(element).toMatchSnapshot();
   });
-  it("should testing invalid empty Email", () => {
+  it('should testing invalid empty Email', () => {
     render(
       <Provider store={store}>
         <Router>
@@ -40,8 +41,8 @@ describe('FORGOT PASSWORD', () => {
     const button = screen.getByRole('button', { name: 'Submit' });
     fireEvent.click(button);
     const validation = screen.findByText('Email required');
-  })
-  it("should testing valid Email", () => {
+  });
+  it('should testing valid Email', () => {
     render(
       <Provider store={store}>
         <Router>
@@ -53,7 +54,9 @@ describe('FORGOT PASSWORD', () => {
     fireEvent.change(email, { target: { value: 'REQUESTER@gmail.com' } });
     const button = screen.getByRole('button', { name: 'Submit' });
     fireEvent.click(button);
-    const validation = screen.findByText('Password reset link has been sent to your email');
+    const validation = screen.findByText(
+      'Password reset link has been sent to your email',
+    );
     expect(sendEmail(email));
-  })
-})
+  });
+});

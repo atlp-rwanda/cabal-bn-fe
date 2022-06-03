@@ -35,7 +35,7 @@ describe('LANDING-PAGE TESTS', () => {
         <Router location={history.location} navigator={history}>
           <Welcome />
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     const welcomeText = screen.getByText(/Life long memories just/i);
@@ -48,7 +48,7 @@ describe('LANDING-PAGE TESTS', () => {
         <Router location={history.location} navigator={history}>
           <Header />
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     const welcomeText = screen.getByText(/Home/i);
@@ -61,7 +61,7 @@ describe('LANDING-PAGE TESTS', () => {
         <Router location={history.location} navigator={history}>
           <About />
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     const welcomeText = screen.getByText(/About/i);
@@ -74,7 +74,7 @@ describe('LANDING-PAGE TESTS', () => {
         <Router location={history.location} navigator={history}>
           <Service />
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     const welcomeText = screen.getByText(/Our popular services/i);
@@ -87,7 +87,7 @@ describe('LANDING-PAGE TESTS', () => {
         <Router location={history.location} navigator={history}>
           <LandingFooter />
         </Router>
-      </Provider>
+      </Provider>,
     );
 
     const welcomeText = screen.getByText(/Contact/i);
@@ -137,7 +137,7 @@ describe('LANDING-PAGE TESTS', () => {
       accommodationReducer(initialState, {
         type: FETCHACCOMMODATIONS,
         payload: accommodation,
-      })
+      }),
     ).toEqual({
       accommodations: accommodation,
     });

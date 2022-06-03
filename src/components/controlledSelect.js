@@ -8,7 +8,7 @@ const ControlledSelect = ({
   label,
   menu,
   currentLocation,
-  control
+  control,
 }) => (
   <FormControl
     sx={{

@@ -1,4 +1,5 @@
 /* eslint-disable import/prefer-default-export */
+import { toast } from 'react-toastify';
 import axiosInstance from '../../axios/axios.instance';
 import {
   RETRIEVE_PROFILE,
@@ -6,7 +7,6 @@ import {
   RETRIEVING_ERROR,
   UPDATING_ERROR,
 } from '../types/profile.types';
-import { toast } from 'react-toastify';
 
 const updateProfile = (data) => ({
   type: UPDATE_PROFILE,
@@ -41,10 +41,9 @@ export const updatingAction = (data) => async (dispatch) => {
   try {
     const res = await axiosInstance.patch('/users/profile', data);
     await dispatch(updateProfile(res.data));
-    toast.success("Profile has been updated")
+    toast.success('Profile has been updated');
   } catch (error) {
-    toast.error("Error in updating the profile")
+    toast.error('Error in updating the profile');
     dispatch(updateError(error));
   }
 };
-

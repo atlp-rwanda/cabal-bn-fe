@@ -61,7 +61,14 @@ function LandingFooter() {
           }}
           container
         >
-          <Grid container justifyContent="space-around" spacing={5} item direction={{ xs: 'column', sm: 'row'}} alignItems={{xs:'center', sm:'flex-start'}}>
+          <Grid
+            container
+            justifyContent="space-around"
+            spacing={5}
+            item
+            direction={{ xs: 'column', sm: 'row' }}
+            alignItems={{ xs: 'center', sm: 'flex-start' }}
+          >
             <Grid item>
               <Stack
                 spacing={{
@@ -69,7 +76,7 @@ function LandingFooter() {
                   md: '28px',
                   xs: '18px',
                 }}
-                alignItems={{xs:'center', sm: 'flex-start'}}
+                alignItems={{ xs: 'center', sm: 'flex-start' }}
               >
                 <img alt="logo" src={logo} height="62px" width="130.2px" />
                 <Body maxWidth="260px">
@@ -111,7 +118,7 @@ function LandingFooter() {
               </Stack>
             </Grid>
             <Grid item>
-              <Header style={{textAlign:'center'}}>Contact</Header>
+              <Header style={{ textAlign: 'center' }}>Contact</Header>
               <Stack
                 spacing={{
                   sm: 3,

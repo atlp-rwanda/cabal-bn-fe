@@ -8,6 +8,7 @@ import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
 import moxios from 'moxios';
 import { useForm } from 'react-hook-form';
+import { MenuItem } from '@mui/material';
 import store from '../src/redux/store';
 import ControlledInputs from '../src/components/controlledInput';
 import {
@@ -27,7 +28,6 @@ import ControlledDate from '../src/components/controlledDate';
 import ControlledSwitch from '../src/components/controlledSwitch';
 import ControlledFile from '../src/components/controlledFileInput';
 import ControlledSelect from '../src/components/controlledSelect';
-import { MenuItem } from '@mui/material';
 
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
@@ -349,12 +349,11 @@ describe('profile page test', () => {
     const input = screen.getByLabelText('First name');
     const switchInput = screen.getByLabelText('App notification');
     const date = screen.getByLabelText('Date of birth');
-    const fileInput = screen.getByTestId("file-input")
+    const fileInput = screen.getByTestId('file-input');
     fireEvent.change(input, { target: { value: 'ishimwe' } });
     expect(input).toHaveValue('ishimwe');
     expect(switchInput).toBeInTheDocument();
     expect(date).toBeInTheDocument();
-    expect(fileInput).toBeInTheDocument()
-
+    expect(fileInput).toBeInTheDocument();
   });
 });

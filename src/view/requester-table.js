@@ -33,6 +33,8 @@ import Dialog from '../helpers/Dialog';
 import Approve from '../util/Approve';
 import { TableSkeleton } from '../util/tableSkeleton';
 import Error from '../assets/error.svg';
+import TripSearch from '../components/tripSearch';
+import format from 'date-fns/format';
 
 const RequesterTable = () => {
   const [page, setPage] = useState(0);
@@ -93,6 +95,7 @@ const RequesterTable = () => {
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data?.results.length) : 0;
   return (
     <>
+      <TripSearch page={page} rowsPerPage={rowsPerPage} />
       <TableContainer component={Paper} elevation={0} sx={{ padding: '10px' }}>
         {loading && <Spinner />}
         {pending ? (
@@ -138,10 +141,10 @@ const RequesterTable = () => {
                       {row.status}
                     </StyledTableCell>
                     <StyledTableCell align="center">
-                      {new Date(row.tripDate).toDateString()}
+                      {format(new Date(row.tripDate), 'MMM dd yyyy')}
                     </StyledTableCell>
                     <StyledTableCell align="center">
-                      {new Date(row.tripDate).toDateString()}
+                      {format(new Date(row.returnDate), 'MMM dd yyyy')}
                     </StyledTableCell>
                     <StyledTableCell align="center">
                       {role.role_id === 3 ||

@@ -1,10 +1,6 @@
-import { RotateLeft } from "@mui/icons-material";
-import React from "react";
+import { RotateLeft } from '@mui/icons-material';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import * as ReactBootStrap from 'react-bootstrap'
+import * as ReactBootStrap from 'react-bootstrap';
 
-export const Spinner=()=>{
-  return (
-    <ReactBootStrap.Spinner animation="border" />
-  )
-}
+export const Spinner = () => <ReactBootStrap.Spinner animation="border" />;

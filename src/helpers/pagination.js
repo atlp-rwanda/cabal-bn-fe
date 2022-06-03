@@ -55,13 +55,11 @@ TablePaginationActions.propTypes = {
   rowsPerPage: PropTypes.number.isRequired,
 };
 /* istanbul ignore next */
-export const PaperComponent = (props) => {
-  return (
-    <Draggable
-      handle="#draggable-dialog-title"
-      cancel={'[class*="MuiDialogContent-root"]'}
-    >
-      <Paper {...props} />
-    </Draggable>
-  );
-};
+export const PaperComponent = (props) => (
+  <Draggable
+    handle="#draggable-dialog-title"
+    cancel={'[class*="MuiDialogContent-root"]'}
+  >
+    <Paper {...props} />
+  </Draggable>
+);

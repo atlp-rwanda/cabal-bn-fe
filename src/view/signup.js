@@ -15,13 +15,13 @@ import {
 } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import signup_img from '../assets/signup_img.svg';
 import { useSelector } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
+import signup_img from '../assets/signup_img.svg';
 import { SignupAction } from '../redux/actions/signup.action';
 import { getAllLocations } from '../redux/actions/location.action';
 import InputField from '../components/input';
 import store from '../redux/store';
-import { makeStyles } from '@material-ui/core/styles';
 import {
   SignupImage,
   SignupBtn,
@@ -123,8 +123,8 @@ const Signup = () => {
       const userInput = {
         first_name: firstName,
         last_name: lastName,
-        email: email,
-        password: password,
+        email,
+        password,
         location_id:
           location === 'Use my current location'
             ? await getUserLocation()
@@ -297,7 +297,7 @@ const Signup = () => {
                 Use my current location
               </MenuItem>
             </Select>
-            <FormHelperText></FormHelperText>
+            <FormHelperText />
           </FormControl>
           <div>
             <SignupBtn variant="contained" onClick={handleClick}>

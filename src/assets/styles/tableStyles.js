@@ -1,6 +1,7 @@
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import { styled } from '@mui/styles';
+
 export const StyledTableRow = styled(TableRow)(({ theme }) => ({
   height: 10,
   '&:nth-child td, &:nth-child th': {

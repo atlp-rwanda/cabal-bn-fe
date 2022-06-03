@@ -1,14 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/prop-types */
 import { Typography, Box, Container, Paper } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { matchPath } from 'react-router-dom';
+import { Link, matchPath } from 'react-router-dom';
+
 import React from 'react';
 
 const MobLink = ({ sideBarLinks }) => (
   <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
     {sideBarLinks.map((links) => (
-      <Paper elevation={0}>
+      <Paper key={links.id} elevation={0}>
         <Link
           to={links.to}
           key={links.link}

@@ -10,14 +10,13 @@ export const loggedInUser = () => async (dispatch) => {
       type: types.GET_LOGGEDIN_USER_PROFILE_PENDING,
     });
     const res = await axios(`/users/getOne`, { method: 'GET' });
-    console.log(res.data);
     await dispatch({
       type: types.GET_LOGGEDIN_USER_PROFILE_SUCCESS,
       payload: res,
       error: null,
     });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     await dispatch({
       type: types.GET_LOGGEDIN_USER_PROFILE_ERROR,
       payload: err,

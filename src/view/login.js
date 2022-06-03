@@ -21,7 +21,7 @@ import {
 import GoogleIcon from '@mui/icons-material/Google';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , Link } from 'react-router-dom';
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
 import NavBar from '../components/navBar';
 import login from '../assets/login.svg';
@@ -33,10 +33,11 @@ import Buttons from '../components/button';
 import { urlSerializer } from '../helpers/login.helpers';
 import { errorAlert } from '../helpers/signup.helper';
 import Header from '../components/landing/header';
-import { Link } from 'react-router-dom';
+
 import LandingFooter from '../components/landing/footer';
 import { loggedInUser } from '../redux/actions/auth';
 import { retrieveAction } from '../redux/actions/profile.action';
+
 const LoginImage = styled('img')(() => ({
   width: 400,
   height: 320,
@@ -163,7 +164,7 @@ const Login = () => {
 
   return (
     <>
-      <Header aboutClass={'to'} />
+      <Header aboutClass="to" />
       <Box sx={container}>
         <Box
           sx={{

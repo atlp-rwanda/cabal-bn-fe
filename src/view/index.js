@@ -14,11 +14,11 @@ import Slide from '../components/landing/slide';
 
 const LandingPage = () => (
   <Box sx={{ backgroundColor: '#F8F9FA' }}>
-    <Header aboutClass={'to'}/>
+    <Header aboutClass="to" />
     <Welcome />
     <Landscape />
     <Slide />
-    <About aboutClass={'to'}/>
+    <About aboutClass="to" />
     <Service />
     <FooterImage />
     <LandingFooter />

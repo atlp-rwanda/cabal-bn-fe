@@ -95,23 +95,23 @@ export const errorAlert = {
   color: '#f44336',
 };
 /* istanbul ignore next */
-export const getUserLocation = async () => {
-  return new Promise((resolve, reject) => {
+export const getUserLocation = async () =>
+  new Promise((resolve, reject) => {
     if (navigator.geolocation) {
       try {
         /* istanbul ignore next */
         const SuccessfullLookup = async (position) => {
           const { latitude, longitude } = position.coords;
-          let apiLocation = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=f771ed1eb4474843aa7ddf98d865dc08`;
+          const apiLocation = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=f771ed1eb4474843aa7ddf98d865dc08`;
           const res = await axios(apiLocation, { method: 'GET' });
           const { country, county, road, state, suburb } =
             res.data.results[0].components;
           const result = await axiosInstance.post('/locations', {
             name: state,
             description: `${road}, ${suburb}, ${county}`,
-            country: country,
-            longitude: longitude,
-            latitude: latitude,
+            country,
+            longitude,
+            latitude,
           });
           resolve(result.data.create.id);
         };
@@ -122,4 +122,3 @@ export const getUserLocation = async () => {
       }
     }
   });
-};
