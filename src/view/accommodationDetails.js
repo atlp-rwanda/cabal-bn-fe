@@ -6,18 +6,18 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import { Stars } from '../components/landing/stars.component';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
-import store from '../redux/store';
 import { Add } from '@mui/icons-material';
 import CircularProgress from '@mui/material/CircularProgress';
-import { fetchSingleAccommodation } from '../redux/actions/accommodation.action';
 import { useSelector, useDispatch } from 'react-redux';
 import SimpleImageSlider from 'react-simple-image-slider';
+import { fetchSingleAccommodation } from '../redux/actions/accommodation.action';
+import store from '../redux/store';
+import { Stars } from '../components/landing/stars.component';
 import Buttons from '../components/button';
-import AccommodationComment from '../components/accommodation/accommodation.comment';
+import AccommodationComments from '../components/accommodation/accommodation.comment';
 
 const styles = {
   display: 'flex',
@@ -134,7 +134,9 @@ export const AccommodationDetails = () => {
           </div>
         </Grid>
       )}
-      {!accommodationState.pending === true && <AccommodationComment />}
+      {!accommodationState?.pending === true && (
+        <AccommodationComments accommodationState={accommodationState} />
+      )}
       {!accommodationState?.pending === true && (
         <Grid
           container
@@ -175,17 +177,7 @@ export const AccommodationDetails = () => {
             value="Create a Room"
           />
           <Grid item>
-            <Grid
-              container
-              // justify="center"
-              // alignItems="center"
-              // sx={{
-              //   width: '100%',
-              //   justifyContent: 'center',
-              //   color: '#1A2D6D',
-              //   alignItems: 'center',
-              // }}
-            >
+            <Grid container>
               {data?.Rooms.map((room) => (
                 <Grid item md={4}>
                   <Card sx={{ width: 280 }}>
@@ -194,7 +186,7 @@ export const AccommodationDetails = () => {
                         width={300}
                         height={150}
                         images={room.images}
-                        showBullets={true}
+                        showBullets
                         showNavs
                       />
                     </CardActionArea>

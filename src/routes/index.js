@@ -19,6 +19,7 @@ import DashboardPreview from '../layouts/requester';
 import RequesterContent from '../view/requesterContent';
 import Profile from '../view/profile';
 import { AccommodationDetails } from '../view/accommodationDetails';
+import ProtectedRoute from '../helpers/ProtectedRoute';
 
 const theme = createTheme({
   pallete: {
@@ -48,44 +49,91 @@ const theme = createTheme({
   },
 });
 
-const AllRoutes = (props) => (
-  <ThemeProvider theme={theme}>
-    <ToastContainer />
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/social/login" element={<GoogleLogin />} />
-        <Route exact path="/" element={<LandingPage />} />
-        <Route exact path="/login" element={<Login />} />
-        <Route exact path="/signup" element={<Signup />} />
-        <Route
-          exact
-          path="/verify"
-          element={<EmailVerification {...props} />}
-        />
-        <Route exact path="/forgot" element={<Forgot />} />
-        <Route
-          exact
-          path="/resetPassword"
-          element={<ResetPassword {...props} />}
-        />
-
-        <Route exact path="/dashboard/" element={<DashboardPreview />}>
-          <Route exact path="" element={<RequesterContent />} />
-          <Route exact path="trips" element={<RequesterContent />} />
-          <Route exact path="profile" element={<Profile />} />
-          <Route exact path="accommodations" element={<TravelAdmin />} />
+const AllRoutes = (props) => {
+  const user = JSON.parse(localStorage.getItem('userCredentials'));
+  return (
+    <ThemeProvider theme={theme}>
+      <ToastContainer />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/social/login" element={<GoogleLogin />} />
+          <Route exact path="/" element={<LandingPage />} />
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/signup" element={<Signup />} />
           <Route
             exact
-            path="accommodations/:id"
-            element={<AccommodationDetails />}
+            path="/verify"
+            element={<EmailVerification {...props} />}
           />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  </ThemeProvider>
-);
+          <Route exact path="/forgot" element={<Forgot />} />
+          <Route
+            exact
+            path="/resetPassword"
+            element={<ResetPassword {...props} />}
+          />
+
+          <Route
+            exact
+            path="/dashboard/"
+            element={
+              <ProtectedRoute user={user}>
+                <DashboardPreview />
+              </ProtectedRoute>
+            }
+          >
+            <Route
+              exact
+              path=""
+              element={
+                <ProtectedRoute user={user}>
+                  <RequesterContent />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              exact
+              path="trips"
+              element={
+                <ProtectedRoute user={user}>
+                  <RequesterContent />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              exact
+              path="profile"
+              element={
+                <ProtectedRoute user={user}>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              exact
+              path="accommodations"
+              element={
+                <ProtectedRoute user={user}>
+                  <TravelAdmin />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              exact
+              path="accommodations/:id"
+              element={
+                <ProtectedRoute user={user}>
+                  <AccommodationDetails />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
+  );
+};
 
 export default AllRoutes;

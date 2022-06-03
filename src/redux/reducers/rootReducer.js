@@ -16,6 +16,7 @@ import {
   createAccommodationReducer,
   deleteAccommodationReducer,
   updateAccommodationReducer,
+  fetchCommentsReducer,
 } from './accommodation.reducer';
 
 const rootReducer = combineReducers({
@@ -35,5 +36,6 @@ const rootReducer = combineReducers({
   accommodationReducer,
   requestsReducer,
   profileReducer,
+  accommodationComments: fetchCommentsReducer,
 });
 export default rootReducer;
