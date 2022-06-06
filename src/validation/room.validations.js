@@ -7,5 +7,4 @@ export const roomSchema = yup.object().shape({
     .typeError('Price must be a number')
     .min(0, 'Minimum price is 0'),
   images: yup.mixed().required('At least one image is required'),
-  accommodation: yup.string().required('Please select accommodation'),
 });

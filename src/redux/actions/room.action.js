@@ -1,4 +1,3 @@
-import { toast } from 'react-toastify';
 import {
   CREATE_ROOM_PENDING,
   CREATE_ROOM_SUCCESS,
@@ -8,6 +7,7 @@ import {
   FETCH_ROOM_FAILED,
 } from '../types/room.types';
 import axiosInstance from '../../axios/axios.instance';
+import { toast } from 'react-toastify';
 
 export const createRoomAction = (room, accId) => async (dispatch) => {
   try {

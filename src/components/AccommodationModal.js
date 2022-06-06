@@ -7,24 +7,25 @@ import {
   CircularProgress,
   Select,
   MenuItem,
+  Grid,
 } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import Modal from '@mui/material/Modal';
-import { makeStyles } from '@material-ui/core/styles';
-import CloseIcon from '@mui/icons-material/Close';
-import { useForm, Controller } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useDispatch, useSelector } from 'react-redux';
 import { getAllLocations } from '../redux/actions/location.action';
 import store from '../redux/store';
+import { makeStyles } from '@material-ui/core/styles';
 import { FormControlSX, SignupBtn } from '../helpers/signup.helper';
+import CloseIcon from '@mui/icons-material/Close';
 import {
   createAccommodationAction,
   fetchAccommodationsAction,
   updateAccommodationAction,
 } from '../redux/actions/accommodation.action';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { accommodationSchema } from '../validation/accommodation.validation';
-import ControlledInputs from './controlledInput';
+import { useDispatch, useSelector } from 'react-redux';
+import ControlledInputs from '../components/controlledInput';
 import ControlledMultipleFileInput from './controlledMultipleFileInput';
 
 const style = {
@@ -149,7 +150,11 @@ export const AccommodationModal = ({ open, title, handleClose, inputData }) => {
       >
         <Box sx={style}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div style={{ display: 'flex' }}>
+            <Grid
+              container
+              sx={{ display: 'flex' }}
+              justifyContent="space-between"
+            >
               <Typography
                 id="modal-modal-title"
                 variant="h5"
@@ -166,13 +171,12 @@ export const AccommodationModal = ({ open, title, handleClose, inputData }) => {
                 onClick={handleClose}
                 sx={{
                   color: '#00095E',
-                  left: { xs: '20px', lg: '50px', xl: '50px' },
                   bottom: '20px',
                 }}
               >
                 <CloseIcon />
               </IconButton>
-            </div>
+            </Grid>
             <ControlledInputs
               name="name"
               label="Name"

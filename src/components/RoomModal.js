@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   Box,
   Typography,
@@ -11,23 +12,24 @@ import {
 import IconButton from '@mui/material/IconButton';
 import Modal from '@mui/material/Modal';
 import { makeStyles } from '@material-ui/core/styles';
-import CloseIcon from '@mui/icons-material/Close';
-import { useForm, Controller } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useDispatch, useSelector } from 'react-redux';
-import { Grid } from '@material-ui/core';
 import { FormControlSX, SignupBtn } from '../helpers/signup.helper';
+import CloseIcon from '@mui/icons-material/Close';
 import {
   fetchAccommodationsAction,
   fetchSingleAccommodation,
 } from '../redux/actions/accommodation.action';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { roomSchema } from '../validation/room.validations';
+import { useDispatch, useSelector } from 'react-redux';
 import ControlledInputs from './controlledInput';
 import ControlledMultipleFileInput from './controlledMultipleFileInput';
+import { Grid } from '@material-ui/core';
 import { createRoomAction } from '../redux/actions/room.action';
 import store from '../redux/store';
 
 export const RoomModal = ({ open, title, handleClose, inputData }) => {
+  const { id } = useParams();
   const dispatch = useDispatch();
   const accommodations = useSelector(
     (state) => state.fetchAllAccommodations?.accommodations?.data?.results,
@@ -48,7 +50,6 @@ export const RoomModal = ({ open, title, handleClose, inputData }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      accommodation: '',
       price: '',
       details: '',
       images: '',
@@ -56,7 +57,8 @@ export const RoomModal = ({ open, title, handleClose, inputData }) => {
     resolver: yupResolver(roomSchema),
   });
   const onSubmit = async (data) => {
-    console.log(data);
+    console.log(data, id);
+
     const formData = new FormData();
     formData.append('price', data.price);
     formData.append('details', data.details);
@@ -64,12 +66,12 @@ export const RoomModal = ({ open, title, handleClose, inputData }) => {
       formData.append('images', data.images[i]);
     }
     if (title === 'Create Room') {
-      await store.dispatch(createRoomAction(formData, data.accommodation));
+      await store.dispatch(createRoomAction(formData, id));
     }
     if (store.getState().createRoomReducer.room.room) {
       reset();
       handleClose();
-      dispatch(fetchSingleAccommodation(data.accommodation));
+      dispatch(fetchSingleAccommodation(id));
     }
   };
   const style = {
@@ -84,10 +86,10 @@ export const RoomModal = ({ open, title, handleClose, inputData }) => {
       lg: 420,
       xl: 420,
     },
-    minHeight: {
-      xs: 550,
-      md: 530,
-    },
+    // minHeight: {
+    //   xs: 550,
+    //   md: 530,
+    // },
     bgcolor: 'background.paper',
     border: '2px solid #fff',
     borderRadius: '10px',
@@ -144,30 +146,33 @@ export const RoomModal = ({ open, title, handleClose, inputData }) => {
                 <CloseIcon />
               </IconButton>
             </Grid>
-            <Grid item>
-              <ControlledInputs
-                name="price"
-                label="Price"
-                control={control}
-                {...(errors?.price && {
-                  error: true,
-                  helperText: errors.price.message,
-                })}
-              />
-            </Grid>
-            <Grid item>
-              <ControlledInputs
-                name="details"
-                label="Details"
-                control={control}
-                {...(errors?.details && {
-                  error: true,
-                  helperText: errors.details.message,
-                })}
-              />
-            </Grid>
-            <FormControl className={classes.formControl} sx={FormControlSX}>
-              <InputLabel id="demo-simple-select-label">Location</InputLabel>
+            <Grid container direction="column" spacing={1}>
+              <Grid item>
+                <ControlledInputs
+                  name="price"
+                  label="Price"
+                  control={control}
+                  {...(errors?.price && {
+                    error: true,
+                    helperText: errors.price.message,
+                  })}
+                />
+              </Grid>
+              <Grid item>
+                <ControlledInputs
+                  name="details"
+                  label="Details"
+                  control={control}
+                  {...(errors?.details && {
+                    error: true,
+                    helperText: errors.details.message,
+                  })}
+                />
+              </Grid>
+              {/* <FormControl className={classes.formControl} sx={FormControlSX}>
+              <InputLabel id="demo-simple-select-label">
+                Accommodation
+              </InputLabel>
               <Controller
                 name="accommodation"
                 control={control}
@@ -190,23 +195,26 @@ export const RoomModal = ({ open, title, handleClose, inputData }) => {
                   </Select>
                 )}
               />
-            </FormControl>
-            <Grid item>
-              <ControlledMultipleFileInput name="images" control={control} />
+            </FormControl> */}
+              <Grid item>
+                <ControlledMultipleFileInput name="images" control={control} />
+              </Grid>
+              <Grid item>
+                <SignupBtn variant="contained" type="submit">
+                  {loading || updateLoading ? (
+                    <CircularProgress
+                      sx={{
+                        color: 'white',
+                      }}
+                      size={30}
+                      thickness={4}
+                    />
+                  ) : (
+                    `${title}`
+                  )}
+                </SignupBtn>
+              </Grid>
             </Grid>
-            <SignupBtn variant="contained" type="submit">
-              {loading || updateLoading ? (
-                <CircularProgress
-                  sx={{
-                    color: 'white',
-                  }}
-                  size={30}
-                  thickness={4}
-                />
-              ) : (
-                `${title}`
-              )}
-            </SignupBtn>
           </form>
         </Box>
       </Modal>

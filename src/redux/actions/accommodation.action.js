@@ -1,5 +1,4 @@
 /* eslint-disable import/prefer-default-export */
-import { toast } from 'react-toastify';
 import {
   FETCH_ACCOMMODATIONS_PENDING,
   FETCH_ACCOMMODATIONS_SUCCESS,
@@ -20,6 +19,8 @@ import {
 import axios from '../../axios/axios.instance';
 import { FETCHACCOMMODATIONS } from '../actionTypes/actionTypes';
 import axiosInstance from '../../axios/axios.instance';
+
+import { toast } from 'react-toastify';
 
 export const getAccommodations = (payload) => (dispatch) => {
   dispatch({

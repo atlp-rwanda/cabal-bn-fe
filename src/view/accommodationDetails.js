@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Typography, Grid, CardActionArea, Paper, styled } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import { Stars } from '../components/landing/stars.component';
 import { Add } from '@mui/icons-material';
+import { fetchSingleAccommodation } from '../redux/actions/accommodation.action';
 import { useSelector, useDispatch } from 'react-redux';
 import SimpleImageSlider from 'react-simple-image-slider';
-import { fetchSingleAccommodation } from '../redux/actions/accommodation.action';
-import { Stars } from '../components/landing/stars.component';
 import Buttons from '../components/button';
 import { unloggedInUser } from '../helpers/login.helpers';
 import Header from '../components/landing/header';
@@ -48,7 +49,7 @@ export const AccommodationDetails = () => {
     (state) => state.fetchSingleAccommodationReducer,
   );
   const path = window.location.pathname.split('/');
-  const id = path[path.length - 1];
+  const { id } = useParams();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const handleOpen = () => {
@@ -101,9 +102,8 @@ export const AccommodationDetails = () => {
                   width: '100%',
                 }}
               >
-                <CardActionArea>
-                  <Typography sx={styles}>Description:</Typography>
-                </CardActionArea>
+                <Typography sx={styles}>Description:</Typography>
+
                 <CardContent>
                   <Typography textAlign="justify">
                     {data?.description}
@@ -113,9 +113,8 @@ export const AccommodationDetails = () => {
             </Grid>
             <Grid item md={3} lg={3} sm={4}>
               <Card sx={cardStyles}>
-                <CardActionArea>
-                  <Typography sx={styles}>Services:</Typography>
-                </CardActionArea>
+                <Typography sx={styles}>Services:</Typography>
+
                 <CardContent>
                   {data?.services?.map((service) => (
                     <Grid sx={itemStyles}>
@@ -127,9 +126,8 @@ export const AccommodationDetails = () => {
             </Grid>
             <Grid item md={3} lg={3} sm={4}>
               <Card sx={cardStyles}>
-                <CardActionArea>
-                  <Typography sx={styles}>Amenities:</Typography>
-                </CardActionArea>
+                <Typography sx={styles}>Amenities:</Typography>
+
                 <CardContent>
                   {data?.amenities?.map((amenity) => (
                     <Grid sx={itemStyles}>
@@ -141,9 +139,8 @@ export const AccommodationDetails = () => {
             </Grid>
             <Grid item md={3} lg={3} sm={4}>
               <Card sx={cardStyles}>
-                <CardActionArea>
-                  <Typography sx={styles}>Ratings:</Typography>
-                </CardActionArea>
+                <Typography sx={styles}>Ratings:</Typography>
+
                 <CardContent>
                   <Grid sx={itemStyles}>
                     <Stars rates={data?.rates} />
@@ -210,7 +207,7 @@ export const AccommodationDetails = () => {
                     },
                   }}
                   startIcon={<Add />}
-                  value="Add a Room"
+                  value={'Add a Room'}
                   onClick={handleOpen}
                 />
               </>
@@ -225,8 +222,8 @@ export const AccommodationDetails = () => {
                           width={300}
                           height={150}
                           images={room.images}
-                          showBullets
-                          showNavs
+                          showBullets={true}
+                          showNavs={true}
                         />
                       </CardActionArea>
                       <CardContent>
@@ -276,7 +273,11 @@ export const AccommodationDetails = () => {
             </Grid>
           </Grid>
         )}
-        <RoomModal open={open} title="Create Room" handleClose={handleClose} />
+        <RoomModal
+          open={open}
+          title={'Create Room'}
+          handleClose={handleClose}
+        />
       </Grid>{' '}
     </>
   );
