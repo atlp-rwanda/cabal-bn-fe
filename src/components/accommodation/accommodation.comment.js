@@ -46,6 +46,7 @@ const AccommodationComments = ({ accommodationState }) => {
     activeComment.id === commentId &&
     activeComment.type === 'editing';
 
+  console.log(isEditing);
   const onChange = (e) => {
     setUpdateComment(e.target.value);
   };
