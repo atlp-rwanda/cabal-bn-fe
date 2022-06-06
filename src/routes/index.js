@@ -21,9 +21,10 @@ import Profile from '../view/profile';
 import UserSettingsModal from '../components/user_role';
 import { AccommodationDetails } from '../view/accommodationDetails';
 import AccommodationPage from '../view/allAccommodations';
+import BookingPage from '../view/bookingPage';
 
 const theme = createTheme({
-  pallete: {
+  palette: {
     primary: {
       main: '#1A2D6D',
       text: '#fff',
@@ -32,14 +33,14 @@ const theme = createTheme({
       main: '#0B2C5f',
       text: '#fff',
     },
-    text: {
-      primary: '#0000',
-      secondary: '#fff',
-    },
+    // text: {
+    //   primary: '#0000',
+    //   secondary: '#fff',
+    // },
   },
   typography: {
-    fontFamily: 'Josefin Sans, sans-serif',
-    fontSize: 15,
+    fontFamily: 'Roboto, sans-serif',
+    fontSize: 14,
     fontWeightLight: 300,
     fontWeightRegular: 400,
     fontWeightMedium: 500,
@@ -85,6 +86,7 @@ const AllRoutes = (props) => (
           <Route exact path="profile" element={<Profile />} />
           <Route exact path="roles" element={<UserSettingsModal />} />
           <Route exact path="accommodations" element={<TravelAdmin />} />
+          <Route exact path="bookings" element={<BookingPage />} />
           <Route
             exact
             path="accommodations/:id"

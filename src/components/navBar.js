@@ -55,7 +55,7 @@ const NavBar = ({ pages, requester, logo }) => {
               <Link
                 href="#"
                 underline="none"
-                color={theme?.pallete.primary.main}
+                color={theme?.palette.primary.main}
               >
                 {link}
               </Link>

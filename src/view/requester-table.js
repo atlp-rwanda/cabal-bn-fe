@@ -20,6 +20,7 @@ import { useTheme } from '@mui/styles';
 import { useNavigate } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import format from 'date-fns/format';
 import { StyledTableCell, StyledTableRow } from '../assets/styles/tableStyles';
 import {
   approveRequestAction,
@@ -34,7 +35,6 @@ import Approve from '../util/Approve';
 import { TableSkeleton } from '../util/tableSkeleton';
 import Error from '../assets/error.svg';
 import TripSearch from '../components/tripSearch';
-import format from 'date-fns/format';
 
 const RequesterTable = () => {
   const [page, setPage] = useState(0);

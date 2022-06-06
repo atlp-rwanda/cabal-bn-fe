@@ -1,19 +1,23 @@
-import { ASSIGNROLE, ASSIGNROLEERROR, GETALLROLES } from "../types/user_role_settings.types"
+import {
+  ASSIGNROLE,
+  ASSIGNROLEERROR,
+  GETALLROLES,
+} from '../types/user_role_settings.types';
 
-const initialState={
-  error:'',
-  roles:[]
-}
+const initialState = {
+  error: '',
+  roles: [],
+};
 
-export const getRoleReducer=(state=initialState,action)=>{
+export const getRoleReducer = (state = initialState, action) => {
   switch (action.type) {
-      case GETALLROLES: 
+    case GETALLROLES:
       /* istanbul ignore next */
-        return {
-          ...state,
-          roles:action.payload
-        }
+      return {
+        ...state,
+        roles: action.payload,
+      };
     default:
-      return state
+      return state;
   }
-}
+};

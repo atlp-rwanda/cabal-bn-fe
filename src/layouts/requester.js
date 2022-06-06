@@ -16,6 +16,7 @@ import accommodationIcon from '../assets/accommodationIcon.svg';
 import chatIcon from '../assets/chatIcon.svg';
 import notificationIcon from '../assets/notificationIcon.svg';
 import tripIcon from '../assets/tripIcon.svg';
+import bookingIcon from '../assets/bookingIcon.svg';
 import logo from '../assets/Logo.svg';
 import store from '../redux/store';
 import { logoutUser } from '../redux/actions/logout.action';
@@ -90,18 +91,23 @@ const DashboardPreview = () => {
       icon: accommodationIcon,
       id: 2,
     },
-
+    {
+      to: '/dashboard/bookings',
+      link: 'Bookings',
+      icon: bookingIcon,
+      id: 3,
+    },
     {
       to: '/dashobard/notifications',
       link: 'Notifications',
       icon: notificationIcon,
-      id: 3,
+      id: 4,
     },
     {
       to: '/dashboard/chats',
       link: 'Chats',
       icon: chatIcon,
-      id: 4,
+      id: 5,
     },
   ];
 

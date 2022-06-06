@@ -1,7 +1,7 @@
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import Buttons from '../components/button';
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
+import Buttons from './button';
 
 /* istanbul ignore next */
 const ControlledMultipleFileInput = ({ name, control }) => (

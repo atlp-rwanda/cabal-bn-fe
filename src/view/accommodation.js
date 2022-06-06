@@ -5,18 +5,18 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import { Stars } from '../components/landing/stars.component';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useSelector, useDispatch } from 'react-redux';
+import { NavigateBefore, NavigateNext } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 import {
   deleteAccommodationAction,
   fetchAccommodationsAction,
 } from '../redux/actions/accommodation.action';
-import { useSelector, useDispatch } from 'react-redux';
-import { NavigateBefore, NavigateNext } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import { Stars } from '../components/landing/stars.component';
 import { AccommodationModal } from '../components/AccommodationModal';
 import Dialog from '../helpers/Dialog';
 import { unloggedInUser } from '../helpers/login.helpers';
@@ -71,7 +71,7 @@ export const AccommodationCard = () => {
     <Box>
       <Grid
         container
-        key={'pagination-icons'}
+        key="pagination-icons"
         sx={{
           width: '100%',
           justifyContent: 'end',
@@ -223,7 +223,7 @@ export const AccommodationCard = () => {
           )}
         <AccommodationModal
           open={open}
-          title={'Update Accommodation'}
+          title="Update Accommodation"
           handleClose={handleClose}
           inputData={data}
         />

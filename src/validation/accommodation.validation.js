@@ -8,3 +8,9 @@ export const accommodationSchema = yup.object().shape({
   images: yup.mixed().required('At least one image is required'),
   location_id: yup.string().required('Please select a location'),
 });
+
+export const searchAccommodationSchema = yup
+  .object({
+    searchAccommodation: yup.string().required('Accommodation required'),
+  })
+  .required();
