@@ -11,21 +11,21 @@ import {
 } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import Modal from '@mui/material/Modal';
+import { makeStyles } from '@material-ui/core/styles';
+import CloseIcon from '@mui/icons-material/Close';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useDispatch, useSelector } from 'react-redux';
 import { getAllLocations } from '../redux/actions/location.action';
 import store from '../redux/store';
-import { makeStyles } from '@material-ui/core/styles';
 import { FormControlSX, SignupBtn } from '../helpers/signup.helper';
-import CloseIcon from '@mui/icons-material/Close';
 import {
   createAccommodationAction,
   fetchAccommodationsAction,
   updateAccommodationAction,
 } from '../redux/actions/accommodation.action';
-import { useForm, Controller } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { accommodationSchema } from '../validation/accommodation.validation';
-import { useDispatch, useSelector } from 'react-redux';
-import ControlledInputs from '../components/controlledInput';
+import ControlledInputs from './controlledInput';
 import ControlledMultipleFileInput from './controlledMultipleFileInput';
 
 const style = {

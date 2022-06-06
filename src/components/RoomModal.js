@@ -12,19 +12,19 @@ import {
 import IconButton from '@mui/material/IconButton';
 import Modal from '@mui/material/Modal';
 import { makeStyles } from '@material-ui/core/styles';
-import { FormControlSX, SignupBtn } from '../helpers/signup.helper';
 import CloseIcon from '@mui/icons-material/Close';
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { Grid } from '@material-ui/core';
+import { FormControlSX, SignupBtn } from '../helpers/signup.helper';
 import {
   fetchAccommodationsAction,
   fetchSingleAccommodation,
 } from '../redux/actions/accommodation.action';
-import { useForm, Controller } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { roomSchema } from '../validation/room.validations';
-import { useDispatch, useSelector } from 'react-redux';
 import ControlledInputs from './controlledInput';
 import ControlledMultipleFileInput from './controlledMultipleFileInput';
-import { Grid } from '@material-ui/core';
 import { createRoomAction } from '../redux/actions/room.action';
 import store from '../redux/store';
 

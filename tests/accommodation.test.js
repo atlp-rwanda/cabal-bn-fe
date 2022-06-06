@@ -13,6 +13,7 @@ const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
 const initialState = {
   accommodations: [],
+  allAccommodations: [],
   error: null,
   pending: false,
 };
@@ -54,6 +55,7 @@ describe('ACCOMMODATION TESTS', () => {
       expect(reducer).toEqual({
         ...initialState,
         accommodations: action.payload,
+        allAccommodations: action.payload,
         pending: false,
       });
     });

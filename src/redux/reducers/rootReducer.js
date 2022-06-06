@@ -21,6 +21,10 @@ import {
   updateAccommodationReducer,
 } from './accommodation.reducer';
 import { createRoomReducer, fetchRoomsReducer } from './room.reducer';
+import {
+  createBookingReducer,
+  fetchAllBookingsReducer,
+} from './booking.reducer';
 
 const rootReducer = combineReducers({
   getUserReducer,
@@ -38,6 +42,8 @@ const rootReducer = combineReducers({
   deleteAccommodationReducer,
   createRoomReducer,
   fetchRoomsReducer,
+  createBookingReducer,
+  fetchAllBookingsReducer,
   forgot,
   Reset,
   accommodationReducer,

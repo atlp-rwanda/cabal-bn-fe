@@ -1,14 +1,8 @@
 import React, { useState } from 'react';
 import { Box } from '@mui/material';
-<<<<<<< HEAD
 import { Add } from '@mui/icons-material';
 import Header from '../components/header';
 import Buttons from '../components/button';
-=======
-import Header from '../components/header';
-import Buttons from '../components/button';
-import { Add } from '@mui/icons-material';
->>>>>>> f0b0f372e65cb72b764e951c27ceee8928574754
 import { AccommodationCard } from './accommodation';
 import { AccommodationModal } from '../components/AccommodationModal';
 import { unloggedInUser } from '../helpers/login.helpers';
@@ -44,21 +38,13 @@ const TravelAdmin = () => {
             },
           }}
           startIcon={<Add />}
-<<<<<<< HEAD
           value="Create Accommodation"
-=======
-          value={'Create Accommodation'}
->>>>>>> f0b0f372e65cb72b764e951c27ceee8928574754
           onClick={handleOpen}
         />
       ) : null}
       <AccommodationModal
         open={open}
-<<<<<<< HEAD
         title="Create Accommodation"
-=======
-        title={'Create Accommodation'}
->>>>>>> f0b0f372e65cb72b764e951c27ceee8928574754
         handleClose={handleClose}
       />
 

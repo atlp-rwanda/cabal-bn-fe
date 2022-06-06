@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-plusplus */
 /* eslint-disable react/prop-types */
@@ -27,8 +28,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import RoomCard from '../components/roomCard';
-import { fetchAccommodationsAction } from '../redux/actions/accommodation.action';
+import {
+  fetchAccommodationsAction,
+  filterAccommodationsAction,
+} from '../redux/actions/accommodation.action';
 import { roomSchema } from '../validation/room.validation';
+import BookingTable from './bookingTable';
+import {
+  createBookingAction,
+  fetchAllBookingsAction,
+} from '../redux/actions/booking.action';
+import store from '../redux/store';
 
 const HeaderText = styled(Typography)(() => ({
   fontSize: '30px',
@@ -51,14 +61,25 @@ const SelectFormControl = styled(FormControl)(() => ({
 const BookingPage = () => {
   const limit = 8;
   let totalPages = 0;
+  const ITEM_HEIGHT = 48;
+  const ITEM_PADDING_TOP = 8;
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 250,
+      },
+    },
+  };
   const rooms = useRef([]);
   const activeRoom = useRef();
-  const [accomodationSelect, setAccomodationSelect] = useState();
+  const [accomodationSelect, setAccomodationSelect] = useState([]);
   const [page, setPage] = useState(1);
   const [openModal, setOpenModal] = useState(false);
   const dispatch = useDispatch();
   const {
     accommodations,
+    allAccommodations,
     error: accommodationError,
     pending: accommodationPending,
   } = useSelector((state) => state.fetchAllAccommodations);
@@ -71,7 +92,6 @@ const BookingPage = () => {
   } = useForm({
     resolver: yupResolver(roomSchema),
   });
-
   // get all rooms in the accommodations
   if (accommodations?.data && accommodations?.data?.results?.length !== 0) {
     let forRooms = [];
@@ -110,8 +130,24 @@ const BookingPage = () => {
     activeRoom.current = roomId;
     setOpenModal(true);
   };
-  const createBooking = (value) => {
-    console.log(value);
+  const createBooking = async (data) => {
+    console.log(data, activeRoom.current);
+    const { current } = activeRoom;
+    await store.dispatch(
+      createBookingAction(current, {
+        checkinDate: new Date(data.checkInDate).toISOString(),
+        checkoutDate: new Date(data.checkOutDate).toISOString(),
+      }),
+    );
+    if (store.getState().createBookingReducer.booking?.booking) {
+      reset();
+      handleCloseModal();
+      dispatch(fetchAllBookingsAction(current));
+    }
+  };
+  const handleSearchRooms = () => {
+    dispatch(filterAccommodationsAction(accomodationSelect));
+    setAccomodationSelect([]);
   };
 
   useEffect(() => {
@@ -120,11 +156,11 @@ const BookingPage = () => {
 
   return (
     <>
+      <BookingTable />
       <Container sx={{ paddingTop: '10px' }}>
         <HeaderText color="primary" sx={{ marginBottom: '15px' }}>
           Book a Room
         </HeaderText>
-
         <Stack
           direction="row"
           alignItems="start"
@@ -144,8 +180,17 @@ const BookingPage = () => {
               labelId="searchAccommodation"
               label="Search Accommodation"
               value={accomodationSelect}
-              onChange={(e) => {
-                setAccomodationSelect(e.target.value);
+              multiple
+              MenuProps={MenuProps}
+              onChange={(event) => {
+                const {
+                  target: { value },
+                } = event;
+                setAccomodationSelect(
+                  typeof value === 'string'
+                    ? value.split(',').map((str) => str.trim())
+                    : value,
+                );
               }}
             >
               {(() => {
@@ -173,7 +218,7 @@ const BookingPage = () => {
                   );
                 }
 
-                return accommodations.data.results.reduce(
+                return allAccommodations.data.results.reduce(
                   (prevAcc, nextAcc) => {
                     prevAcc.push(
                       <MenuItem key={nextAcc.id} value={nextAcc.id}>
@@ -184,9 +229,9 @@ const BookingPage = () => {
                     return prevAcc;
                   },
                   [
-                    <MenuItem key={0} value="All">
-                      All
-                    </MenuItem>,
+                    // <MenuItem key={0} value="All">
+                    //   All
+                    // </MenuItem>,
                   ],
                 );
               })()}
@@ -198,11 +243,11 @@ const BookingPage = () => {
             sx={{
               height: '56px',
             }}
+            onClick={handleSearchRooms}
           >
             <BodyText>Search</BodyText>
           </Button>
         </Stack>
-
         <Grid
           container
           key="pagination-icons"
@@ -236,7 +281,6 @@ const BookingPage = () => {
             <NavigateNext />
           </IconButton>
         </Grid>
-
         <Grid
           container
           justifyContent="space-evenly"
@@ -252,8 +296,8 @@ const BookingPage = () => {
                   columns={{ xs: 1, sm: 2, md: 3, lg: 4 }}
                   gap="15px"
                 >
-                  {Array.from(Array(8)).map(() => (
-                    <Grid item>
+                  {Array.from(Array(8)).map((value, index) => (
+                    <Grid key={index} item>
                       <Skeleton
                         variant="rectangular"
                         width={{ xs: '200px', md: '250px' }}
@@ -282,7 +326,7 @@ const BookingPage = () => {
                   index >= (page - 1) * limit && index < page * limit,
               )
               .map((room) => (
-                <Grid item>
+                <Grid key={room.id} item>
                   <RoomCard
                     accommodationName={room.accommodationName}
                     images={room.images}
@@ -385,10 +429,7 @@ const BookingPage = () => {
               )}
             />
 
-            <Button
-              variant="contained"
-              onClick={handleSubmit(createBooking, console.log)}
-            >
+            <Button variant="contained" onClick={handleSubmit(createBooking)}>
               Book room
             </Button>
           </Box>

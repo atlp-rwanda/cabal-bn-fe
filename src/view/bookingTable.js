@@ -42,6 +42,7 @@ import {
   approveRequestAction,
   rejectRequestAction,
 } from '../redux/actions/requester.action';
+import { fetchAllBookingsAction } from '../redux/actions/booking.action';
 
 /* istanbul ignore next */
 function TablePaginationActions(props) {
@@ -124,29 +125,25 @@ function PaperComponent(props) {
   );
 }
 
-const RequesterTable = () => {
+const BookingTable = () => {
   const [page, setPage] = React.useState(0);
   const [requesterId, setRequesterId] = React.useState(null);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const requests = useSelector((state) => state.requestsReducer);
+  const bookings = useSelector((state) => state.fetchAllBookingsReducer);
   const dispatch = useDispatch();
   const history = useNavigate();
   useEffect(() => {
     const roleId = JSON.parse(localStorage.getItem('userCredentials'));
-    if (roleId?.role_id !== 4 && roleId?.role_id !== 3) {
+    if (roleId?.role_id === 3) {
       history('/login');
     }
-    dispatch(retrieveRequests(page, rowsPerPage));
+    dispatch(fetchAllBookingsAction(1));
   }, [page, rowsPerPage, dispatch]);
-
-  const rows = requests.requests.data?.results?.map((trip) => trip);
+  console.log(bookings);
+  const rows = bookings.bookings?.rows?.map((booking) => booking);
   const emptyRows =
-    page > 0
-      ? Math.max(
-          0,
-          (1 + page) * rowsPerPage - requests.requests.data?.results.length,
-        )
-      : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
   /* istanbul ignore next */
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -185,7 +182,7 @@ const RequesterTable = () => {
 
   return (
     <div style={{ width: '100%', position: 'relative' }}>
-      {requests.pending === true && (
+      {bookings.pending === true && (
         <Paper
           elevation={0}
           sx={{
@@ -223,7 +220,7 @@ const RequesterTable = () => {
             fontSize: '20px',
           }}
         >
-          Trips
+          Bookings
         </Typography>
       </div>
 
@@ -242,11 +239,12 @@ const RequesterTable = () => {
         <Table sx={{ minWidth: 650 }} aria-label="requester Table">
           <TableHead>
             <TableRow>
-              <TableCell align="center">Reason&nbsp;</TableCell>
+              <TableCell align="center">User ID&nbsp;</TableCell>
+              <TableCell align="center">Room No&nbsp;</TableCell>
+              <TableCell align="center">Checkin Date&nbsp;</TableCell>
+              <TableCell align="center">Checkout Date&nbsp;</TableCell>
               <TableCell align="center">Status&nbsp;</TableCell>
-              <TableCell align="center">Trip Date&nbsp;</TableCell>
-              <TableCell align="center">Return Date&nbsp;</TableCell>
-              <TableCell align="center">Actions&nbsp;</TableCell>
+              <TableCell align="center">Action&nbsp;</TableCell>
             </TableRow>
           </TableHead>
           <TableBody data-testid="trip-table">
@@ -259,7 +257,7 @@ const RequesterTable = () => {
                     align="center"
                     data-testid="trip-cell"
                   >
-                    {row.reason}
+                    {row.user_id}
                   </TableCell>
                   <TableCell
                     style={{
@@ -274,19 +272,19 @@ const RequesterTable = () => {
                     }}
                     align="center"
                   >
-                    {row.status}
+                    {row.room_id}
                   </TableCell>
                   <TableCell
                     style={{ width: 160, color: '#1A2D6D' }}
                     align="center"
                   >
-                    {new Date(row.tripDate).toDateString()}
+                    {new Date(row.checkinDate).toDateString()}
                   </TableCell>
                   <TableCell
                     style={{ width: 160, color: '#1A2D6D' }}
                     align="right"
                   >
-                    {new Date(row.returnDate).toDateString()}
+                    {new Date(row.checkoutDate).toDateString()}
                   </TableCell>
                   <TableCell
                     style={{
@@ -296,7 +294,7 @@ const RequesterTable = () => {
                     align="center"
                   >
                     {JSON.parse(localStorage.getItem('userCredentials'))
-                      ?.role_id === 3 ? (
+                      ?.role_id === 2 ? (
                       <div
                         style={{
                           display: 'flex',
@@ -361,7 +359,7 @@ const RequesterTable = () => {
                         </Button>
                       </div>
                     ) : JSON.parse(localStorage.getItem('userCredentials'))
-                        ?.role_id === 4 ? (
+                        ?.role_id === 2 ? (
                       <div
                         className="idIs4"
                         style={{
@@ -399,7 +397,7 @@ const RequesterTable = () => {
                 align="right"
                 rowsPerPageOptions={[5, 10, 25]}
                 colSpan={6}
-                count={requests.requests.data?.pagination?.totalItems}
+                count={bookings.booking?.bookings?.count}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 SelectProps={{
@@ -428,7 +426,7 @@ const RequesterTable = () => {
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete this Trip
+            Are you sure you want to delete this booking?
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -440,4 +438,4 @@ const RequesterTable = () => {
   );
 };
 
-export default RequesterTable;
+export default BookingTable;

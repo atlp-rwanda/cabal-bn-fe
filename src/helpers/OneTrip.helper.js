@@ -10,8 +10,6 @@ const formatCapitalFirst = (word) => {
   return changedSplitWord.join(' ');
 };
 
-const formatCapitalAll = (word) => {
-  return word.toUpperCase();
-};
+const formatCapitalAll = (word) => word.toUpperCase();
 
 export { formatCapitalFirst, formatCapitalAll };

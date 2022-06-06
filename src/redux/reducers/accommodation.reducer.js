@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable consistent-return */
 /* eslint-disable prettier/prettier */
 import { FETCHACCOMMODATIONS } from '../actionTypes/actionTypes';
@@ -17,6 +18,7 @@ import {
   UPDATE_ACCOMMODATION_PENDING,
   UPDATE_ACCOMMODATION_SUCCESS,
   UPDATE_ACCOMMODATION_FAILED,
+  FILTER_ACCOMMODATION,
 } from '../types/accommodation.types';
 
 const initialState1 = {
@@ -39,6 +41,12 @@ export default accommodationReducer;
 
 const initialState = {
   accommodations: [],
+  error: null,
+  pending: false,
+};
+const initialStateAllAccommodation = {
+  accommodations: [],
+  allAccommodations: [],
   error: null,
   pending: false,
 };
@@ -99,15 +107,50 @@ export const createAccommodationReducer = (state = initialState, action) => {
   }
 };
 /* istanbul ignore next */
-export const fetchAllAccommodations = (state = initialState, action) => {
+export const fetchAllAccommodations = (
+  state = initialStateAllAccommodation,
+  action,
+) => {
   switch (action.type) {
     case FETCH_ACCOMMODATIONS_PENDING:
-      return { ...state, pending: true, accommodations: [], error: null };
+      return {
+        ...state,
+        pending: true,
+        accommodations: [],
+        allAccommodations: [],
+        error: null,
+      };
     case FETCH_ACCOMMODATIONS_SUCCESS:
       return {
         ...state,
         pending: false,
         accommodations: action.payload,
+        allAccommodations: action.payload,
+        error: null,
+      };
+    case FILTER_ACCOMMODATION:
+      return {
+        ...state,
+        pending: false,
+        accommodations: {
+          ...state.allAccommodations,
+          data: {
+            ...state.allAccommodations.data,
+            results: state.allAccommodations.data.results.filter((accom) => {
+              if (action.payload.length === 0) {
+                return true;
+              }
+
+              for (let i = 0; i < action.payload.length; i++) {
+                if (accom.id === action.payload[i]) {
+                  return true;
+                }
+              }
+
+              return false;
+            }),
+          },
+        },
         error: null,
       };
     case FETCH_ACCOMMODATIONS_FAILED:
@@ -115,6 +158,7 @@ export const fetchAllAccommodations = (state = initialState, action) => {
         ...state,
         pending: false,
         accommodations: [],
+        allAccommodations: [],
         error: action.payload,
       };
     default:

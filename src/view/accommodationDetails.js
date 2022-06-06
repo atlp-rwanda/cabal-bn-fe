@@ -3,11 +3,11 @@ import { useParams } from 'react-router-dom';
 import { Typography, Grid, CardActionArea, Paper, styled } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import { Stars } from '../components/landing/stars.component';
 import { Add } from '@mui/icons-material';
-import { fetchSingleAccommodation } from '../redux/actions/accommodation.action';
 import { useSelector, useDispatch } from 'react-redux';
 import SimpleImageSlider from 'react-simple-image-slider';
+import { fetchSingleAccommodation } from '../redux/actions/accommodation.action';
+import { Stars } from '../components/landing/stars.component';
 import Buttons from '../components/button';
 import { unloggedInUser } from '../helpers/login.helpers';
 import Header from '../components/landing/header';
@@ -207,7 +207,7 @@ export const AccommodationDetails = () => {
                     },
                   }}
                   startIcon={<Add />}
-                  value={'Add a Room'}
+                  value="Add a Room"
                   onClick={handleOpen}
                 />
               </>
@@ -222,8 +222,8 @@ export const AccommodationDetails = () => {
                           width={300}
                           height={150}
                           images={room.images}
-                          showBullets={true}
-                          showNavs={true}
+                          showBullets
+                          showNavs
                         />
                       </CardActionArea>
                       <CardContent>
@@ -273,11 +273,7 @@ export const AccommodationDetails = () => {
             </Grid>
           </Grid>
         )}
-        <RoomModal
-          open={open}
-          title={'Create Room'}
-          handleClose={handleClose}
-        />
+        <RoomModal open={open} title="Create Room" handleClose={handleClose} />
       </Grid>{' '}
     </>
   );
