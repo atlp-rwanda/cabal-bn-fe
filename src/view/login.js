@@ -21,7 +21,7 @@ import {
 import GoogleIcon from '@mui/icons-material/Google';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import { useNavigate , Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
 import NavBar from '../components/navBar';
 import login from '../assets/login.svg';
@@ -33,7 +33,6 @@ import Buttons from '../components/button';
 import { urlSerializer } from '../helpers/login.helpers';
 import { errorAlert } from '../helpers/signup.helper';
 import Header from '../components/landing/header';
-
 import LandingFooter from '../components/landing/footer';
 import { loggedInUser } from '../redux/actions/auth';
 import { retrieveAction } from '../redux/actions/profile.action';
@@ -47,10 +46,11 @@ const LoginImage = styled('img')(() => ({
 
 const SocialLoginLink = ({ type, variant, startIcon, sx, value }) => (
   <A
-    href={`${process.env.REACT_APP_BACKEND_URL
-      }/users/${type}/login/?${urlSerializer(
-        `${process.env.DEPLOY_PRIME_URL}/social/login`,
-      )}`}
+    href={`${
+      process.env.REACT_APP_BACKEND_URL
+    }/users/${type}/login/?${urlSerializer(
+      `${process.env.DEPLOY_PRIME_URL}/social/login`,
+    )}`}
   >
     <Buttons variant={variant} startIcon={startIcon} sx={sx} value={value} />
   </A>
@@ -129,14 +129,14 @@ const Login = () => {
       !email.match(regexEmail) && email.length
         ? 'Invalid email'
         : email.match(regexEmail)
-          ? ''
-          : 'Email required';
+        ? ''
+        : 'Email required';
     const passwordError =
       !password.match(regexPassword) && password.length > 6
         ? 'Must have at least one digit and capital letter'
         : password.match(regexPassword)
-          ? ''
-          : 'Password required';
+        ? ''
+        : 'Password required';
 
     setValidationError(() => ({
       email: emailError,
@@ -192,7 +192,7 @@ const Login = () => {
           </Typography>
           {error ? (
             <Alert variant="outlined" severity="error" sx={errorAlert}>
-              {store.getState().userReducer.error.data.message}
+              {store.getState().userReducer.error.data?.message}
             </Alert>
           ) : null}
           <InputField

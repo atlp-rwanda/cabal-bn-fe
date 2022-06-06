@@ -53,7 +53,7 @@ const RequesterTable = () => {
     /* istanbul ignore next */
     setPage(newPage);
   };
-
+  /* istanbul ignore next */
   const handleClickOpen = (id) => {
     setOpen(true);
     setRequesterId(id);
@@ -63,7 +63,7 @@ const RequesterTable = () => {
   const handleClose = () => {
     setOpen(false);
   };
-
+  /* istanbul ignore next */
   const handleSubmit = () => {
     dispatch(deleteRequestAction(requesterId));
     setOpen(false);
@@ -147,14 +147,13 @@ const RequesterTable = () => {
                       {format(new Date(row.returnDate), 'MMM dd yyyy')}
                     </StyledTableCell>
                     <StyledTableCell align="center">
-                      {role.role_id === 3 ||
-                        (role.role_id === 1 && (
-                          <Approve
-                            row={row}
-                            handleApprove={handleApprove}
-                            handleReject={handleReject}
-                          />
-                        ))}
+                      {role.role_id === 3 && (
+                        <Approve
+                          row={row}
+                          handleApprove={handleApprove}
+                          handleReject={handleReject}
+                        />
+                      )}
                       {role.role_id === 4 && (
                         <Grid
                           container

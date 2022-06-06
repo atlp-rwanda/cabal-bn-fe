@@ -13,6 +13,7 @@ import { profileReducer } from './profileReducer';
 import { assignRoleReducer } from './user_role_settings.reducer';
 import { getRoleReducer } from './get_roles_reducer';
 import { getUserReducer } from './get_users_reducer';
+import { fetchNotifications } from './notification.reducer';
 
 const rootReducer = combineReducers({
   getUserReducer,
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   requestsReducer,
   profileReducer,
   assignRoleReducer,
-  
+
+  notifications: fetchNotifications,
 });
 export default rootReducer;

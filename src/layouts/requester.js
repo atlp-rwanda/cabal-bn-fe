@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { Box, AppBar, Badge, Avatar, Paper, Typography } from '@mui/material';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useNavigate, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Logout from '@mui/icons-material/Logout';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import { Box, Badge, Avatar, Paper, Typography } from '@mui/material';
+import io from 'socket.io-client';
+import { toast } from 'react-toastify';
 import { loggedInUser } from '../redux/actions/auth';
 import NavBar from '../components/navBar';
 import SideBar from '../components/sidebar';
 import MobLink from '../components/mobLinks';
+import Notification from '../view/notificationsPanel/notification';
 import accommodationIcon from '../assets/accommodationIcon.svg';
 import chatIcon from '../assets/chatIcon.svg';
 import notificationIcon from '../assets/notificationIcon.svg';
@@ -21,19 +23,26 @@ import store from '../redux/store';
 import { logoutUser } from '../redux/actions/logout.action';
 import { retrieveAction } from '../redux/actions/profile.action';
 import settingsIcon from '../assets/settings-icon.svg';
+import { fetchNotifications } from '../redux/actions/notifications.action';
+
+const token = JSON.parse(localStorage.getItem('userCredentials'))?.token;
+const socket = io('https://barefoot-backend-development.herokuapp.com/', {
+  auth: { token },
+});
 
 const DashboardPreview = () => {
   const [name, setName] = useState('');
   const [profile, setProfile] = useState('');
   const dispatch = useDispatch();
   const { data } = useSelector((state) => state.loggedInUser);
-
+  const { notifications, unread } = useSelector((state) => state.notifications);
+  const { user } = useSelector((state) => state.profileReducer.data);
   const roleId = JSON.parse(localStorage.getItem('userCredentials'));
   const redirect = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  if (roleId === null) {
-    redirect('/login');
+  if (!roleId) {
+    return <Navigate to="/login" />;
   }
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -44,8 +53,9 @@ const DashboardPreview = () => {
   const logoutClick = async () => {
     await store.dispatch(logoutUser());
     const { userReducer } = store.getState();
+    console.log(userReducer, 'these are logout');
     if (userReducer.isLogged === false) {
-      localStorage.removeItem('BarefootNomadToken');
+      localStorage.removeItem('userCredentials');
       redirect('/login');
     }
   };
@@ -54,27 +64,37 @@ const DashboardPreview = () => {
     store.subscribe(() => {
       const { profileReducer } = store.getState();
       setName(profileReducer.data.user.first_name);
-      setProfile(profileReducer.data.user.profile_picture);
+      setProfile(user?.profile_picture);
     });
   };
   useEffect(() => {
     fetchProfile();
+    dispatch(loggedInUser());
+    // if (user && notifications.to_user_id === user.profile?.user_id) {
+    socket.on('notification', (notification) => {
+      toast.success(notification);
+      dispatch(fetchNotifications(1, 10));
+    });
+    // }
   }, []);
 
   const pages = [
     `${roleId?.first_name}`,
-    <Badge
-      badgeContent="12"
-      color="error"
-      badge="true"
-      sx={{ color: '#FFC800' }}
-    >
-      <NotificationsIcon />
+    <Badge badgeContent={unread} color="error" badge sx={{ color: '#FFC800' }}>
+      <Notification notifications={notifications} unread={unread} />
     </Badge>,
     data.status === 200 ? (
-      <Avatar src={data.data?.user.profile_picture} alt="profle image" />
+      <Avatar
+        src={user?.profile_picture}
+        alt="prifle image"
+        onClick={handleClick}
+      />
     ) : (
-      <Avatar src={roleId.profile_picture} alt="profle image" />
+      <Avatar
+        src={roleId.profile_picture}
+        salt="prifle image"
+        onClick={handleClick}
+      />
     ),
   ];
   const sideBarLinks = [
@@ -89,13 +109,6 @@ const DashboardPreview = () => {
       link: 'Accommodation',
       icon: accommodationIcon,
       id: 2,
-    },
-
-    {
-      to: '/dashobard/notifications',
-      link: 'Notifications',
-      icon: notificationIcon,
-      id: 3,
     },
     {
       to: '/dashboard/chats',
@@ -117,22 +130,7 @@ const DashboardPreview = () => {
     <Box sx={{ display: 'flex' }}>
       <SideBar sideBarLinks={sideBarLinks} />
       <Paper elevation={0} sx={{ width: { xs: '100%', md: '100%' } }}>
-        <NavBar
-          pages={[
-            name,
-            <Badge
-              badgeContent="12"
-              color="error"
-              badge
-              sx={{ color: '#FFC800' }}
-            >
-              <NotificationsIcon />
-            </Badge>,
-            <Avatar src={profile} alt="profile image" onClick={handleClick} />,
-          ]}
-          logo={logo}
-          requester
-        />
+        <NavBar pages={pages} logo={logo} requester />
         <Menu
           anchorEl={anchorEl}
           id="account-menu"

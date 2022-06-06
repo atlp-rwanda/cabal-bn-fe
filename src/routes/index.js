@@ -8,7 +8,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LandingPage from '../view/index';
 import Login from '../view/login';
-import Dashboard from '../view/dashboard';
 import Signup from '../view/signup';
 import EmailVerification from '../view/verifyEmail';
 import GoogleLogin from '../view/google_login';
@@ -18,6 +17,7 @@ import DashboardPreview from '../layouts/requester';
 import RequesterContent from '../view/requesterContent';
 import Profile from '../view/profile';
 import UserSettingsModal from '../components/user_role';
+import PageNotFound from '../components/PageNotFound';
 
 const theme = createTheme({
   pallete: {
@@ -41,6 +41,7 @@ const theme = createTheme({
     fontWeightRegular: 400,
     fontWeightMedium: 500,
     margin: 0,
+    color: '#1A2D6D',
     '@media (max-width:600px)': {
       fontSize: 12,
     },
@@ -52,9 +53,8 @@ const AllRoutes = (props) => (
     <ToastContainer />
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<LandingPage />} />
+        <Route exact path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/social/login" element={<GoogleLogin />} />
         <Route exact path="/" element={<LandingPage />} />
         <Route exact path="/login" element={<Login />} />
@@ -76,6 +76,7 @@ const AllRoutes = (props) => (
           <Route exact path="profile" element={<Profile />} />
           <Route exact path="roles" element={<UserSettingsModal />} />
         </Route>
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
   </ThemeProvider>

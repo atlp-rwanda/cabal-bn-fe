@@ -28,6 +28,9 @@ const Links = styled(Typography)({
 const NavBar = ({ pages, requester, logo }) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const close = () => {
+    setOpen(false);
+  };
 
   return (
     <AppBar sx={{ background: '#F8F9FA', position: 'sticky', top: '0px' }}>

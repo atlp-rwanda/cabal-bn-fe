@@ -2,7 +2,6 @@
 /* eslint-disable react/prop-types */
 import { Typography, Box, Container, Paper } from '@mui/material';
 import { Link, matchPath } from 'react-router-dom';
-
 import React from 'react';
 
 const MobLink = ({ sideBarLinks }) => (
