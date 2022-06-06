@@ -6,14 +6,10 @@ export const accommodationSchema = yup.object().shape({
   services: yup.string().required('Service is required'),
   amenities: yup.string().required('Amenities required'),
   images: yup.mixed().required('At least one image is required'),
-  location_id: yup.string().required('Please select a location'),
 });
-<<<<<<< HEAD
 
 export const searchAccommodationSchema = yup
   .object({
     searchAccommodation: yup.string().required('Accommodation required'),
   })
   .required();
-=======
->>>>>>> 6adaca5 (travel admin accommodations)

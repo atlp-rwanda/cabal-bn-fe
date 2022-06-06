@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -37,15 +38,17 @@ const AccommodationComments = ({ accommodationState }) => {
   const handleChange = () => {
     setChecked((prev) => !prev);
   };
-  const accommodationId = accommodationState.accommodations?.data?.id;
+  const { id } = useParams();
+  const accommodationId = id;
   useEffect(() => {
-    dispatch(fetchComments(1, 1, 10));
+    dispatch(fetchComments(accommodationId, 1, 10));
   }, [accommodationId]);
   const isEditing =
     activeComment &&
     activeComment.id === commentId &&
     activeComment.type === 'editing';
 
+  console.log(isEditing);
   const onChange = (e) => {
     setUpdateComment(e.target.value);
   };
@@ -269,7 +272,9 @@ const AccommodationComments = ({ accommodationState }) => {
                           }}
                         />
                       </Paper>
-                      <Typography component="div">{comment.comment}</Typography>
+                      <Typography sx={{ paddingLeft: '12px' }} component="div">
+                        {comment.comment}
+                      </Typography>
                     </Paper>
                   ) : (
                     <Box
@@ -366,5 +371,5 @@ const AccommodationComments = ({ accommodationState }) => {
       </Paper>
     </Box>
   );
-};;
+};
 export default AccommodationComments;
