@@ -24,14 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const TextInput = ({ setMessage, send }) => {
   const classes = useStyles();
-  // const [message, setMessage] = useState('')
-  // const send = (e) => {
-  //   e.preventDefault()
-  //   console.log({
-  //     message,
-  //     time: `${new Date().getHours()}:${new Date().getMinutes()}`
-  //   })
-  // }
+
   return (
     <>
       <form className={classes.wrapForm} noValidate autoComplete="off">

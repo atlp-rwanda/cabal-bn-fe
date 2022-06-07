@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-unused-vars */
@@ -25,6 +26,8 @@ import {
   CREATE_COMMENTS,
   UPDATE_COMMENTS,
   DELETE_COMMENTS,
+  LIKE_ACCOMMODATION,
+  LIKE_ACCOMMODATION_FAILED,
 } from '../types/accommodation.types';
 
 const initialState1 = {
@@ -51,6 +54,7 @@ const initialState = {
   pending: false,
   loading: false,
   comments: [],
+  like: null,
 };
 const initialStateAllAccommodation = {
   accommodations: [],
@@ -63,6 +67,11 @@ const initialDeleteState = {
   pending: false,
   message: '',
   error: '',
+};
+const initialLikeState = {
+  likes: '',
+  loading: false,
+  error: null,
 };
 /* istanbul ignore next */
 export const fetchSingleAccommodationReducer = (
@@ -135,6 +144,32 @@ export const fetchAllAccommodations = (
         accommodations: action.payload,
         allAccommodations: action.payload,
         error: null,
+      };
+    case LIKE_ACCOMMODATION:
+      return {
+        ...state,
+        accommodations: {
+          ...state.accommodations,
+          data: {
+            ...state.accommodations.data,
+            results: state.accommodations.data.results.map((accommodation) =>
+              accommodation.id === action.payload.accommodationId
+                ? action.payload.res.data.data.like
+                  ? { ...accommodation, likes: accommodation.likes + 1 }
+                  : { ...accommodation, likes: accommodation.likes - 1 }
+                : accommodation,
+            ),
+          },
+        },
+        error: null,
+        likes: true,
+      };
+    case LIKE_ACCOMMODATION_FAILED:
+      return {
+        ...state,
+        accommodations: null,
+        like: null,
+        error: action.payload,
       };
     case FILTER_ACCOMMODATION:
       return {
@@ -282,6 +317,32 @@ export const fetchCommentsReducer = (state = initialState, action) => {
       };
     case `${DELETE_COMMENTS}_FAILED`:
       return state;
+    default:
+      return state;
+  }
+};
+
+/* istanbul ignore next */
+export const likeAccommodationReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case LIKE_ACCOMMODATION:
+      return {
+        ...state,
+        accommodations: {
+          ...state.accommodations,
+          data: {
+            ...state.accommodations.data,
+            results: state.accommodations.data.results.map((accommodation) =>
+              action.payload.like === true
+                ? { ...accommodation, likes: accommodation.likes + 1 }
+                : accommodation,
+            ),
+          },
+        },
+        error: null,
+      };
+    case LIKE_ACCOMMODATION_FAILED:
+      return { ...state, likes: null, error: action.payload };
     default:
       return state;
   }

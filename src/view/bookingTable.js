@@ -50,6 +50,7 @@ import ControlledInputs from '../components/controlledInput';
 import { SearchBtn } from '../helpers/signup.helper';
 import { BookingModal } from '../components/BookingModal';
 import store from '../redux/store';
+import { StyledTableCell } from '../assets/styles/tableStyles';
 
 /* istanbul ignore next */
 function TablePaginationActions(props) {
@@ -160,7 +161,7 @@ const BookingTable = () => {
   const rows = bookings.booking?.bookings?.rows?.map((booking) => booking);
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows?.length) : 0;
-
+  // console.log(rows)
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -285,12 +286,18 @@ const BookingTable = () => {
           >
             <TableHead>
               <TableRow>
-                <TableCell align="center">User ID&nbsp;</TableCell>
-                <TableCell align="center">Room No&nbsp;</TableCell>
-                <TableCell align="center">Checkin Date&nbsp;</TableCell>
-                <TableCell align="center">Checkout Date&nbsp;</TableCell>
-                <TableCell align="center">Status&nbsp;</TableCell>
-                <TableCell align="center">Action&nbsp;</TableCell>
+                {role.role_id !== 4 && (
+                  <StyledTableCell align="center">User&nbsp;</StyledTableCell>
+                )}
+                <StyledTableCell align="center">Room No&nbsp;</StyledTableCell>
+                <StyledTableCell align="center">
+                  Checkin Date&nbsp;
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  Checkout Date&nbsp;
+                </StyledTableCell>
+                <StyledTableCell align="center">Status&nbsp;</StyledTableCell>
+                <StyledTableCell align="center">Action&nbsp;</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody data-testid="trip-table">
@@ -298,32 +305,35 @@ const BookingTable = () => {
                 rows.map((row) => (
                   /* istanbul ignore next */
                   <TableRow key={row.id} data-testid={`trip-table-${row.id}`}>
-                    <TableCell
-                      style={{ width: 160, color: '#1A2D6D' }}
-                      align="center"
-                      data-testid="trip-cell"
-                    >
-                      {row.user_id}
-                    </TableCell>
-                    <TableCell
+                    {role.role_id !== 4 && (
+                      <StyledTableCell
+                        style={{ width: 160, color: '#1A2D6D' }}
+                        align="center"
+                        data-testid="trip-cell"
+                      >
+                        {row.user.first_name} {row.user.last_name}
+                      </StyledTableCell>
+                    )}
+
+                    <StyledTableCell
                       style={{ width: 160, color: '#1A2D6D' }}
                       align="center"
                     >
                       {row.room_id}
-                    </TableCell>
-                    <TableCell
+                    </StyledTableCell>
+                    <StyledTableCell
                       style={{ width: 160, color: '#1A2D6D' }}
                       align="center"
                     >
                       {new Date(row.checkinDate).toDateString()}
-                    </TableCell>
-                    <TableCell
+                    </StyledTableCell>
+                    <StyledTableCell
                       style={{ width: 160, color: '#1A2D6D' }}
                       align="right"
                     >
                       {new Date(row.checkoutDate).toDateString()}
-                    </TableCell>
-                    <TableCell
+                    </StyledTableCell>
+                    <StyledTableCell
                       style={{
                         width: 160,
                         color: `${
@@ -337,8 +347,8 @@ const BookingTable = () => {
                       align="center"
                     >
                       {row.status}
-                    </TableCell>
-                    <TableCell
+                    </StyledTableCell>
+                    <StyledTableCell
                       style={{
                         width: 160,
                         color: '#1A2D6D',
@@ -441,7 +451,7 @@ const BookingTable = () => {
                           </p>
                         </div>
                       ) : null}
-                    </TableCell>
+                    </StyledTableCell>
                   </TableRow>
                 ))}
               {emptyRows > 0 && (

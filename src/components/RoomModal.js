@@ -57,8 +57,6 @@ export const RoomModal = ({ open, title, handleClose, inputData }) => {
     resolver: yupResolver(roomSchema),
   });
   const onSubmit = async (data) => {
-    console.log(data, id);
-
     const formData = new FormData();
     formData.append('price', data.price);
     formData.append('details', data.details);
