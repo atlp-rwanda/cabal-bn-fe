@@ -5,6 +5,7 @@ import {
   ASSIGNROLEERROR,
   GETALLROLES,
   GETUSERS,
+  GET_DETAILED,
 } from '../types/user_role_settings.types';
 
 export const assignRoleAction = (payload) => ({
@@ -41,23 +42,20 @@ export const getAll = () => async (dispatch) => {
     await axiosInstance.get('/users/getRoles').then((res) => {
       dispatch(getRolesAction(res.data.data));
     });
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };
 
 export const getUsers = () => async (dispatch) => {
   try {
-    await dispatch({
-      type: GETUSERS,
-    });
     const res = await axiosInstance(`/users`, { method: 'GET' });
     const users = res.data.data.map((user) => user.email);
     await dispatch({
       type: GETUSERS,
       payload: users,
     });
-  } catch (err) {
-    console.log(err);
-  }
+    await dispatch({
+      type: GET_DETAILED,
+      payload: res.data.data,
+    });
+  } catch (err) {}
 };
