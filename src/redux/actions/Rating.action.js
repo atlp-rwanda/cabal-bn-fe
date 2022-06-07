@@ -1,10 +1,12 @@
+import { toast } from 'react-toastify';
 import axios from '../../axios/axios.instance';
+/* istanbul ignore next */
 export const Rating = async (pathId, rate) => {
   try {
     const data = await axios.put(`/accommodations/${pathId}/rate`, { rate });
-    console.log(data.data.message)
+    toast.success(data.data.message)
+
   } catch (error) {
-    // return error.response.data
-    console.log(error.response.data.message)
+    toast.error(error.response.data.message)
   }
 };

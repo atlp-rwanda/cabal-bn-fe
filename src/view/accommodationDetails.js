@@ -15,6 +15,7 @@ import Header from '../components/landing/header';
 import { RoomModal } from '../components/RoomModal';
 import { RatingModal } from "../components/RatingModal";
 import AccommodationComment from '../components/accommodation/accommodation.comment';
+import Button from '@mui/material/Button';
 
 const papeStyles = {
   display: 'flex',
@@ -47,6 +48,7 @@ const cardStyles = {
   minHeight: '280px',
   width: { xs: '260px', sm: '210px', md: '260px', lg: '250px' },
 };
+/* istanbul ignore next */
 export const AccommodationDetails = () => {
   const accommodationState = useSelector(
     (state) => state.fetchSingleAccommodationReducer,
@@ -67,7 +69,7 @@ export const AccommodationDetails = () => {
     setOpen(true);
   };
   const handleClose = () => setOpen(false);
-
+  /* istanbul ignore next */
   useEffect(() => {
     dispatch(fetchSingleAccommodation(id));
   }, [id]);
@@ -151,12 +153,10 @@ export const AccommodationDetails = () => {
             <Grid item md={3} lg={3} sm={4}>
               <Card sx={cardStyles}>
                 <Typography sx={styles}>Ratings:</Typography>
-
+                <Grid sx={itemStyles}><Stars rates={data?.rates} /></Grid>
                 <CardContent>
                   <Grid sx={itemStyles}>
-                    <CardActionArea onClick={handleRating}>
-                      <Stars rates={data?.rates} />
-                    </CardActionArea>
+                    <Button onClick={handleRating} variant="contained">Give Ratings</Button>
                   </Grid>
                 </CardContent>
               </Card>

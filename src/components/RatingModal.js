@@ -10,11 +10,10 @@ import { Stack } from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import { Rating } from '../redux/actions/Rating.action';
-
+/* istanbul ignore next */
 export const RatingModal = ({ open, title, handleClose, pathId }) => {
   const [rates, setRates] = useState([1, 2, 3, 4, 5]);
   const [rate, setRate] = useState(0);
-  console.log(pathId)
   const style = {
     position: 'relative',
     top: '400px',
@@ -37,6 +36,7 @@ export const RatingModal = ({ open, title, handleClose, pathId }) => {
     boxShadow: 24,
     p: 4,
   };
+  /* istanbul ignore next */
   const useStyle = makeStyles((theme) => ({
     formControl: {
       [theme.breakpoints.down('xs')]: {
@@ -49,6 +49,18 @@ export const RatingModal = ({ open, title, handleClose, pathId }) => {
       margin: '20px 0px',
     },
   }));
+  /* istanbul ignore next */
+  useEffect(() => {
+    if (rate) {
+      Rating(pathId, rate);
+      const timer = setTimeout(() => {
+        handleClose();
+        window.location.reload(true)
+      }, 3000);
+      return () => clearTimeout(timer);
+
+    }
+  }, [rate])
   const classes = useStyle();
   return (
     <Box>
@@ -86,7 +98,7 @@ export const RatingModal = ({ open, title, handleClose, pathId }) => {
             {rates.map(element => {
               return (
                 <>
-                  <Star sx={{ color: rate >= element ? (Rating(pathId, rate), '#FFC800') : '#000' }} onClick={() => setRate(element)} />
+                  <Star sx={{ color: rate >= element ? '#FFC800' : '#000' }} onClick={() => setRate(element)} />
                 </>
               )
             })}
