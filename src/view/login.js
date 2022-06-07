@@ -154,7 +154,8 @@ const Login = () => {
       await store.dispatch(loginAction({ email, password }));
       if (store.getState().userReducer.isLogged) {
         await store.dispatch(retrieveAction());
-        navigate('/dashboard/trips');
+        // navigate('/dashboard/trips');
+        navigate('/dashboard');
       } else {
         setLoading(false);
         setError(true);

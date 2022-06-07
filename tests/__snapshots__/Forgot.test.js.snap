@@ -58,7 +58,7 @@ Array [
           </p>
         </a>
         <a
-          href="/Accommodation"
+          href="/accommodations"
           onClick={[Function]}
           style={
             Object {

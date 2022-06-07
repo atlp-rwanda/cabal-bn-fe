@@ -3,15 +3,18 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: "https://barefoot-backend-development.herokuapp.com/api/v1",
+  // baseURL: process.env.REACT_APP_BACKEND_URL,
+  // // baseURL: 'http://localhost:7000/api/v1',
+  baseURL: 'https://barefoot-backend-development.herokuapp.com/api/v1',
 });
 
 // Add a request interceptor
 axiosInstance.interceptors.request.use(
   (request) => {
     // Do something before request is sent
-    request.headers.authorization = `${'Bearer' + ' '}${JSON.parse(localStorage.getItem('userCredentials'))?.token
-      }`;
+    request.headers.authorization = `${'Bearer' + ' '}${
+      JSON.parse(localStorage.getItem('userCredentials'))?.token
+    }`;
     return request;
   },
   (error) =>

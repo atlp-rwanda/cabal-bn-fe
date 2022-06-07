@@ -83,12 +83,12 @@ export default ({ handleClose, open }) => {
                 xs: '30px 0px',
                 sm: '20px 0px',
               },
-              backgroundColor: theme.pallete.primary.main,
+              backgroundColor: theme.pallete?.primary?.main,
               fontSize: { sm: '15px', sx: '12px' },
               color: 'white',
               textTransform: 'none',
               '&:hover': {
-                backgroundColor: theme.pallete.primary.main,
+                backgroundColor: theme.pallete?.primary?.main,
               },
             }}
             value="Mark All"

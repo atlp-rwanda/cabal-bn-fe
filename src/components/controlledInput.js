@@ -2,7 +2,13 @@ import React from 'react';
 import { Controller } from 'react-hook-form';
 import InputField from './input';
 
-const ControlledInputs = ({ name, control, variant, ...props }) => (
+const ControlledInputs = ({
+  name,
+  control,
+  variant,
+  placeholder,
+  ...props
+}) => (
   <Controller
     name={name}
     control={control}
@@ -10,6 +16,7 @@ const ControlledInputs = ({ name, control, variant, ...props }) => (
       <InputField
         variant="outlined"
         value={value}
+        placeholder={placeholder}
         onChange={onChange}
         otherStyles={{
           width: '100%',

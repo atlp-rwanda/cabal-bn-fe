@@ -2,7 +2,7 @@
 /* eslint-disable object-curly-newline */
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { ImageListItem, Box, Typography, Grid } from '@mui/material';
+import { Box, Typography, Grid } from '@mui/material';
 import { Link, matchPath } from 'react-router-dom';
 import { useTheme } from '@mui/styles';
 import DashboardLogo from '../assets/DashboardLogo.svg';
@@ -13,7 +13,7 @@ const SideBar = ({ sideBarLinks }) => {
     <Box
       fullWidth
       sx={{
-        backgroundColor: theme?.pallete.primary.main,
+        backgroundColor: theme?.palette.primary.main,
         height: '100vh',
         position: 'sticky',
         top: 0,
@@ -36,7 +36,7 @@ const SideBar = ({ sideBarLinks }) => {
             container
             sx={{
               backgroundColor: matchPath(window.location.pathname, links.to)
-                ? theme?.pallete.secondary.main
+                ? theme?.palette.secondary.main
                 : 'transparent',
               padding: '20px',
             }}
@@ -59,7 +59,7 @@ const SideBar = ({ sideBarLinks }) => {
               <Typography
                 variant="h6"
                 sx={{
-                  color: theme?.pallete.primary.text,
+                  color: theme?.palette.primary.text,
                   fontSize: theme.typography.fontSize,
                 }}
               >

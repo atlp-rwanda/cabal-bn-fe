@@ -223,13 +223,13 @@ const ResetPassword = (props) => {
           </Typography>
           {error ? (
             <Alert variant="outlined" severity="error" sx={errorresetPassword}>
-              {store.getState().userReducer.error.data.message}
+              {store.getState().userReducer.error.data?.message}
             </Alert>
           ) : null}
           <Stack sx={{ width: '75%', marginTop: 1 }} spacing={2}>
             {resetPasswsord.error.message && (
               <Alert variant="outlined" severity="error">
-                {resetPasswsord.error.message}
+                {resetPasswsord.error?.message}
               </Alert>
             )}
             {resetPasswsord.data.message && <Navigate to="/login" replace />}

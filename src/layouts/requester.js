@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { Link, Outlet, useNavigate, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,8 +17,8 @@ import MobLink from '../components/mobLinks';
 import Notification from '../view/notificationsPanel/notification';
 import accommodationIcon from '../assets/accommodationIcon.svg';
 import chatIcon from '../assets/chatIcon.svg';
-import notificationIcon from '../assets/notificationIcon.svg';
 import tripIcon from '../assets/tripIcon.svg';
+import bookingIcon from '../assets/bookingIcon.svg';
 import logo from '../assets/Logo.svg';
 import store from '../redux/store';
 import { logoutUser } from '../redux/actions/logout.action';
@@ -63,8 +64,8 @@ const DashboardPreview = () => {
     await store.dispatch(retrieveAction());
     store.subscribe(() => {
       const { profileReducer } = store.getState();
-      setName(profileReducer.data.user.first_name);
-      setProfile(user?.profile_picture);
+      setName(profileReducer.data.user?.first_name);
+      setProfile(profileReducer.data.user?.profile_picture);
     });
   };
   useEffect(() => {
@@ -109,6 +110,12 @@ const DashboardPreview = () => {
       link: 'Accommodation',
       icon: accommodationIcon,
       id: 2,
+    },
+    {
+      to: '/dashboard/bookings',
+      link: 'Bookings',
+      icon: bookingIcon,
+      id: 3,
     },
     {
       to: '/dashboard/chats',

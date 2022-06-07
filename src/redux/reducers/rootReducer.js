@@ -14,6 +14,19 @@ import { assignRoleReducer } from './user_role_settings.reducer';
 import { getRoleReducer } from './get_roles_reducer';
 import { getUserReducer } from './get_users_reducer';
 import { fetchNotifications } from './notification.reducer';
+import {
+  fetchSingleAccommodationReducer,
+  fetchAllAccommodations,
+  createAccommodationReducer,
+  deleteAccommodationReducer,
+  updateAccommodationReducer,
+  fetchCommentsReducer,
+} from './accommodation.reducer';
+import { createRoomReducer, fetchRoomsReducer } from './room.reducer';
+import {
+  createBookingReducer,
+  fetchAllBookingsReducer,
+} from './booking.reducer';
 
 const rootReducer = combineReducers({
   getUserReducer,
@@ -24,6 +37,15 @@ const rootReducer = combineReducers({
   locationReducer,
   landingReducer,
   emailVerificationReducer,
+  fetchAllAccommodations,
+  fetchSingleAccommodationReducer,
+  createAccommodationReducer,
+  updateAccommodationReducer,
+  deleteAccommodationReducer,
+  createRoomReducer,
+  fetchRoomsReducer,
+  createBookingReducer,
+  fetchAllBookingsReducer,
   forgot,
   Reset,
   accommodationReducer,
@@ -32,5 +54,6 @@ const rootReducer = combineReducers({
   assignRoleReducer,
 
   notifications: fetchNotifications,
+  accommodationComments: fetchCommentsReducer,
 });
 export default rootReducer;

@@ -14,6 +14,9 @@ const Header = ({ title }) => {
           paddingLeft: '30px',
           fontSize: '20px',
           fontFamily: theme?.typography.fontFamily,
+          '@media (max-width:900px)': {
+            display: 'none',
+          },
         }}
       >
         {title}
