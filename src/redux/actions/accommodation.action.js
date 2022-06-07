@@ -28,7 +28,7 @@ import {
 import axios from '../../axios/axios.instance';
 import { FETCHACCOMMODATIONS } from '../actionTypes/actionTypes';
 import axiosInstance from '../../axios/axios.instance';
-
+/* istanbul ignore next */
 export const getAccommodations = (payload) => (dispatch) => {
   dispatch({
     type: FETCHACCOMMODATIONS,

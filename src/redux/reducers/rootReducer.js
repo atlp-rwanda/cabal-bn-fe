@@ -10,6 +10,8 @@ import { Reset } from './ResetPasswordReducer';
 import accommodationReducer from './accommodation.reducer';
 import { requestsReducer } from './requesterDashboard';
 import { profileReducer } from './profileReducer';
+import { CreateTripReducer } from './CreateTrip.reducer';
+import { UpdateTrip } from './UpdateTrip.reducer';
 import { assignRoleReducer } from './user_role_settings.reducer';
 import { getRoleReducer } from './get_roles_reducer';
 import { getUserReducer } from './get_users_reducer';
@@ -51,8 +53,9 @@ const rootReducer = combineReducers({
   accommodationReducer,
   requestsReducer,
   profileReducer,
+  CreateTripReducer,
+  UpdateTrip,
   assignRoleReducer,
-
   notifications: fetchNotifications,
   accommodationComments: fetchCommentsReducer,
 });

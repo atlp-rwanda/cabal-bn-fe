@@ -1,5 +1,5 @@
 import { LOGIN_USER } from '../types/login.types';
-
+/* istanbul ignore next */
 export const userLogin = (data) => ({
   type: LOGIN_USER,
   payload: data,
