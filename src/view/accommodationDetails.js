@@ -13,6 +13,7 @@ import Buttons from '../components/button';
 import { unloggedInUser } from '../helpers/login.helpers';
 import Header from '../components/landing/header';
 import { RoomModal } from '../components/RoomModal';
+import { RatingModal } from "../components/RatingModal";
 import AccommodationComment from '../components/accommodation/accommodation.comment';
 
 const papeStyles = {
@@ -54,6 +55,14 @@ export const AccommodationDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
+
+  const [openRating, setopenRating] = useState(false);
+  const handleRating = () => {
+    setopenRating(true);
+  }
+  const handleCloseRating = () => setopenRating(false);
+
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -145,7 +154,9 @@ export const AccommodationDetails = () => {
 
                 <CardContent>
                   <Grid sx={itemStyles}>
-                    <Stars rates={data?.rates} />
+                    <CardActionArea onClick={handleRating}>
+                      <Stars rates={data?.rates} />
+                    </CardActionArea>
                   </Grid>
                 </CardContent>
               </Card>
@@ -277,6 +288,12 @@ export const AccommodationDetails = () => {
           </Grid>
         )}
         <RoomModal open={open} title="Create Room" handleClose={handleClose} />
+        <RatingModal
+          open={openRating}
+          title={'Rate This Accomodation'}
+          handleClose={handleCloseRating}
+          pathId={id}
+        />
       </Grid>{' '}
     </>
   );
