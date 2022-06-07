@@ -17,7 +17,7 @@ import {
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTheme } from '@mui/styles';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import format from 'date-fns/format';
@@ -123,6 +123,7 @@ const RequesterTable = ({ handleEdit, handleOpen }) => {
                 <StyledTableCell align="center">Status</StyledTableCell>
                 <StyledTableCell align="center">Trip date</StyledTableCell>
                 <StyledTableCell align="center">Return Date</StyledTableCell>
+                <StyledTableCell align="center">Details</StyledTableCell>
                 <StyledTableCell align="center">Actions</StyledTableCell>
               </TableRow>
             </TableHead>
@@ -158,13 +159,22 @@ const RequesterTable = ({ handleEdit, handleOpen }) => {
                       {format(new Date(row.returnDate), 'MMM dd yyyy')}
                     </StyledTableCell>
                     <StyledTableCell align="center">
-                      {role.role_id === 3 && (
-                        <Approve
-                          row={row}
-                          handleApprove={handleApprove}
-                          handleReject={handleReject}
-                        />
-                      )}
+                      <Link
+                        style={{ textDecoration: 'none' }}
+                        to={`/dashboard/trips/${row.id}`}
+                      >
+                        <Button variant="outlined">Details</Button>
+                      </Link>
+                    </StyledTableCell>
+                    <StyledTableCell align="center">
+                      {role.role_id === 3 ||
+                        (role.role_id === 1 && (
+                          <Approve
+                            row={row}
+                            handleApprove={handleApprove}
+                            handleReject={handleReject}
+                          />
+                        ))}
                       {role.role_id === 4 && (
                         <Grid
                           container

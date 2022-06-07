@@ -63,8 +63,8 @@ export default ({ handleClose, open }) => {
             component="h2"
             sx={{
               padding: '12px',
-              color: theme.typography.color,
-              fontWeight: theme.typography.fontWeightRegular,
+              color: '#1A2D6D',
+              fontWeight: 400,
             }}
           >
             Notifications
@@ -83,12 +83,12 @@ export default ({ handleClose, open }) => {
                 xs: '30px 0px',
                 sm: '20px 0px',
               },
-              backgroundColor: theme.pallete?.primary?.main,
+              backgroundColor: '#1A2D6D',
               fontSize: { sm: '15px', sx: '12px' },
               color: 'white',
               textTransform: 'none',
               '&:hover': {
-                backgroundColor: theme.pallete?.primary?.main,
+                backgroundColor: '#1A2D6D',
               },
             }}
             value="Mark All"
@@ -127,8 +127,8 @@ export default ({ handleClose, open }) => {
                       sx={{
                         fontWeight:
                           notification.isRead === false
-                            ? theme.typography.fontWeightMedium
-                            : theme.typography.fontWeightLight,
+                            ? 500
+                            : 300,
                       }}
                     >
                       from:{' '}
@@ -138,11 +138,8 @@ export default ({ handleClose, open }) => {
                   <Typography
                     sx={{
                       padding: 2,
-                      fontWeight:
-                        notification.isRead === false
-                          ? theme.typography.fontWeightMedium
-                          : theme.typography.fontWeightLight,
-                      color: theme.typography.color,
+                      fontWeight: notification.isRead === false ? 500 : 300,
+                      color: '#1A2D6D',
                     }}
                   >
                     {notification.details}
@@ -150,13 +147,10 @@ export default ({ handleClose, open }) => {
 
                   <Typography
                     sx={{
-                      fontWeight:
-                        notification.isRead === false
-                          ? theme.typography.fontWeightMedium
-                          : theme.typography.fontWeightLight,
+                      fontWeight: notification.isRead === false ? 500 : 300,
                       display: 'flex',
                       justifyContent: 'flex-end',
-                      color: theme.typography.color,
+                      color: '#1A2D6D',
                       fontSize: '12px',
                       paddingRight: '8px',
                     }}

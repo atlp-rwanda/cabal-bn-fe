@@ -13,7 +13,8 @@ const SideBar = ({ sideBarLinks }) => {
     <Box
       fullWidth
       sx={{
-        backgroundColor: theme?.palette.primary.main,
+        backgroundColor:'#1A2D6D',
+        // backgroundColor: theme?.pallete.primary.main,
         height: '100vh',
         position: 'sticky',
         top: 0,
@@ -36,7 +37,8 @@ const SideBar = ({ sideBarLinks }) => {
             container
             sx={{
               backgroundColor: matchPath(window.location.pathname, links.to)
-                ? theme?.palette.secondary.main
+              ? '#0B2C5f'
+                // ? theme?.pallete.secondary.main
                 : 'transparent',
               padding: '20px',
             }}
@@ -48,7 +50,7 @@ const SideBar = ({ sideBarLinks }) => {
                 display: 'flex',
                 cursor: 'pointer',
                 textDecoration: 'none',
-                fontSize: theme.typography.fontSize,
+                // fontSize: theme.typography.fontSize,
               }}
             >
               <img
@@ -59,8 +61,9 @@ const SideBar = ({ sideBarLinks }) => {
               <Typography
                 variant="h6"
                 sx={{
-                  color: theme?.palette.primary.text,
-                  fontSize: theme.typography.fontSize,
+                  color: '#fff'
+                  // color: theme?.pallete.primary.text,
+                  // fontSize: theme.typography.fontSize,
                 }}
               >
                 {links.link}

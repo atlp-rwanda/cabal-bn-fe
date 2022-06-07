@@ -23,7 +23,6 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useNavigate, Link } from 'react-router-dom';
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
-import NavBar from '../components/navBar';
 import login from '../assets/login.svg';
 // import Footer from '../components/footer';
 import { loginAction } from '../redux/actions/login.action';

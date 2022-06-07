@@ -21,6 +21,7 @@ import {
 } from '../src/redux/actions/login.action';
 import { ERROR_LOGIN, LOGIN_USER } from '../src/redux/types/login.types';
 import { userReducer } from '../src/redux/reducers/userReducer';
+import { LOGOUT_USER } from '../src/redux/types/logout.types';
 
 describe('testing login', () => {
   test('user email input', async () => {
@@ -217,5 +218,29 @@ describe('testing login', () => {
       isLogged: false,
       error: userData
     });
+  });
+
+  it('should test user reducer', async () => {
+    const initialState = {
+      data: [],
+      loading: true,
+      isLogged: false,
+      error: '',
+    };
+
+    const actio={
+      type:LOGOUT_USER,
+      payload:'message'
+    }
+
+    
+     const st= {
+        isLogged: false,
+        loading: true,
+        data: 'message',
+        error: '',
+      };
+
+    expect(userReducer(initialState,actio)).toEqual(st);
   });
 });

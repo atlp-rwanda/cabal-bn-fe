@@ -21,6 +21,8 @@ import UserSettingsModal from '../components/user_role';
 import { AccommodationDetails } from '../view/accommodationDetails';
 import AccommodationPage from '../view/allAccommodations';
 import BookingPage from '../view/bookingPage';
+import PageNotFound from '../components/PageNotFound';
+import { ReadOneTrip } from '../components/read_one_trip';
 
 const theme = createTheme({
   palette: {
@@ -59,7 +61,6 @@ const AllRoutes = (props) => (
         <Route exact path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/social/login" element={<GoogleLogin />} />
-        <Route exact path="/" element={<LandingPage />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/signup" element={<Signup />} />
         <Route path="/accommodations" element={<AccommodationPage />} />
@@ -80,7 +81,8 @@ const AllRoutes = (props) => (
           element={<ResetPassword {...props} />}
         />
         <Route exact path="/dashboard/*" element={<DashboardPreview />}>
-          <Route exact path="" element={<Navigate to="trips" />} />
+          <Route path="trips/:id" element={<ReadOneTrip />} />
+          <Route exact path="" element={<RequesterContent />} />
           <Route exact path="trips" element={<RequesterContent />} />
           <Route exact path="profile" element={<Profile />} />
           <Route exact path="roles" element={<UserSettingsModal />} />

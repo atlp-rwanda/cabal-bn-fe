@@ -17,7 +17,9 @@ import configureStore from 'redux-mock-store';
 import axios from 'axios';
 import userEvent from '@testing-library/user-event';
 import {
+  assign,
   assignRoleAction,
+  getAll,
   getRolesAction,
 } from '../src/redux/actions/user_role_settings.action';
 import UserSettingsModal from '../src/components/user_role';
@@ -25,8 +27,11 @@ import store from '../src/redux/store';
 import {
   ASSIGNROLE,
   GETALLROLES,
+  GETUSERS,
+  GET_DETAILED,
 } from '../src/redux/types/user_role_settings.types';
 import { assignRoleReducer } from '../src/redux/reducers/user_role_settings.reducer';
+import { getUserReducer } from '../src/redux/reducers/get_users_reducer';
 
 const middleware = [thunk];
 const mockStore = configureStore(middleware);
@@ -35,9 +40,7 @@ const stor = mockStore({});
 
 describe('USER_ROLE_SETTINGS TESTS', () => {
   const history = createMemoryHistory();
-  beforeEach(() => {
-    stor.clearActions();
-  });
+
   it('should test the display of role settings modal', () => {
     render(
       <Provider store={store}>
@@ -69,12 +72,17 @@ describe('USER_ROLE_SETTINGS TESTS', () => {
     });
   });
 
+  it('should test assign role', async () => {
+    store.dispatch(assign());
+    await waitFor(() => {
+      store.subscribe(() => {
+        expect(assignRoleAction()).toBeCalled();
+      });
+    });
+  });
+
   it('should test get all roles action', async () => {
     const role = [1, 2];
-    const expectedAction = {
-      type: GETALLROLES,
-      payload: role,
-    };
     const initialState = {
       error: '',
       roles: role,
@@ -88,19 +96,54 @@ describe('USER_ROLE_SETTINGS TESTS', () => {
     });
   });
 
+  it('should test get all roles', async () => {
+    stor.dispatch(getAll());
+    await waitFor(() => {
+      stor.subscribe(() => {
+        expect(getRolesAction()).toBeCalled();
+      });
+    });
+  });
+
   it('should test user role settings reducer', async () => {
     const initialState = {
       message: '',
       error: '',
     };
-    const mes = 'yoooo';
-    const err = 'nooo';
-
-    const expection = {
-      type: ASSIGNROLE,
-      payload: mes,
-    };
 
     expect(assignRoleReducer(initialState, {})).toEqual(initialState);
+  });
+
+  it('should test get users reducer', async () => {
+    const ac = {
+      type: GETUSERS,
+      payload: [1, 2],
+    };
+
+    const act = {
+      type: GET_DETAILED,
+      payload: [1, 2],
+    };
+
+    const initialState = {
+      error: '',
+      users: [],
+      detailed: [],
+    };
+
+    const st = {
+      error: '',
+      users: [1, 2],
+      detailed: [],
+    };
+
+    const sta = {
+      error: '',
+      users: [],
+      detailed: [1,2],
+    };
+
+    expect(getUserReducer(initialState, ac)).toEqual(st);
+    expect(getUserReducer(initialState, act)).toEqual(sta);
   });
 });
