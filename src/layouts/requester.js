@@ -136,13 +136,14 @@ const DashboardPreview = () => {
     },
   ];
 
-  if (roleId?.role_id === 1) {
-    sideBarLinks.push({
-      to: '/dashboard/roles',
-      link: 'Settings',
-      icon: settingsIcon,
-    });
-  }
+  // if (roleId.role_id === 1) {
+  //   sideBarLinks.push({
+  //     to: '/dashboard/roles',
+  //     link: 'Settings',
+  //     icon: settingsIcon,
+  //     id: 5,
+  //   });
+  // }
 
   return (
     <Box sx={{ display: 'flex' }}>

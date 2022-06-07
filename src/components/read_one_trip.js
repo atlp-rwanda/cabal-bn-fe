@@ -14,7 +14,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { getTrip } from '../redux/actions/read_one_trip.action';
-import { getUsers } from '../redux/actions/user_role_settings.action';
 import { useNavigate } from 'react-router-dom';
 import format from 'date-fns/format';
 
