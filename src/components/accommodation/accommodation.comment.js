@@ -33,8 +33,6 @@ const AccommodationComments = ({ accommodationState }) => {
   const { pending, loading } = useSelector(
     (state) => state.accommodationComments,
   );
-  console.log(updateComment);
-
   const handleChange = () => {
     setChecked((prev) => !prev);
   };

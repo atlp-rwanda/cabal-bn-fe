@@ -2,7 +2,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-plusplus */
 /* eslint-disable react/prop-types */
-import { Close, NavigateBefore, NavigateNext } from '@mui/icons-material';
+import { NavigateBefore, NavigateNext } from '@mui/icons-material';
 import {
   Box,
   Button,
@@ -13,19 +13,15 @@ import {
   IconButton,
   InputLabel,
   MenuItem,
-  Modal,
   Select,
   Skeleton,
   Stack,
   styled,
-  TextField,
   Typography,
 } from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import RoomCard from '../components/roomCard';
 import {
@@ -34,11 +30,7 @@ import {
 } from '../redux/actions/accommodation.action';
 import { roomSchema } from '../validation/room.validation';
 import BookingTable from './bookingTable';
-import {
-  createBookingAction,
-  fetchAllBookingsAction,
-} from '../redux/actions/booking.action';
-import store from '../redux/store';
+import { BookingModal } from '../components/BookingModal';
 
 const HeaderText = styled(Typography)(() => ({
   fontSize: '30px',
@@ -57,7 +49,7 @@ const BodyText = styled(Typography)(() => ({
 const SelectFormControl = styled(FormControl)(() => ({
   width: '250px',
 }));
-
+/* istanbul ignore next */
 const BookingPage = () => {
   const limit = 8;
   let totalPages = 0;
@@ -83,15 +75,9 @@ const BookingPage = () => {
     error: accommodationError,
     pending: accommodationPending,
   } = useSelector((state) => state.fetchAllAccommodations);
-  const {
-    control,
-    handleSubmit,
-    watch,
-    reset,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(roomSchema),
-  });
+
+  const role =
+    JSON.parse(localStorage.getItem('userCredentials')) ?? unloggedInUser;
   // get all rooms in the accommodations
   if (accommodations?.data && accommodations?.data?.results?.length !== 0) {
     let forRooms = [];
@@ -130,21 +116,6 @@ const BookingPage = () => {
     activeRoom.current = roomId;
     setOpenModal(true);
   };
-  const createBooking = async (data) => {
-    console.log(data, activeRoom.current);
-    const { current } = activeRoom;
-    await store.dispatch(
-      createBookingAction(current, {
-        checkinDate: new Date(data.checkInDate).toISOString(),
-        checkoutDate: new Date(data.checkOutDate).toISOString(),
-      }),
-    );
-    if (store.getState().createBookingReducer.booking?.booking) {
-      reset();
-      handleCloseModal();
-      dispatch(fetchAllBookingsAction(current));
-    }
-  };
   const handleSearchRooms = () => {
     dispatch(filterAccommodationsAction(accomodationSelect));
     setAccomodationSelect([]);
@@ -157,284 +128,197 @@ const BookingPage = () => {
   return (
     <>
       <BookingTable />
-      <Container sx={{ paddingTop: '10px' }}>
-        <HeaderText color="primary" sx={{ marginBottom: '15px' }}>
-          Book a Room
-        </HeaderText>
-        <Stack
-          direction="row"
-          alignItems="start"
-          spacing={{ xs: '5px', md: '15px' }}
-          marginBottom="15px"
-        >
-          <SelectFormControl
-            size={{
-              xs: 'small',
-              md: 'medium',
-            }}
+      {role.role_id !== 3 ? (
+        <Container sx={{ paddingTop: '10px' }}>
+          <HeaderText color="primary" sx={{ marginBottom: '15px' }}>
+            Rooms
+          </HeaderText>
+          <Stack
+            direction="row"
+            alignItems="start"
+            spacing={{ xs: '5px', md: '15px' }}
+            marginBottom="15px"
           >
-            <InputLabel id="searchAccommodation">
-              Search Accommodation
-            </InputLabel>
-            <Select
-              labelId="searchAccommodation"
-              label="Search Accommodation"
-              value={accomodationSelect}
-              multiple
-              MenuProps={MenuProps}
-              onChange={(event) => {
-                const {
-                  target: { value },
-                } = event;
-                setAccomodationSelect(
-                  typeof value === 'string'
-                    ? value.split(',').map((str) => str.trim())
-                    : value,
-                );
+            <SelectFormControl
+              size={{
+                xs: 'small',
+                md: 'medium',
               }}
             >
-              {(() => {
-                if (accommodationError) {
-                  return (
-                    <MenuItem disabled color="error" value="Error">
-                      Error
-                    </MenuItem>
+              <InputLabel id="searchAccommodation">
+                Search Accommodation
+              </InputLabel>
+              <Select
+                labelId="searchAccommodation"
+                label="Search Accommodation"
+                value={accomodationSelect}
+                multiple
+                MenuProps={MenuProps}
+                onChange={(event) => {
+                  const {
+                    target: { value },
+                  } = event;
+                  setAccomodationSelect(
+                    typeof value === 'string'
+                      ? value.split(',').map((str) => str.trim())
+                      : value,
                   );
-                }
-
-                if (accommodationPending) {
-                  return (
-                    <MenuItem disabled color="error" value="Error">
-                      <CircularProgress size={30} />
-                    </MenuItem>
-                  );
-                }
-
-                if (accommodations.length === 0) {
-                  return (
-                    <MenuItem disabled value="">
-                      No Accommodation
-                    </MenuItem>
-                  );
-                }
-
-                return allAccommodations.data.results.reduce(
-                  (prevAcc, nextAcc) => {
-                    prevAcc.push(
-                      <MenuItem key={nextAcc.id} value={nextAcc.id}>
-                        {nextAcc.name}
-                      </MenuItem>,
+                }}
+              >
+                {(() => {
+                  if (accommodationError) {
+                    return (
+                      <MenuItem disabled color="error" value="Error">
+                        Error
+                      </MenuItem>
                     );
+                  }
 
-                    return prevAcc;
-                  },
-                  [
-                    // <MenuItem key={0} value="All">
-                    //   All
-                    // </MenuItem>,
-                  ],
-                );
-              })()}
-            </Select>
-          </SelectFormControl>
-          <Button
-            color="primary"
-            variant="contained"
-            sx={{
-              height: '56px',
-            }}
-            onClick={handleSearchRooms}
-          >
-            <BodyText>Search</BodyText>
-          </Button>
-        </Stack>
-        <Grid
-          container
-          key="pagination-icons"
-          sx={{
-            width: '100%',
-            justifyContent: 'end',
-            padding: '0 30px 0 0',
-            color: '#1A2D6D',
-            alignItems: 'center',
-          }}
-        >
-          <Typography>
-            {page} - {totalPages} of {rooms.current.length}
-          </Typography>
-          <IconButton
-            disabled={page === 1 ? true : null}
-            onClick={handlePrevious}
-            style={{
-              color: '#1A2D6D',
-            }}
-          >
-            <NavigateBefore />
-          </IconButton>
-          <IconButton
-            disabled={page === totalPages ? true : null}
-            onClick={handleNext}
-            style={{
-              color: '#1A2D6D',
-            }}
-          >
-            <NavigateNext />
-          </IconButton>
-        </Grid>
-        <Grid
-          container
-          justifyContent="space-evenly"
-          columns={{ xs: 1, sm: 2, md: 3, lg: 4 }}
-          gap="15px"
-        >
-          {(() => {
-            if (accommodationPending) {
-              return (
-                <Grid
-                  container
-                  justifyContent="space-evenly"
-                  columns={{ xs: 1, sm: 2, md: 3, lg: 4 }}
-                  gap="15px"
-                >
-                  {Array.from(Array(8)).map((value, index) => (
-                    <Grid key={index} item>
-                      <Skeleton
-                        variant="rectangular"
-                        width={{ xs: '200px', md: '250px' }}
-                        height={{ xs: '200px', md: '250px' }}
-                        sx={{
-                          overflow: 'hidden',
-                          borderRadius: '5px',
-                          width: {
-                            xs: '200px',
-                            md: '250px',
-                          },
-                          height: {
-                            xs: '200px',
-                            md: '250px',
-                          },
-                        }}
-                      />
-                    </Grid>
-                  ))}
-                </Grid>
-              );
-            }
-            return rooms.current
-              .filter(
-                (room, index) =>
-                  index >= (page - 1) * limit && index < page * limit,
-              )
-              .map((room) => (
-                <Grid key={room.id} item>
-                  <RoomCard
-                    accommodationName={room.accommodationName}
-                    images={room.images}
-                    roomNo={room.id}
-                    price={room.price}
-                    onButtonClick={handleBooking}
-                  />
-                </Grid>
-              ));
-          })()}
-        </Grid>
-      </Container>
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <Modal
-          open={openModal}
-          onClose={handleCloseModal}
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Box
-            component="div"
-            sx={{
-              display: 'flex',
-              gap: '15px',
-              flexFlow: 'column nowrap',
-              padding: '30px',
-              margin: '15px',
-              position: 'relative',
-              backgroundColor: 'white',
-              borderRadius: '10px',
-              maxWidth: '400px',
-              width: '100%',
-            }}
-          >
-            <Close
-              sx={{ position: 'absolute', top: '10px', right: '10px' }}
-              onClick={handleCloseModal}
-            />
-            <Controller
-              name="checkInDate"
-              control={control}
-              defaultValue=""
-              render={({ field: { onChange, value } }) => (
-                <DatePicker
-                  value={value}
-                  onChange={(newValue) => {
-                    /* istanbul ignore next */
-                    onChange(newValue);
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Checkin Date"
-                      size="small"
-                      color="primary"
-                      onKeyDown={(e) => {
-                        /* istanbul ignore next */
-                        e.preventDefault();
-                      }}
-                      {...(errors.checkInDate && {
-                        error: true,
-                        helperText: errors.checkInDate.message,
-                      })}
-                    />
-                  )}
-                />
-              )}
-            />
-            <Controller
-              name="checkOutDate"
-              control={control}
-              defaultValue=""
-              render={({ field: { onChange, value } }) => (
-                <DatePicker
-                  value={value}
-                  minDate={watch('checkInDate')}
-                  onChange={(newValue) => {
-                    /* istanbul ignore next */
-                    onChange(newValue);
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Checkout Date"
-                      size="small"
-                      onKeyDown={(e) => {
-                        /* istanbul ignore next */
-                        e.preventDefault();
-                      }}
-                      {...(errors.checkOutDate && {
-                        error: true,
-                        helperText: errors.checkOutDate.message,
-                      })}
-                    />
-                  )}
-                />
-              )}
-            />
+                  if (accommodationPending) {
+                    return (
+                      <MenuItem disabled color="error" value="Error">
+                        <CircularProgress size={30} />
+                      </MenuItem>
+                    );
+                  }
 
-            <Button variant="contained" onClick={handleSubmit(createBooking)}>
-              Book room
+                  if (accommodations.length === 0) {
+                    return (
+                      <MenuItem disabled value="">
+                        No Accommodation
+                      </MenuItem>
+                    );
+                  }
+
+                  return allAccommodations.data.results.reduce(
+                    (prevAcc, nextAcc) => {
+                      prevAcc.push(
+                        <MenuItem key={nextAcc.id} value={nextAcc.id}>
+                          {nextAcc.name}
+                        </MenuItem>,
+                      );
+
+                      return prevAcc;
+                    },
+                    [
+                      // <MenuItem key={0} value="All">
+                      //   All
+                      // </MenuItem>,
+                    ],
+                  );
+                })()}
+              </Select>
+            </SelectFormControl>
+            <Button
+              color="primary"
+              variant="contained"
+              sx={{
+                height: '56px',
+              }}
+              onClick={handleSearchRooms}
+            >
+              <BodyText>Search</BodyText>
             </Button>
-          </Box>
-        </Modal>
-      </LocalizationProvider>
+          </Stack>
+          <Grid
+            container
+            key="pagination-icons"
+            sx={{
+              width: '100%',
+              justifyContent: 'end',
+              padding: '0 30px 0 0',
+              color: '#1A2D6D',
+              alignItems: 'center',
+            }}
+          >
+            <Typography>
+              {page} - {totalPages} of {rooms.current.length}
+            </Typography>
+            <IconButton
+              disabled={page === 1 ? true : null}
+              onClick={handlePrevious}
+              style={{
+                color: '#1A2D6D',
+              }}
+            >
+              <NavigateBefore />
+            </IconButton>
+            <IconButton
+              disabled={page === totalPages ? true : null}
+              onClick={handleNext}
+              style={{
+                color: '#1A2D6D',
+              }}
+            >
+              <NavigateNext />
+            </IconButton>
+          </Grid>
+          <Grid
+            container
+            justifyContent="space-evenly"
+            columns={{ xs: 1, sm: 2, md: 3, lg: 4 }}
+            gap="15px"
+          >
+            {(() => {
+              if (accommodationPending) {
+                return (
+                  <Grid
+                    container
+                    justifyContent="space-evenly"
+                    columns={{ xs: 1, sm: 2, md: 3, lg: 4 }}
+                    gap="15px"
+                  >
+                    {Array.from(Array(8)).map((value, index) => (
+                      <Grid key={index} item>
+                        <Skeleton
+                          variant="rectangular"
+                          width={{ xs: '200px', md: '250px' }}
+                          height={{ xs: '200px', md: '250px' }}
+                          sx={{
+                            overflow: 'hidden',
+                            borderRadius: '5px',
+                            width: {
+                              xs: '200px',
+                              md: '250px',
+                            },
+                            height: {
+                              xs: '200px',
+                              md: '250px',
+                            },
+                          }}
+                        />
+                      </Grid>
+                    ))}
+                  </Grid>
+                );
+              }
+              return rooms.current
+                .filter(
+                  (room, index) =>
+                    index >= (page - 1) * limit && index < page * limit,
+                )
+                .map((room) => (
+                  <Grid key={room.id} item>
+                    <RoomCard
+                      accommodationName={room.accommodationName}
+                      images={room.images}
+                      roomNo={room.id}
+                      price={room.price}
+                      onButtonClick={handleBooking}
+                    />
+                  </Grid>
+                ));
+            })()}
+          </Grid>
+        </Container>
+      ) : null}
+      <BookingModal
+        open={openModal}
+        title="BOOK NOW"
+        ids={{ roomId: activeRoom.current }}
+        handleClose={handleCloseModal}
+        inputData={null}
+      />
     </>
   );
 };

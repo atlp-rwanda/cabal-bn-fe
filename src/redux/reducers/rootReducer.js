@@ -25,10 +25,7 @@ import {
   fetchCommentsReducer,
 } from './accommodation.reducer';
 import { createRoomReducer, fetchRoomsReducer } from './room.reducer';
-import {
-  createBookingReducer,
-  fetchAllBookingsReducer,
-} from './booking.reducer';
+import { bookingReducer } from './booking.reducer';
 import { getTripReducer } from './read_one_trip.reducer';
 import chatReducer from './chat.reducer';
 import { assignManagerReducer } from './assign_manager.reducer';
@@ -50,8 +47,6 @@ const rootReducer = combineReducers({
   deleteAccommodationReducer,
   createRoomReducer,
   fetchRoomsReducer,
-  createBookingReducer,
-  fetchAllBookingsReducer,
   forgot,
   Reset,
   accommodationReducer,
@@ -66,5 +61,6 @@ const rootReducer = combineReducers({
   chatReducer,
   assignManagerReducer,
   tripCommentReducer,
+  bookingReducer,
 });
 export default rootReducer;

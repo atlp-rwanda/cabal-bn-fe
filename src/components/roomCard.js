@@ -11,6 +11,8 @@ import React from 'react';
 import SimpleImageSlider from 'react-simple-image-slider';
 import { formatCapitalFirst } from '../helpers/OneTrip.helper';
 
+const role = JSON.parse(localStorage.getItem('userCredentials'));
+
 const RoomCard = ({
   images = ['', ''],
   accommodationName = '',
@@ -70,7 +72,7 @@ const RoomCard = ({
           component="div"
           fontFamily="Josefin Sans, sans-serif"
         >
-          {price}
+          RWF {price}
         </Typography>
       </div>
       <Typography
@@ -83,17 +85,19 @@ const RoomCard = ({
       >
         {formatCapitalFirst(accommodationName)}
       </Typography>
-      <Stack alignItems="center" margin={{ xs: '4px', md: '10px' }}>
-        <Button
-          variant="contained"
-          color="primary"
-          size="small"
-          sx={{ margin: 'auto' }}
-          onClick={() => onButtonClick(roomNo)}
-        >
-          Book a Room
-        </Button>
-      </Stack>
+      {role?.role_id === 4 && (
+        <Stack alignItems="center" marginTop={{ xs: '4px', md: '10px' }}>
+          <Button
+            variant="contained"
+            color="primary"
+            size="small"
+            sx={{ width: '100%' }}
+            onClick={() => onButtonClick(roomNo)}
+          >
+            Book Now
+          </Button>
+        </Stack>
+      )}
     </CardContent>
   </Card>
 );
