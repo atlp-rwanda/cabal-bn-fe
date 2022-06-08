@@ -2,13 +2,38 @@
 /* eslint-disable object-curly-newline */
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { Box, Typography, Grid } from '@mui/material';
+import { Box, Typography, Grid, Menu, MenuItem, Stack, styled } from '@mui/material';
 import { Link, matchPath } from 'react-router-dom';
 import { useTheme } from '@mui/styles';
 import DashboardLogo from '../assets/DashboardLogo.svg';
+import settingsIcon from '../assets/settings-icon.svg';
+
+const role = JSON.parse(localStorage.getItem('userCredentials'))?.role_id;
+
+const StyledMenu=styled(Menu)(({theme})=>({
+  '& .MuiPaper-root': {
+    width: '215px',
+    marginLeft: '-12px',
+    marginTop: '90px',
+    backgroundColor: '#0B2C5f',
+    borderRadius: 0,
+  }
+}))
 
 const SideBar = ({ sideBarLinks }) => {
   const theme = useTheme();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick=(event)=>{
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+
   return (
     <Box
       fullWidth
@@ -72,6 +97,42 @@ const SideBar = ({ sideBarLinks }) => {
             </Link>
           </Grid>
         ))}
+        {role===1?(
+          <>
+          <Stack onClick={handleClick} direction="row" gap={1} padding="16px" sx={{cursor:'pointer'}}>
+          <img src={settingsIcon} alt="icon" />
+          <Typography sx={{
+                  color: '#fff',
+                  fontWeight: 450,
+                  fontSize: 20,
+                  // color: theme?.pallete.primary.text,
+                  // fontSize: theme.typography.fontSize,
+                }}>Settings</Typography>
+          </Stack>
+          <StyledMenu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              'aria-labelledby': 'basic-button',
+            }}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+            transformOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+            elevation={1}
+          >
+            <MenuItem onClick={handleClose}><Link to='/dashboard/roles' style={{textDecoration: 'none',color: '#fff'}}> Assign role</Link></MenuItem>
+            <MenuItem onClick={handleClose}><Link to='/dashboard/settings' style={{textDecoration: 'none', color: '#fff'}}> Assign manager</Link></MenuItem>
+          </StyledMenu>
+          </>
+        ):(null)}
+
       </Box>
     </Box>
   );

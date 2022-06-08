@@ -3,6 +3,7 @@ import axiosInstance from '../../axios/axios.instance';
 import {
   ASSIGNROLE,
   ASSIGNROLEERROR,
+  ASSIGN_MANAGER,
   GETALLROLES,
   GETUSERS,
   GET_DETAILED,
@@ -58,4 +59,18 @@ export const getUsers = () => async (dispatch) => {
       payload: res.data.data,
     });
   } catch (err) {}
+};
+
+export const assignManager = (data) => async (dispatch) => {
+  try {
+    const res = await axiosInstance.put(`/users/assign-to-manager`, data);
+    console.log(res);
+    dispatch({
+      type: ASSIGN_MANAGER,
+    });
+    toast.success(res.data.message);
+  } catch (error) {
+    console.log(error);
+    toast.success(error.message);
+  }
 };

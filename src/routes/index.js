@@ -24,6 +24,7 @@ import BookingPage from '../view/bookingPage';
 import PageNotFound from '../components/PageNotFound';
 import { ReadOneTrip } from '../components/read_one_trip';
 import ChatPage from '../view/chatPage';
+import Assignmanager from '../components/assign_manager';
 
 const theme = createTheme({
   palette: {
@@ -87,6 +88,7 @@ const AllRoutes = (props) => (
           <Route exact path="trips" element={<RequesterContent />} />
           <Route exact path="profile" element={<Profile />} />
           <Route exact path="roles" element={<UserSettingsModal />} />
+          <Route exact path="settings" element={<Assignmanager />} />
           <Route exact path="accommodations" element={<TravelAdmin />} />
           <Route exact path="bookings" element={<BookingPage />} />
           <Route

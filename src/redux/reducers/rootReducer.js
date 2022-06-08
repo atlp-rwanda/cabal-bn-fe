@@ -31,6 +31,7 @@ import {
 } from './booking.reducer';
 import { getTripReducer } from './read_one_trip.reducer';
 import chatReducer from './chat.reducer';
+import { assignManagerReducer } from './assign_manager.reducer';
 
 const rootReducer = combineReducers({
   getUserReducer,
@@ -61,6 +62,7 @@ const rootReducer = combineReducers({
   notifications: fetchNotifications,
   accommodationComments: fetchCommentsReducer,
   getTripReducer,
-  chatReducer
+  chatReducer,
+  assignManagerReducer,
 });
 export default rootReducer;
