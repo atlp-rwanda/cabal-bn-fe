@@ -142,6 +142,7 @@ const Signup = () => {
     setLoading(false);
     setError(true);
   };
+  /* istanbul ignore next */
   const populateSelectLocation = async () => {
     await store.dispatch(getAllLocations());
     const { results } = store.getState().locationReducer.data.data;
