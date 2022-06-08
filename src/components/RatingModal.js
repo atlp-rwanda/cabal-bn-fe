@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Box,
-  Typography,
-} from '@mui/material';
+import { Box, Typography, Stack } from '@mui/material';
 import IconButton from '@mui/material/IconButton';
 import Modal from '@mui/material/Modal';
 import { Star, StarBorder, StarHalf } from '@mui/icons-material';
-import { Stack } from '@mui/material';
 import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import { Rating } from '../redux/actions/Rating.action';
@@ -55,12 +51,11 @@ export const RatingModal = ({ open, title, handleClose, pathId }) => {
       Rating(pathId, rate);
       const timer = setTimeout(() => {
         handleClose();
-        window.location.reload(true)
+        window.location.reload(true);
       }, 3000);
       return () => clearTimeout(timer);
-
     }
-  }, [rate])
+  }, [rate]);
   const classes = useStyle();
   return (
     <Box>
@@ -77,7 +72,7 @@ export const RatingModal = ({ open, title, handleClose, pathId }) => {
               color: '#00095E',
               bottom: '20px',
               right: '1px',
-              float: "right"
+              float: 'right',
             }}
           >
             <CloseIcon />
@@ -95,13 +90,14 @@ export const RatingModal = ({ open, title, handleClose, pathId }) => {
             {title}
           </Typography>
           <Stack direction="row">
-            {rates.map(element => {
-              return (
-                <>
-                  <Star sx={{ color: rate >= element ? '#FFC800' : '#000' }} onClick={() => setRate(element)} />
-                </>
-              )
-            })}
+            {rates.map((element) => (
+              <>
+                <Star
+                  sx={{ color: rate >= element ? '#FFC800' : '#000' }}
+                  onClick={() => setRate(element)}
+                />
+              </>
+            ))}
           </Stack>
         </Box>
       </Modal>

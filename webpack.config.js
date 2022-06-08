@@ -22,7 +22,7 @@ module.exports = {
     publicPath: '/',
     environment: {
       module: true,
-      dynamicImport: true,   // Note you need to enable `dynamicImport ` here
+      dynamicImport: true, // Note you need to enable `dynamicImport ` here
     },
   },
   mode: process.env.NODE_ENV || 'development',

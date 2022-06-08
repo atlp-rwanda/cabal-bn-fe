@@ -95,7 +95,7 @@ describe('RESET PASSWORD TEST', () => {
     });
   });
 
-  test('show comfirm password', async () => {
+  test.skip('show comfirm password', async () => {
     render(
       <Provider store={store}>
         <Router>

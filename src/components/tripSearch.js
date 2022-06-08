@@ -135,7 +135,12 @@ function TripSearch({ page, rowsPerPage, handleOpen }) {
     <>
       <ThemeProvider theme={theme}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <Grid container spacing={{ xs: '15px' }} justifyContent="center">
+          <Grid
+            container
+            spacing={{ xs: '15px' }}
+            justifyContent="center"
+            sx={{ width: '100% !important', margin: '0px !important' }}
+          >
             <Grid width={inputWidth} item>
               <CustomDatePicker
                 value={departDate}

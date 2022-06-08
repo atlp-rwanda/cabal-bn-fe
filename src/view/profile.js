@@ -89,9 +89,9 @@ const Profile = () => {
     data.dateOfBirth === null
       ? formData.append('date_of_birth', '')
       : formData.append(
-        'date_of_birth',
-        new Date(data.dateOfBirth).toISOString(),
-      );
+          'date_of_birth',
+          new Date(data.dateOfBirth).toISOString(),
+        );
     data.bio === null
       ? formData.append('bio', '')
       : formData.append('bio', data.bio);
@@ -220,7 +220,7 @@ const Profile = () => {
                         }}
                       >
                         {watch('profilePicture') &&
-                          typeof watch('profilePicture') === 'string' ? (
+                        typeof watch('profilePicture') === 'string' ? (
                           <Avatar
                             alt="profile picture"
                             name="imagePreview"
@@ -434,14 +434,14 @@ const Profile = () => {
                               menu={
                                 fetchLocation
                                   ? fetchLocation.map((locations) => (
-                                    <MenuItem
-                                      value={locations.id}
-                                      key={locations.id}
-                                      data-testid={`id-${locations.id}`}
-                                    >
-                                      {locations.name}
-                                    </MenuItem>
-                                  ))
+                                      <MenuItem
+                                        value={locations.id}
+                                        key={locations.id}
+                                        data-testid={`id-${locations.id}`}
+                                      >
+                                        {locations.name}
+                                      </MenuItem>
+                                    ))
                                   : null
                               }
                               currentLocation={

@@ -152,14 +152,14 @@ const ResetPassword = (props) => {
       ConfirmPassword !== password
         ? 'Confirm password should match password'
         : ConfirmPassword === password
-          ? ''
-          : 'Confirm password is required';
+        ? ''
+        : 'Confirm password is required';
     const passwordError =
       !password.match(regexPassword) && password.length > 6
         ? 'Must have at least one digit and capital letter'
         : password.match(regexPassword)
-          ? ''
-          : 'Password is required';
+        ? ''
+        : 'Password is required';
 
     setValidationError(() => ({
       ConfirmPassword: ConfirmPasswordError,

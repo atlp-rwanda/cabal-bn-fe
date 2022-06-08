@@ -1,10 +1,14 @@
-import { CREATETRIP, CREATETRIP_FAILED, CREATETRIP_SUCCESS } from '../types/CreateTrip.type';
+import {
+  CREATETRIP,
+  CREATETRIP_FAILED,
+  CREATETRIP_SUCCESS,
+} from '../types/CreateTrip.type';
 /* istanbul ignore next */
 const initialState = {
   loading: false,
   data: {},
   error: {},
-}
+};
 /* istanbul ignore next */
 export const CreateTripReducer = (state = initialState, { type, payload }) => {
   switch (type) {
@@ -17,5 +21,4 @@ export const CreateTripReducer = (state = initialState, { type, payload }) => {
     default:
       return state;
   }
-
-}
+};

@@ -84,30 +84,28 @@ const RequesterTable = ({ handleEdit, handleOpen }) => {
     dispatch(rejectRequestAction(id, status));
   };
 
-
-
-
-
   const role = JSON.parse(localStorage.getItem('userCredentials'));
 
   const handleUpdate = (dataTobeUpdated = null) => {
     handleEdit(dataTobeUpdated);
-  }
-
-
+  };
 
   const history = useNavigate();
   useEffect(() => {
     if (!role && role?.role_id != 4 && role?.role_id != 3) history('/login');
     dispatch(retrieveRequests(page, rowsPerPage));
-    console.log(role, "is role");
+    console.log(role, 'is role');
   }, [page, rowsPerPage, dispatch]);
 
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data?.results.length) : 0;
   return (
     <>
-      <TripSearch handleOpen={handleOpen} page={page} rowsPerPage={rowsPerPage} />
+      <TripSearch
+        handleOpen={handleOpen}
+        page={page}
+        rowsPerPage={rowsPerPage}
+      />
       <TableContainer component={Paper} elevation={0} sx={{ padding: '10px' }}>
         {loading && <Spinner />}
         {pending ? (
@@ -134,6 +132,9 @@ const RequesterTable = ({ handleEdit, handleOpen }) => {
                   <StyledTableRow
                     key={row.id}
                     style={{ height: '20px !important ' }}
+                    onClick={() => {
+                      // history(`./${row.id}`);
+                    }}
                   >
                     <StyledTableCell align="center">
                       {row.reason}
@@ -141,12 +142,13 @@ const RequesterTable = ({ handleEdit, handleOpen }) => {
                     <StyledTableCell
                       align="center"
                       style={{
-                        color: `${row.status === 'APPROVED'
-                          ? '#018786'
-                          : row.status === 'REJECTED'
+                        color: `${
+                          row.status === 'APPROVED'
+                            ? '#018786'
+                            : row.status === 'REJECTED'
                             ? '#EC5C5C'
                             : '#FFC800'
-                          }`,
+                        }`,
                         fontSize: 12,
                       }}
                     >
@@ -184,9 +186,11 @@ const RequesterTable = ({ handleEdit, handleOpen }) => {
                           sx={{ marginLeft: 5 }}
                         >
                           <Typography style={{ cursor: 'pointer' }}>
-
                             {row.status === 'PENDING' && (
-                              <EditIcon onClick={() => handleUpdate(row)} sx={{ color: '#1A2D6D' }} />
+                              <EditIcon
+                                onClick={() => handleUpdate(row)}
+                                sx={{ color: '#1A2D6D' }}
+                              />
                             )}
                           </Typography>
                           <Typography style={{ cursor: 'pointer' }}>
@@ -196,7 +200,6 @@ const RequesterTable = ({ handleEdit, handleOpen }) => {
                                 onClick={() => handleClickOpen(row.id)}
                               />
                             )}
-
                           </Typography>
                         </Grid>
                       )}

@@ -2,7 +2,13 @@
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Outlet,
+  Navigate,
+} from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -35,6 +41,18 @@ const theme = createTheme({
     secondary: {
       main: '#0B2C5f',
       text: '#fff',
+    },
+    error: {
+      main: '#EC5C5C',
+      text: '#1A2D6D',
+    },
+    success: {
+      main: '#0ABDA0',
+      text: '#1A2D6D',
+    },
+    backgroundLightBlue: {
+      main: '#EBF2FA',
+      text: '#1A2D6D',
     },
     // text: {
     //   primary: '#0000',
@@ -83,9 +101,13 @@ const AllRoutes = (props) => (
           element={<ResetPassword {...props} />}
         />
         <Route exact path="/dashboard/*" element={<DashboardPreview />}>
-          <Route path="trips/:id" element={<ReadOneTrip />} />
-          <Route exact path="" element={<RequesterContent />} />
+          <Route
+            exact
+            path=""
+            element={<Navigate to="trips" replace="true" />}
+          />
           <Route exact path="trips" element={<RequesterContent />} />
+          <Route exact path="trips/:id" element={<ReadOneTrip />} />
           <Route exact path="profile" element={<Profile />} />
           <Route exact path="roles" element={<UserSettingsModal />} />
           <Route exact path="settings" element={<Assignmanager />} />

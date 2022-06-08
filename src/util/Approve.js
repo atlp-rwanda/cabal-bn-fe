@@ -21,7 +21,6 @@ export default ({ row, handleApprove, handleReject }) => (
           color: '#fff',
         },
       }}
-
       onClick={() => handleApprove(row.id)}
     >
       Approve

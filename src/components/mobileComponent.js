@@ -14,7 +14,7 @@ const MobileNav = ({ mobileLinks }) => (
     }}
   >
     {mobileLinks.map((links) => (
-      <Typography sx={{ fontSize: '12px', fontWeight: 500 }}>
+      <Typography key={links.id} sx={{ fontSize: '12px', fontWeight: 500 }}>
         {links.link}
       </Typography>
     ))}

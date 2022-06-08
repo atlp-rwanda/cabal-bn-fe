@@ -31,5 +31,5 @@ export const chatLeave = (data) => ({
 
 export const socketConnecting = (data) => ({
   type: SOCKET_CONNECT,
-  payload: data
-})
+  payload: data,
+});

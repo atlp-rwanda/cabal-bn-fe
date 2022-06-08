@@ -25,7 +25,11 @@ import { logoutUser } from '../redux/actions/logout.action';
 import { retrieveAction } from '../redux/actions/profile.action';
 import settingsIcon from '../assets/settings-icon.svg';
 import { fetchNotifications } from '../redux/actions/notifications.action';
-import { chatLeave, receiveMessage, socketConnecting } from '../redux/actions/chat.action';
+import {
+  chatLeave,
+  receiveMessage,
+  socketConnecting,
+} from '../redux/actions/chat.action';
 import { socketContext } from '../helpers/context';
 
 const DashboardPreview = () => {
@@ -38,11 +42,11 @@ const DashboardPreview = () => {
   const redirect = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   if (!roleId) {
     return <Navigate to="/login" />;
   }
-  const socket = useContext(socketContext)
+  const socket = useContext(socketContext);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -53,7 +57,10 @@ const DashboardPreview = () => {
     await store.dispatch(logoutUser());
     const { userReducer, chatReducer } = store.getState();
     if (userReducer.isLogged === false) {
-      socket.emit('user:leaving', JSON.parse(localStorage.getItem('userCredentials')))
+      socket.emit(
+        'user:leaving',
+        JSON.parse(localStorage.getItem('userCredentials')),
+      );
       localStorage.removeItem('userCredentials');
       redirect('/login');
     }
@@ -69,26 +76,28 @@ const DashboardPreview = () => {
   useEffect(() => {
     fetchProfile();
     dispatch(loggedInUser());
-    socket.connect()
+    socket.connect();
   }, []);
   useEffect(() => {
-    socket.on("connect", () => {
+    socket.on('connect', () => {
       console.log(socket.connected); // true
     });
-    socket.on('authFailed', data => {
-      console.log(data)
-    })
-    socket.on("connect_error", (error) => {
+    socket.on('authFailed', (data) => {
+      console.log(data);
+    });
+    socket.on('connect_error', (error) => {
       if (error.message) {
-        socket.auth.token = JSON.parse(localStorage.getItem('userCredentials'))?.token
-        socket.connect()
+        socket.auth.token = JSON.parse(
+          localStorage.getItem('userCredentials'),
+        )?.token;
+        socket.connect();
       }
     });
     socket.on('notification', (notification) => {
       toast.success(notification);
       dispatch(fetchNotifications(1, 10));
     });
-  }, [])
+  }, []);
 
   const pages = [
     `${roleId?.first_name}`,
@@ -148,7 +157,10 @@ const DashboardPreview = () => {
   return (
     <Box sx={{ display: 'flex' }}>
       <SideBar sideBarLinks={sideBarLinks} />
-      <Paper elevation={0} sx={{ width: { xs: '100%', md: '100%' } }}>
+      <Paper
+        elevation={0}
+        sx={{ width: { xs: '100%', md: '100%' }, backgroundColor: '#F8F9FA' }}
+      >
         <NavBar pages={pages} logo={logo} requester />
         <Menu
           anchorEl={anchorEl}

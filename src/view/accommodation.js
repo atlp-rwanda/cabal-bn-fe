@@ -143,7 +143,7 @@ export const AccommodationCard = () => {
                 elevation={2}
                 sx={{ marginBottom: '50px' }}
               >
-                <Card sx={{ width: 280, height: 350 }}>
+                <Card sx={{ width: '100%', height: 350 }}>
                   <Link
                     to={
                       role.role_id === 0
