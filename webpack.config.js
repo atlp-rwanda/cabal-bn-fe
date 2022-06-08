@@ -20,6 +20,10 @@ module.exports = {
     path: path.resolve(__dirname, 'build'),
     filename: '[name].js',
     publicPath: '/',
+    environment: {
+      module: true,
+      dynamicImport: true,   // Note you need to enable `dynamicImport ` here
+    },
   },
   mode: process.env.NODE_ENV || 'development',
   resolve: { extensions: ['*', '.js', '.jsx'] },

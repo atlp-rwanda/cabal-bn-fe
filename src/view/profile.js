@@ -115,6 +115,7 @@ const Profile = () => {
       const { profileReducer } = store.getState();
       if (profileReducer.profile) {
         setLoading(false);
+        store.dispatch(retrieveAction());
       } else {
         setLoading(false);
       }

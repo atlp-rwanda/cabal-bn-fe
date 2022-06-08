@@ -6,8 +6,8 @@ import React from 'react';
 
 const MobLink = ({ sideBarLinks }) => (
   <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
-    {sideBarLinks.map((links) => (
-      <Paper key={links.id} elevation={0}>
+    {sideBarLinks.map((links, index) => (
+      <Paper elevation={0} key={index}>
         <Link
           to={links.to}
           key={links.link}

@@ -23,6 +23,7 @@ import AccommodationPage from '../view/allAccommodations';
 import BookingPage from '../view/bookingPage';
 import PageNotFound from '../components/PageNotFound';
 import { ReadOneTrip } from '../components/read_one_trip';
+import ChatPage from '../view/chatPage';
 
 const theme = createTheme({
   palette: {
@@ -93,6 +94,7 @@ const AllRoutes = (props) => (
             path="accommodations/:id"
             element={<AccommodationDetails />}
           />
+          <Route exact path="chat" element={<ChatPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
