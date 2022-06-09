@@ -36,7 +36,21 @@ export const SignupBtn = styled(Button)(({ theme }) => ({
     margin: '20px 0px',
   },
 }));
+export const SearchBtn = styled(Button)(({ theme }) => ({
+  width: 60,
+  height: 55,
+  margin: '20px 0px',
+  backgroundColor: '#00095E',
+  fontSize: '18px',
+  color: 'white',
+  textTransform: 'none',
 
+  [theme?.breakpoints.down('sm')]: {
+    width: 280,
+    height: 50,
+    margin: '20px 0px',
+  },
+}));
 export const BoxCustomStyles = {
   width: {
     xs: 300,

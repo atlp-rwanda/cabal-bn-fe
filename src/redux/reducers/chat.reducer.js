@@ -14,6 +14,7 @@ const initialState = {
   socket: null,
 };
 
+/* istanbul ignore next */
 const chatReducer = (state = initialState, action) => {
   switch (action.type) {
     case RECEIVE_CHATS:

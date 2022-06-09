@@ -13,6 +13,7 @@ const initialState = {
   error: null,
 };
 
+/* istanbul ignore next */
 export const createRoomReducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE_ROOM_PENDING:

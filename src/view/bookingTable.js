@@ -6,7 +6,7 @@
 /* eslint-disable prettier/prettier */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Table from '@mui/material/Table';
@@ -35,24 +35,29 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import Draggable from 'react-draggable';
-
+import { useForm, Controller } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import {
-  retrieveRequests,
-  deleteRequestAction,
-  approveRequestAction,
-  rejectRequestAction,
-} from '../redux/actions/requester.action';
-import { fetchAllBookingsAction } from '../redux/actions/booking.action';
+  deleteBookingAction,
+  fetchAllBookingsAction,
+  fetchUserBookingsAction,
+  updateBookingAction,
+} from '../redux/actions/booking.action';
+import { TableSkeleton } from '../util/tableSkeleton';
+import Error from '../assets/error.svg';
+import { searchRoomSchema } from '../validation/room.validations';
+import ControlledInputs from '../components/controlledInput';
+import { SearchBtn } from '../helpers/signup.helper';
+import { BookingModal } from '../components/BookingModal';
+import store from '../redux/store';
 
 /* istanbul ignore next */
 function TablePaginationActions(props) {
   const theme = useTheme();
   const { count, page, rowsPerPage, onPageChange } = props;
-  /* istanbul ignore next */
   const handleFirstPageButtonClick = (event) => {
     onPageChange(event, 0);
   };
-  /* istanbul ignore next */
   const handleBackButtonClick = (event) => {
     onPageChange(event, page - 1);
   };
@@ -124,63 +129,87 @@ function PaperComponent(props) {
     </Draggable>
   );
 }
-
+/* istanbul ignore next */
 const BookingTable = () => {
   const [page, setPage] = React.useState(0);
-  const [requesterId, setRequesterId] = React.useState(null);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const requests = useSelector((state) => state.requestsReducer);
-  const bookings = useSelector((state) => state.fetchAllBookingsReducer);
+  const [roomId, setRoomId] = React.useState(null);
+  const [bookingId, setBookingId] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
+  const [openModal, setOpenModal] = React.useState(false);
+  const pending = useSelector((state) => state.bookingReducer.pending);
   const dispatch = useDispatch();
   const history = useNavigate();
-  /* istanbul ignore next */
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      searchInput: 1,
+    },
+    resolver: yupResolver(searchRoomSchema),
+  });
   useEffect(() => {
     const roleId = JSON.parse(localStorage.getItem('userCredentials'));
-    if (roleId?.role_id === 3) {
-      history('/login');
-    }
-    dispatch(fetchAllBookingsAction(1));
+    if (roleId?.role_id === 4) {
+      dispatch(fetchUserBookingsAction());
+    } else dispatch(fetchAllBookingsAction(1));
   }, [page, rowsPerPage, dispatch]);
-  console.log(bookings);
-  const rows = bookings.bookings?.rows?.map((booking) => booking);
+  const bookings = store.getState().bookingReducer;
+  const rows = bookings.booking?.bookings?.rows?.map((booking) => booking);
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-  /* istanbul ignore next */
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows?.length) : 0;
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
-  /* istanbul ignore next */
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
 
-  const [open, setOpen] = React.useState(false);
-  /* istanbul ignore next */
-  const handleClickOpen = (id) => {
-    setOpen(true);
-    setRequesterId(id);
+  const handleOpenModal = (roomId, bookingId) => {
+    setRoomId(roomId);
+    setBookingId(bookingId);
+    setOpenModal(true);
   };
-  /* istanbul ignore next */
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+  const handleClickOpen = (roomId, bookingId) => {
+    setOpen(true);
+    setRoomId(roomId);
+    setBookingId(bookingId);
+  };
   const handleClose = () => {
     setOpen(false);
   };
-  /* istanbul ignore next */
-  const handleDelete = () => {
-    dispatch(deleteRequestAction(requesterId));
+  const handleDelete = async () => {
+    await store.dispatch(deleteBookingAction(roomId, bookingId));
     setOpen(false);
+    if (
+      store.getState().bookingReducer?.booking?.message ===
+      'booking deleted successfully'
+    ) {
+      await store.dispatch(fetchUserBookingsAction());
+    }
   };
-  /* istanbul ignore next */
-  const handleApprove = (id) => {
-    const status = 'APPROVED';
-    dispatch(approveRequestAction(id, status));
+  const handleApprove = async (roomId, bookingId) => {
+    const status = { status: 'APPROVED' };
+    await store.dispatch(updateBookingAction(roomId, bookingId, status));
+    await store.dispatch(fetchAllBookingsAction(roomId));
   };
-  /* istanbul ignore next */
-  const handleReject = (id) => {
-    const status = 'REJECTED';
-    dispatch(rejectRequestAction(id, status));
+  const handleReject = (roomId, bookingId) => {
+    const status = { status: 'REJECTED' };
+    dispatch(updateBookingAction(roomId, bookingId, status));
+    dispatch(fetchAllBookingsAction(roomId));
   };
 
+  const searchBookings = async (data) => {
+    dispatch(fetchAllBookingsAction(data.searchInput));
+  };
+  const role = JSON.parse(localStorage.getItem('userCredentials'));
   return (
     <div style={{ width: '100%', position: 'relative' }}>
       {bookings.pending === true && (
@@ -224,195 +253,240 @@ const BookingTable = () => {
           Bookings
         </Typography>
       </div>
-
-      <TableContainer
-        component={Paper}
-        sx={{
-          backgroundColor: '#EBF2FA',
-          width: '95%',
-          margin: '0px 30px',
-          '@media (max-width:600px)': {
-            margin: '0px',
-            marginLeft: '10px',
-          },
-        }}
-      >
-        <Table sx={{ minWidth: 650 }} aria-label="requester Table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="center">User ID&nbsp;</TableCell>
-              <TableCell align="center">Room No&nbsp;</TableCell>
-              <TableCell align="center">Checkin Date&nbsp;</TableCell>
-              <TableCell align="center">Checkout Date&nbsp;</TableCell>
-              <TableCell align="center">Status&nbsp;</TableCell>
-              <TableCell align="center">Action&nbsp;</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody data-testid="trip-table">
-            {rows &&
-              rows.map((row) => (
-                /* istanbul ignore next */
-                <TableRow key={row.id} data-testid={`trip-table-${row.id}`}>
-                  <TableCell
-                    style={{ width: 160, color: '#1A2D6D' }}
-                    align="center"
-                    data-testid="trip-cell"
-                  >
-                    {row.user_id}
-                  </TableCell>
-                  <TableCell
-                    style={{
-                      width: 160,
-                      color: `${row.status === 'APPROVED'
-                        ? '#018786'
-                        : row.status === 'REJECTED'
-                          ? '#EC5C5C'
-                          : '#FFC800'
-                        }`,
-                    }}
-                    align="center"
-                  >
-                    {row.room_id}
-                  </TableCell>
-                  <TableCell
-                    style={{ width: 160, color: '#1A2D6D' }}
-                    align="center"
-                  >
-                    {new Date(row.checkinDate).toDateString()}
-                  </TableCell>
-                  <TableCell
-                    style={{ width: 160, color: '#1A2D6D' }}
-                    align="right"
-                  >
-                    {new Date(row.checkoutDate).toDateString()}
-                  </TableCell>
-                  <TableCell
-                    style={{
-                      width: 160,
-                      color: '#1A2D6D',
-                    }}
-                    align="center"
-                  >
-                    {JSON.parse(localStorage.getItem('userCredentials'))
-                      ?.role_id === 2 ? (
-                      <div
-                        style={{
-                          display: 'flex',
-                          width: '100%',
-                          textAlign: 'center',
-                          alignItems: 'center',
-                          justifyContent: 'space-around',
-                        }}
-                      >
-                        <Button
-                          variant="contained"
-                          disableElevation
-                          disabled={
-                            !!(
-                              row.status === 'APPROVED' ||
-                              row.status === 'REJECTED'
-                            )
-                          }
-                          sx={{
-                            backgroundColor:
-                              row.status === 'APPROVED' ||
-                                row.status === 'REJECTED'
-                                ? '#EC5C5C'
-                                : '#0ABDA0',
-                            color: '#fff',
-                            width: '50px',
-                            fontSize: '10px',
-                            '&:hover': {
-                              backgroundColor: '#0ABDA0',
-                              color: '#fff',
-                            },
-                          }}
-                          onClick={() => handleApprove(row.id)}
-                        >
-                          Approve
-                        </Button>
-                        <Button
-                          variant="ccontained"
-                          disabled={
-                            !!(
-                              row.status === 'APPROVED' ||
-                              row.status === 'REJECTED'
-                            )
-                          }
-                          sx={{
-                            backgroundColor:
-                              row.status === 'REJECTED' ||
-                                row.status === 'APPROVED'
-                                ? '#EC5C5C'
-                                : '#E13535',
-                            color: '#fff',
-                            width: '50px',
-                            fontSize: '10px',
-                            '&:hover': {
-                              backgroundColor: '#EC5C5C',
-                              color: '#fff',
-                            },
-                          }}
-                          onClick={() => handleReject(row.id)}
-                        >
-                          Reject
-                        </Button>
-                      </div>
-                    ) : JSON.parse(localStorage.getItem('userCredentials'))
-                      ?.role_id === 2 ? (
-                      <div
-                        className="idIs4"
-                        style={{
-                          display: 'flex',
-                          width: '80%',
-                          textAlign: 'center',
-                          alignItems: 'center',
-                          justifyContent: 'space-around',
-                          paddingLeft: 21,
-                        }}
-                      >
-                        <p style={{ cursor: 'pointer' }}>
-                          <EditIcon sx={{ color: '#1A2D6D' }} />
-                        </p>
-                        <p style={{ cursor: 'pointer' }}>
-                          <DeleteIcon
-                            sx={{ color: '#EC5C5C' }}
-                            onClick={() => handleClickOpen(row.id)}
-                          />
-                        </p>
-                      </div>
-                    ) : null}
-                  </TableCell>
-                </TableRow>
-              ))}
-            {emptyRows > 0 && (
-              <TableRow style={{ height: 50 * emptyRows }}>
-                <TableCell colSpan={6} />
-              </TableRow>
-            )}
-          </TableBody>
-          <TableFooter data-testid="table-footer">
-            <TableRow>
-              <TablePagination
-                align="right"
-                rowsPerPageOptions={[5, 10, 25]}
-                colSpan={6}
-                count={bookings.booking?.bookings?.count}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                SelectProps={{
-                  inputProps: {
-                    'aria-label': 'limit',
-                  },
-                  native: true,
-                }}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-                ActionsComponent={TablePaginationActions}
+      {role?.role_id === 2 || role?.role_id === 1 ? (
+        <Grid container margin={2}>
+          <form onSubmit={handleSubmit(searchBookings)}>
+            <Grid display="flex">
+              <ControlledInputs
+                name="searchInput"
+                label="Search By Room ID"
+                control={control}
+                {...(errors?.searchInput && {
+                  error: true,
+                  helperText: errors.searchInput.message,
+                })}
               />
-            </TableRow>
-          </TableFooter>
-        </Table>
+              <div style={{ marginLeft: '5px' }}>
+                <SearchBtn variant="contained" type="submit">
+                  Search
+                </SearchBtn>
+              </div>
+            </Grid>
+          </form>
+        </Grid>
+      ) : null}
+      <TableContainer component={Paper} elevation={0} sx={{ padding: '10px' }}>
+        {pending ? (
+          <TableSkeleton />
+        ) : !pending && rows?.length > 0 ? (
+          <Table
+            sx={{ minWidth: 650, backgroundColor: '#EBF2FA' }}
+            aria-label="simple table"
+          >
+            <TableHead>
+              <TableRow>
+                <TableCell align="center">User ID&nbsp;</TableCell>
+                <TableCell align="center">Room No&nbsp;</TableCell>
+                <TableCell align="center">Checkin Date&nbsp;</TableCell>
+                <TableCell align="center">Checkout Date&nbsp;</TableCell>
+                <TableCell align="center">Status&nbsp;</TableCell>
+                <TableCell align="center">Action&nbsp;</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody data-testid="trip-table">
+              {rows &&
+                rows.map((row) => (
+                  /* istanbul ignore next */
+                  <TableRow key={row.id} data-testid={`trip-table-${row.id}`}>
+                    <TableCell
+                      style={{ width: 160, color: '#1A2D6D' }}
+                      align="center"
+                      data-testid="trip-cell"
+                    >
+                      {row.user_id}
+                    </TableCell>
+                    <TableCell
+                      style={{ width: 160, color: '#1A2D6D' }}
+                      align="center"
+                    >
+                      {row.room_id}
+                    </TableCell>
+                    <TableCell
+                      style={{ width: 160, color: '#1A2D6D' }}
+                      align="center"
+                    >
+                      {new Date(row.checkinDate).toDateString()}
+                    </TableCell>
+                    <TableCell
+                      style={{ width: 160, color: '#1A2D6D' }}
+                      align="right"
+                    >
+                      {new Date(row.checkoutDate).toDateString()}
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        width: 160,
+                        color: `${
+                          row.status === 'APPROVED'
+                            ? '#018786'
+                            : row.status === 'REJECTED'
+                            ? '#EC5C5C'
+                            : '#FFC800'
+                        }`,
+                      }}
+                      align="center"
+                    >
+                      {row.status}
+                    </TableCell>
+                    <TableCell
+                      style={{
+                        width: 160,
+                        color: '#1A2D6D',
+                      }}
+                      align="center"
+                    >
+                      {role?.role_id === 2 || role?.role_id === 1 ? (
+                        <div
+                          style={{
+                            display: 'flex',
+                            width: '100%',
+                            textAlign: 'center',
+                            alignItems: 'center',
+                            justifyContent: 'space-around',
+                          }}
+                        >
+                          <Button
+                            variant="contained"
+                            disableElevation
+                            disabled={
+                              !!(
+                                row.status === 'APPROVED' ||
+                                row.status === 'REJECTED'
+                              )
+                            }
+                            sx={{
+                              backgroundColor:
+                                row.status === 'APPROVED' ||
+                                row.status === 'REJECTED'
+                                  ? '#EC5C5C'
+                                  : '#0ABDA0',
+                              color: '#fff',
+                              width: '50px',
+                              fontSize: '10px',
+                              '&:hover': {
+                                backgroundColor: '#0ABDA0',
+                                color: '#fff',
+                              },
+                            }}
+                            onClick={() => handleApprove(row.room_id, row.id)}
+                          >
+                            Approve
+                          </Button>
+                          <Button
+                            variant="ccontained"
+                            disabled={
+                              !!(
+                                row.status === 'APPROVED' ||
+                                row.status === 'REJECTED'
+                              )
+                            }
+                            sx={{
+                              backgroundColor:
+                                row.status === 'REJECTED' ||
+                                row.status === 'APPROVED'
+                                  ? '#EC5C5C'
+                                  : '#E13535',
+                              color: '#fff',
+                              width: '50px',
+                              fontSize: '10px',
+                              '&:hover': {
+                                backgroundColor: '#EC5C5C',
+                                color: '#fff',
+                              },
+                            }}
+                            onClick={() => {
+                              handleReject(row.room_id, row.id);
+                            }}
+                          >
+                            Reject
+                          </Button>
+                        </div>
+                      ) : role?.role_id === 4 ? (
+                        <div
+                          className="idIs4"
+                          style={{
+                            display: 'flex',
+                            width: '80%',
+                            textAlign: 'center',
+                            alignItems: 'center',
+                            justifyContent: 'space-around',
+                            paddingLeft: 21,
+                          }}
+                        >
+                          <p style={{ cursor: 'pointer' }}>
+                            <EditIcon
+                              sx={{ color: '#1A2D6D' }}
+                              onClick={() =>
+                                handleOpenModal(row.room_id, row.id)
+                              }
+                            />
+                          </p>
+                          <p style={{ cursor: 'pointer' }}>
+                            <DeleteIcon
+                              sx={{ color: '#EC5C5C' }}
+                              onClick={() =>
+                                handleClickOpen(row.room_id, row.id)
+                              }
+                            />
+                          </p>
+                        </div>
+                      ) : null}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              {emptyRows > 0 && (
+                <TableRow style={{ height: 50 * emptyRows }}>
+                  <TableCell colSpan={6} />
+                </TableRow>
+              )}
+            </TableBody>
+            <TableFooter data-testid="table-footer">
+              <TableRow>
+                <TablePagination
+                  align="right"
+                  rowsPerPageOptions={[5, 10, 25]}
+                  colSpan={6}
+                  count={bookings?.booking?.bookings?.count}
+                  rowsPerPage={rowsPerPage}
+                  page={page}
+                  SelectProps={{
+                    inputProps: {
+                      'aria-label': 'limit',
+                    },
+                    native: true,
+                  }}
+                  onPageChange={handleChangePage}
+                  onRowsPerPageChange={handleChangeRowsPerPage}
+                  ActionsComponent={TablePaginationActions}
+                />
+              </TableRow>
+            </TableFooter>
+          </Table>
+        ) : (
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginTop: '100px',
+              padding: '2px',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <img src={Error} alt="error message" width="500px" />
+            <Typography variant="body1"> No Bookings Found</Typography>
+          </Box>
+        )}
       </TableContainer>
 
       <Dialog
@@ -434,6 +508,12 @@ const BookingTable = () => {
           <Button onClick={handleDelete}>Confirm</Button>
         </DialogActions>
       </Dialog>
+      <BookingModal
+        title="UPDATE BOOKING"
+        ids={{ roomId: roomId, bookingId: bookingId }}
+        open={openModal}
+        handleClose={handleCloseModal}
+      />
     </div>
   );
 };
