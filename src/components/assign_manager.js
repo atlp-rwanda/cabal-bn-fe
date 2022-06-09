@@ -104,8 +104,6 @@ function Assignmanager() {
     })
     .map((result) => result.email);
 
-  console.log(users);
-  console.log(managers);
 
   const handleClick = async () => {
     setLoading(true);
@@ -123,7 +121,6 @@ function Assignmanager() {
         data.managerId = de.id;
       }
     });
-    console.log(data);
     await store.dispatch(assignManager(data));
 
     setLoading(false);

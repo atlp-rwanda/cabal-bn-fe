@@ -24,6 +24,8 @@ import {
   CREATE_COMMENTS,
   UPDATE_COMMENTS,
   DELETE_COMMENTS,
+  LIKE_ACCOMMODATION,
+  LIKE_ACCOMMODATION_FAILED,
 } from '../types/accommodation.types';
 import axios from '../../axios/axios.instance';
 import { FETCHACCOMMODATIONS } from '../actionTypes/actionTypes';
@@ -200,7 +202,6 @@ export const createFeedback =
       });
       toast.success(res.data.message);
     } catch (err) {
-      console.log(err.response.data, 'these are the error');
       await dispatch({
         type: `${CREATE_COMMENTS}_FAILED`,
         payload: err.response.data,
@@ -221,13 +222,10 @@ export const updateComments =
         type: `${UPDATE_COMMENTS}_SUCCESS`,
         payload: { commentId, res, comment },
       });
-      console.log(res.data.message);
       toast.success(res.data?.message);
     } catch (err) {
-      console.log(err);
       await dispatch({
         type: `${UPDATE_COMMENTS}_FAILED`,
-        // payload: err.response.data,
       });
       toast.error(err.response.data.message);
     }
@@ -252,5 +250,25 @@ export const deleteComment =
         payload: err.response.data,
       });
       toast.error(err.response.data.message);
+    }
+  };
+
+/* istanbul ignore next */
+export const likeAccommodationAction =
+  (accommodationId) => async (dispatch) => {
+    try {
+      const res = await axiosInstance.post(
+        `/accommodations/${accommodationId}/like`,
+      );
+      await dispatch({
+        type: LIKE_ACCOMMODATION,
+        payload: { accommodationId, res },
+      });
+      toast.success(res.data.data.messaage);
+    } catch (error) {
+      await dispatch({
+        type: LIKE_ACCOMMODATION_FAILED,
+      });
+      toast.error(error.response.message);
     }
   };

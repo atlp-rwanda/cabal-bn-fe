@@ -14,18 +14,17 @@ export const assignRoleAction = (payload) => ({
   payload,
 });
 
-export const assignRoleActionError = (payload) =>
-  /* istanbul ignore next */
-  ({
-    type: ASSIGNROLEERROR,
-    payload,
-  });
+/* istanbul ignore next */
+export const assignRoleActionError = (payload) => ({
+  type: ASSIGNROLEERROR,
+  payload,
+});
 
 export const getRolesAction = (payload) => ({
   type: GETALLROLES,
   payload,
 });
-
+/* istanbul ignore next */
 export const assign = (data) => async (dispatch) => {
   try {
     await axiosInstance.patch('/users/assignRole', data).then((res) => {
@@ -37,7 +36,7 @@ export const assign = (data) => async (dispatch) => {
     dispatch(assignRoleActionError(error.response.data.message));
   }
 };
-
+/* istanbul ignore next */
 export const getAll = () => async (dispatch) => {
   try {
     await axiosInstance.get('/users/getRoles').then((res) => {
@@ -45,7 +44,7 @@ export const getAll = () => async (dispatch) => {
     });
   } catch (error) {}
 };
-
+/* istanbul ignore next */
 export const getUsers = () => async (dispatch) => {
   try {
     const res = await axiosInstance(`/users`, { method: 'GET' });
@@ -60,17 +59,15 @@ export const getUsers = () => async (dispatch) => {
     });
   } catch (err) {}
 };
-
+/* istanbul ignore next */
 export const assignManager = (data) => async (dispatch) => {
   try {
     const res = await axiosInstance.put(`/users/assign-to-manager`, data);
-    console.log(res);
     dispatch({
       type: ASSIGN_MANAGER,
     });
     toast.success(res.data.message);
   } catch (error) {
-    console.log(error);
-    toast.success(error.message);
+    toast.error(error.message);
   }
 };

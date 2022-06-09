@@ -1,7 +1,10 @@
+/* eslint-disable no-shadow */
+/* eslint-disable no-nested-ternary */
 /* eslint-disable import/prefer-default-export */
 import React, { useEffect, useState } from 'react';
 import { Typography, Grid, CardActionArea, Paper, Box } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -16,6 +19,7 @@ import { Link } from 'react-router-dom';
 import {
   deleteAccommodationAction,
   fetchAccommodationsAction,
+  likeAccommodationAction,
 } from '../redux/actions/accommodation.action';
 import { Stars } from '../components/landing/stars.component';
 import { AccommodationModal } from '../components/AccommodationModal';
@@ -66,6 +70,9 @@ export const AccommodationCard = () => {
     handleCloseDialog();
     dispatch(fetchAccommodationsAction(1, 6));
   };
+  const likeAccommodation = async (id) => {
+    dispatch(likeAccommodationAction(id));
+  };
   const role =
     JSON.parse(localStorage.getItem('userCredentials')) ?? unloggedInUser;
   return (
@@ -109,7 +116,7 @@ export const AccommodationCard = () => {
         sx={{
           width: '100%',
           height: '100%',
-          // justifyContent: 'space-around',
+          justifyContent: 'center',
           marginLeft: 0,
           // padding: '30px 0 30px 30px',
           fontFamily: 'Josefin Sans, sans-serif',
@@ -141,7 +148,7 @@ export const AccommodationCard = () => {
                 md={4}
                 key={accommodation.id}
                 elevation={2}
-                sx={{ marginBottom: '50px' }}
+                sx={{ marginBottom: '50px', paddingRight: '40px' }}
               >
                 <Card sx={{ width: '100%', height: 350 }}>
                   <Link
@@ -177,26 +184,32 @@ export const AccommodationCard = () => {
                       >
                         {accommodation.name}
                       </Typography>
-                      <IconButton
-                        size="small"
-                        style={{
-                          color: '#00095E',
-                        }}
-                      >
-                        <FavoriteBorderIcon /> {accommodation.likes} likes
-                      </IconButton>
+                      <div>
+                        <IconButton
+                          size="small"
+                          style={{
+                            color: '#00095E',
+                          }}
+                          onClick={() => {
+                            likeAccommodation(accommodation.id);
+                          }}
+                        >
+                          {accommodation.likes !== 0 && <FavoriteIcon />}
+                          {accommodation.likes === 0 && <FavoriteBorderIcon />}
+                        </IconButton>
+                        {accommodation.likes} likes
+                      </div>
                     </div>
                     <Typography variant="subtitle2" color="#7EA0FF">
                       {accommodation.Locations.country}
                     </Typography>
                   </CardContent>
-                  <CardActions>
+                  <CardActions justifyContent="space-between">
                     <Stars rates={accommodation.rates} />
                     {role.role_id === 2 || role.role_id === 1 ? (
                       <div
                         style={{
                           position: 'relative',
-                          left: '40px',
                         }}
                       >
                         <IconButton

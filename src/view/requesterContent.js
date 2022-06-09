@@ -193,7 +193,6 @@ const RequesterContent = () => {
         handleClose();
       } else {
         const update = await updateTrip(data, tripTobeEdited.id)(dispatch);
-        console.log(data);
         toast.success(update.data.message);
         handleClose();
       }
@@ -211,8 +210,6 @@ const RequesterContent = () => {
     setIsEditing(true);
     handleOpen();
     setTripTobeUpdated(dataTobeUpdated);
-
-    console.log(dataTobeUpdated);
   };
 
   return (

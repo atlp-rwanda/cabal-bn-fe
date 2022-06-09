@@ -169,14 +169,20 @@ const RequesterTable = ({ handleEdit, handleOpen }) => {
                       </Link>
                     </StyledTableCell>
                     <StyledTableCell align="center">
-                      {role.role_id === 3 ||
-                        (role.role_id === 1 && (
-                          <Approve
-                            row={row}
-                            handleApprove={handleApprove}
-                            handleReject={handleReject}
-                          />
-                        ))}
+                      {role.role_id === 1 && (
+                        <Approve
+                          row={row}
+                          handleApprove={handleApprove}
+                          handleReject={handleReject}
+                        />
+                      )}
+                      {role.role_id === 3 && (
+                        <Approve
+                          row={row}
+                          handleApprove={handleApprove}
+                          handleReject={handleReject}
+                        />
+                      )}
                       {role.role_id === 4 && (
                         <Grid
                           container

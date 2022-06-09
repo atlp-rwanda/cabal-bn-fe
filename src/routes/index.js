@@ -106,6 +106,7 @@ const AllRoutes = (props) => (
             path=""
             element={<Navigate to="trips" replace="true" />}
           />
+
           <Route exact path="trips" element={<RequesterContent />} />
           <Route exact path="trips/:id" element={<ReadOneTrip />} />
           <Route exact path="profile" element={<Profile />} />
