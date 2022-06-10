@@ -6,10 +6,13 @@ import { Star, StarBorder, StarHalf } from '@mui/icons-material';
 import { makeStyles } from '@material-ui/core/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import { Rating } from '../redux/actions/Rating.action';
+import { useDispatch } from 'react-redux';
+import { fetchSingleAccommodation } from '../redux/actions/accommodation.action';
 /* istanbul ignore next */
 export const RatingModal = ({ open, title, handleClose, pathId }) => {
   const [rates, setRates] = useState([1, 2, 3, 4, 5]);
   const [rate, setRate] = useState(0);
+  const dispatch = useDispatch();
   const style = {
     position: 'relative',
     top: '400px',
@@ -46,16 +49,17 @@ export const RatingModal = ({ open, title, handleClose, pathId }) => {
     },
   }));
   /* istanbul ignore next */
-  useEffect(() => {
+  const rating = async () => {
     if (rate) {
-      Rating(pathId, rate);
-      const timer = setTimeout(() => {
-        handleClose();
-        window.location.reload(true);
-      }, 3000);
-      return () => clearTimeout(timer);
+      await Rating(pathId, rate);
+      await dispatch(fetchSingleAccommodation(pathId));
+      handleClose();
     }
+  };
+  useEffect(() => {
+    rating();
   }, [rate]);
+
   const classes = useStyle();
   return (
     <Box>

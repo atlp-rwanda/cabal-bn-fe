@@ -6,13 +6,14 @@ import { TextField, styled } from '@mui/material';
 const StyledInputs = styled(TextField)(({ theme, ...props }) => ({
   [theme?.breakpoints.down('sm')]: {
     width: 280,
-    height: 20,
+    height: props.big ? 25 : 75,
     bottom: props.big ? '20px' : '0px',
     margin: props.big ? '30px 1px' : '0px 0px',
   },
   width: props.big ? '100%' : 350,
   height: 50,
-  margin: props.big ? '15px 1px' : '20px 1px',
+  margin: props.big ? '20px 1px 30px 1px' : '20px 1px',
+  marginBottom: props.big && { xs: '40px' },
 }));
 const InputField = ({ otherStyles, ...props }) => (
   <StyledInputs

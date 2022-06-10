@@ -73,6 +73,7 @@ const AccommodationComments = ({ accommodationState }) => {
     setActiveComment(null);
     setCreateComment('');
   };
+  const user = JSON.parse(localStorage.getItem('userCredentials'));
   return (
     <Box sx={{ width: { lg: '100%', md: '80%', sm: '80%', xs: '100%' } }}>
       <Paper
@@ -127,6 +128,7 @@ const AccommodationComments = ({ accommodationState }) => {
                   marginBottom: '20px',
                   height: { xs: 'auto', md: 'auto' },
                 }}
+                disabled={user.role_id === 2 ? true : false}
               />
             </Paper>
 
@@ -249,6 +251,8 @@ const AccommodationComments = ({ accommodationState }) => {
                           sx={{ display: 'flex', paddingRight: '4px' }}
                         >
                           <Typography sx={{ paddingRight: '20px' }}>
+                            {!comment.user && user.first_name}{' '}
+                            {!comment.user && user.last_name}
                             {comment.user?.first_name} {comment.user?.last_name}
                           </Typography>
                           <Typography sx={{ fontSize: '15px', color: 'gray' }}>
@@ -258,6 +262,7 @@ const AccommodationComments = ({ accommodationState }) => {
                         <PositionedMenu
                           commentId={comment.id}
                           accommodationId={accommodationId}
+                          userId={comment.user_id}
                           handleEditComment={() => {
                             handleEditComment(comment.comment, comment.id);
                             setCreateComment(comment.comment);

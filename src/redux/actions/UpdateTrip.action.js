@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import axios from '../../axios/axios.instance';
 import {
   UPDATETRIP,
@@ -14,13 +15,14 @@ export const updateTrip = (data, id) => async (dispatch) => {
     const updateInfo = await axios.put(`/trips/${id}`, data);
     dispatch({
       type: UPDATETRIP_SUCCESS,
-      payload: updateInfo.data,
+      payload: { id, updateInfo },
     });
     return updateInfo;
   } catch (error) {
+    console.log(error);
     dispatch({
       type: UPDATERIP_FAILED,
-      payload: error.response.data,
+      payload: error.response,
     });
     throw error.response.data;
   }

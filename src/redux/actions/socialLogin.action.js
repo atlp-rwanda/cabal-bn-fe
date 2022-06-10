@@ -8,6 +8,11 @@ export const userLogin = (data) => ({
 });
 
 export const socialLoginAction = (data) => async (dispatch) => {
-  localStorage.setItem('userCredentials', JSON.stringify(data));
+  const roleId = parseInt(data.role_id, 10);
+  const userCredentials = {
+    ...data,
+    role_id: roleId,
+  };
+  localStorage.setItem('userCredentials', JSON.stringify(userCredentials));
   dispatch(userLogin(data));
 };

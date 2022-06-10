@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable react/jsx-no-comment-textnodes */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-lone-blocks */
@@ -314,7 +315,6 @@ const BookingTable = () => {
                         {row.user.first_name} {row.user.last_name}
                       </StyledTableCell>
                     )}
-
                     <StyledTableCell
                       style={{ width: 160, color: '#1A2D6D' }}
                       align="center"
@@ -456,7 +456,7 @@ const BookingTable = () => {
                 ))}
               {emptyRows > 0 && (
                 <TableRow style={{ height: 50 * emptyRows }}>
-                  <TableCell colSpan={6} />
+                  <StyledTableCell colSpan={6} />
                 </TableRow>
               )}
             </TableBody>
@@ -520,7 +520,7 @@ const BookingTable = () => {
       </Dialog>
       <BookingModal
         title="UPDATE BOOKING"
-        ids={{ roomId: roomId, bookingId: bookingId }}
+        ids={{ roomId, bookingId }}
         open={openModal}
         handleClose={handleCloseModal}
       />

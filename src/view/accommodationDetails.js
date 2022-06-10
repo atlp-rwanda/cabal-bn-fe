@@ -58,6 +58,7 @@ export const AccommodationDetails = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
+  /* istanbul ignore next */
   const [openRating, setopenRating] = useState(false);
   const handleRating = () => {
     setopenRating(true);
@@ -68,12 +69,11 @@ export const AccommodationDetails = () => {
     setOpen(true);
   };
   const handleClose = () => setOpen(false);
-  /* istanbul ignore next */
+
   useEffect(() => {
     dispatch(fetchSingleAccommodation(id));
   }, [id]);
-  const role =
-    JSON.parse(localStorage.getItem('userCredentials')) ?? unloggedInUser;
+  const role = JSON.parse(localStorage.getItem('userCredentials'));
   const data = accommodationState.accommodations?.data;
   return (
     <>
@@ -157,7 +157,11 @@ export const AccommodationDetails = () => {
                 </Grid>
                 <CardContent>
                   <Grid sx={itemStyles}>
-                    <Button onClick={handleRating} variant="contained">
+                    <Button
+                      onClick={handleRating}
+                      variant="contained"
+                      sx={{ display: role.role_id === 2 ? 'none' : 'block' }}
+                    >
                       Give Ratings
                     </Button>
                   </Grid>
@@ -230,7 +234,7 @@ export const AccommodationDetails = () => {
               </>
             ) : null}
             <Grid container justifyContent="center" direction="row" padding={2}>
-              {!data?.Rooms.length == 0 ? (
+              {!data?.Rooms.length === 0 ? (
                 data?.Rooms.map((room) => (
                   <Grid item md={4} lg={3}>
                     <Card sx={{ width: 280, minHeight: 300 }}>

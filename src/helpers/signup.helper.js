@@ -90,6 +90,28 @@ export const FormControlSX = {
   '&.Mui-focused .MuiInputBase-root': {
     color: '#00095E',
   },
+  marginBottom: { xs: '40px' },
+};
+export const CreateTripSelector = {
+  '& .MuiFormLabel-root': {
+    color: '#00095E',
+  },
+  '& .MuiFormLabel-root.Mui-focused': {
+    color: '#00095E',
+  },
+  '& .MuiInputBase-root': {
+    color: '#00095E',
+    '& fieldset': {
+      borderColor: '#00095E',
+    },
+
+    '&.Mui-focused fieldset': {
+      borderColor: '#00095E',
+    },
+  },
+  '&.Mui-focused .MuiInputBase-root': {
+    color: '#00095E',
+  },
 };
 
 export const errorAlert = {
