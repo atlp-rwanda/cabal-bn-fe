@@ -90,7 +90,6 @@ export const AccommodationModal = ({ open, title, handleClose, inputData }) => {
       description: '',
       services: '',
       amenities: '',
-      images: '',
       location_id: '',
     },
     resolver: yupResolver(accommodationSchema),
@@ -243,7 +242,11 @@ export const AccommodationModal = ({ open, title, handleClose, inputData }) => {
                 )}
               />
             </FormControl>
-            <ControlledMultipleFileInput name="images" control={control} />
+            <ControlledMultipleFileInput
+              name="images"
+              control={control}
+              errorMessage={errors?.images?.message}
+            />
 
             <SignupBtn variant="contained" type="submit">
               {loading || updateLoading ? (

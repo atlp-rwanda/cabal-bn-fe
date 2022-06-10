@@ -112,7 +112,7 @@ export const AccommodationCard = () => {
       </Grid>
       <Grid
         container
-        spacing={5}
+        spacing={2}
         sx={{
           width: '100%',
           height: '100%',
@@ -150,7 +150,7 @@ export const AccommodationCard = () => {
                 elevation={2}
                 sx={{ marginBottom: '50px', paddingRight: '40px' }}
               >
-                <Card sx={{ width: '100%', height: 350 }}>
+                <Card sx={{ width: 270, height: 350 }}>
                   <Link
                     to={
                       role.role_id === 0

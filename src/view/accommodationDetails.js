@@ -58,6 +58,7 @@ export const AccommodationDetails = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
 
+  /* istanbul ignore next */
   const [openRating, setopenRating] = useState(false);
   const handleRating = () => {
     setopenRating(true);
@@ -68,7 +69,7 @@ export const AccommodationDetails = () => {
     setOpen(true);
   };
   const handleClose = () => setOpen(false);
-  /* istanbul ignore next */
+
   useEffect(() => {
     dispatch(fetchSingleAccommodation(id));
   }, [id]);
