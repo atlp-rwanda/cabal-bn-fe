@@ -44,7 +44,7 @@ const DashboardPreview = () => {
   const open = Boolean(anchorEl);
   const dispatch = useDispatch();
   if (!roleId) {
-    return <Navigate to="/login" />;
+    return redirect('/login');
   }
   const socket = useContext(socketContext);
   const handleClick = (event) => {
@@ -62,7 +62,7 @@ const DashboardPreview = () => {
         JSON.parse(localStorage.getItem('userCredentials')),
       );
       localStorage.removeItem('userCredentials');
-      redirect('/login');
+      return redirect('/login');
     }
   };
   const fetchProfile = async () => {

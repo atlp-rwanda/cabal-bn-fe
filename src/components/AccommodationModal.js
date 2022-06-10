@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import React, { useState, useEffect } from 'react';
 import {
   Box,
