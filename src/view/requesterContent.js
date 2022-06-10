@@ -26,13 +26,15 @@ import { getAllLocations } from '../redux/actions/location.action';
 import { CreateTrip } from '../redux/actions/CreateTrip.action';
 import { updateTrip } from '../redux/actions/UpdateTrip.action';
 import { CreateTripSelector, FormControlSX } from '../helpers/signup.helper';
-
+import {
+  retrieveRequests,
+} from '../redux/actions/requester.action';
 import InputField from '../components/input';
 import Buttons from '../components/button';
 import Header from '../components/header';
 import RequesterTable from './requester-table';
 
-const format = 'YYYY-MM-DD';
+const format = 'yyyy-MM-dd';
 /* istanbul ignore next */
 const ListItem = styled('span')(({ theme }) => ({
   margin: theme.spacing(1),
@@ -162,7 +164,7 @@ const RequesterContent = () => {
     if (departLocationId) {
       setLocationAccommodations(
         accommodations.filter(
-          (acmdtn) => acmdtn.location_id == departLocationId,
+          (acmdtn) => acmdtn.location_id === departLocationId,
         ),
       );
     }
@@ -197,10 +199,12 @@ const RequesterContent = () => {
         const form = document.getElementById('modalForm');
         form.reset();
         handleClose();
+        await dispatch(retrieveRequests(1, 5));
       } else {
         const update = await updateTrip(data, tripTobeEdited.id)(dispatch);
         toast.success(update.data.message);
         handleClose();
+        dispatch(retrieveRequests(1, 5));
       }
     } catch (error) {
       toast.error(error.message);

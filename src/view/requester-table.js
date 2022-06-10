@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from 'react';
 
@@ -92,9 +94,8 @@ const RequesterTable = ({ handleEdit, handleOpen }) => {
 
   const history = useNavigate();
   useEffect(() => {
-    if (!role && role?.role_id != 4 && role?.role_id != 3) history('/login');
+    if (!role && role?.role_id !== 4 && role?.role_id !== 3) history('/login');
     dispatch(retrieveRequests(page, rowsPerPage));
-    console.log(role, 'is role');
   }, [page, rowsPerPage, dispatch]);
 
   const emptyRows =
@@ -155,10 +156,10 @@ const RequesterTable = ({ handleEdit, handleOpen }) => {
                       {row.status}
                     </StyledTableCell>
                     <StyledTableCell align="center">
-                      {format(new Date(row.tripDate), 'MMM dd yyyy')}
+                      {new Date(row.tripDate).toDateString()}
                     </StyledTableCell>
                     <StyledTableCell align="center">
-                      {format(new Date(row.returnDate), 'MMM dd yyyy')}
+                      {new Date(row.returnDate).toDateString()}
                     </StyledTableCell>
                     <StyledTableCell align="center">
                       <Link
@@ -200,7 +201,7 @@ const RequesterTable = ({ handleEdit, handleOpen }) => {
                             )}
                           </Typography>
                           <Typography style={{ cursor: 'pointer' }}>
-                            {row.status == 'PENDING' && (
+                            {row.status === 'PENDING' && (
                               <DeleteIcon
                                 sx={{ color: '#EC5C5C' }}
                                 onClick={() => handleClickOpen(row.id)}
@@ -226,6 +227,7 @@ const RequesterTable = ({ handleEdit, handleOpen }) => {
                   rowsPerPageOptions={[5, 10, 25]}
                   labelRowsPerPage="limit"
                   colSpan={6}
+                  data={data.results}
                   count={(data && data.pagination.totalItems) || 10}
                   rowsPerPage={rowsPerPage}
                   page={page}
