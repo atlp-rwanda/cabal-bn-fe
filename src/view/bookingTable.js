@@ -520,7 +520,7 @@ const BookingTable = () => {
       </Dialog>
       <BookingModal
         title="UPDATE BOOKING"
-        ids={{ roomId: roomId, bookingId: bookingId }}
+        ids={{ roomId, bookingId }}
         open={openModal}
         handleClose={handleCloseModal}
       />

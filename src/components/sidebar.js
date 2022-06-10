@@ -74,7 +74,7 @@ const SideBar = ({ sideBarLinks }) => {
         />
       </Link>
       <Box sx={{ paddingTop: '50px', textAlign: 'center' }}>
-        {sideBarLinks.map((links, index) => (
+        {sideBarLinks.map((links) => (
           <Grid
             key={links.id}
             container
@@ -86,7 +86,6 @@ const SideBar = ({ sideBarLinks }) => {
                     'transparent',
               padding: '20px',
             }}
-            key={index}
           >
             <Link
               to={links.to}

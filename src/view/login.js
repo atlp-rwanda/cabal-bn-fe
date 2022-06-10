@@ -91,10 +91,10 @@ const formSection = {
     xs: 300,
     sm: 460,
   },
-  height: {
-    xs: 550,
-    md: 530,
-  },
+  // height: {
+  //   xs: 550,
+  //   md: 530,
+  // },
   backgroundColor: '#EBF2FA',
   display: 'flex',
   flexDirection: 'column',
@@ -247,7 +247,7 @@ const Login = () => {
               },
               height: 50,
               margin: {
-                xs: '30px 0px',
+                xs: '10px 0px',
                 sm: '20px 0px',
               },
               backgroundColor: '#00095E',

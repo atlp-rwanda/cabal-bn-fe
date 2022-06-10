@@ -147,7 +147,7 @@ const DashboardPreview = () => {
 
   if (roleId.role_id === 3) {
     sideBarLinks.splice(2, 1);
-  } 
+  }
 
   return (
     <Box sx={{ display: 'flex' }}>
