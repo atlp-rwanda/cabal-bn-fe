@@ -1,5 +1,12 @@
 import { Close } from '@mui/icons-material';
-import { Box, Button, Modal, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Modal,
+  TextField,
+  Typography,
+  CircularProgress,
+} from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import React from 'react';
@@ -175,7 +182,17 @@ export const BookingModal = ({ open, title, handleClose, ids, inputData }) => {
             />
 
             <Button variant="contained" onClick={handleSubmit(onSubmit)}>
-              {title}
+              {store.getState().bookingReducer?.pending ? (
+                <CircularProgress
+                  sx={{
+                    color: 'white',
+                  }}
+                  size={30}
+                  thickness={4}
+                />
+              ) : (
+                title
+              )}
             </Button>
           </Box>
         </Modal>

@@ -5,7 +5,7 @@ import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import Buttons from './button';
 
 /* istanbul ignore next */
-const ControlledMultipleFileInput = ({ name, control }) => {
+const ControlledMultipleFileInput = ({ name, control, errorMessage }) => {
   const [selectedFiles, setSelectedFiles] = useState(0);
   return (
     <label htmlFor="contained-button-file">
@@ -45,15 +45,21 @@ const ControlledMultipleFileInput = ({ name, control }) => {
         value="Upload Image"
         component="span"
       />
-      <span>
-        {' '}
-        {selectedFiles}{' '}
-        {selectedFiles > 1
-          ? 'Files selected'
-          : selectedFiles < 1
-          ? 'No File Selected'
-          : 'File Selected'}
-      </span>
+      {errorMessage ? (
+        <span style={{ color: 'red', fontSize: '14px', paddingLeft: '5px' }}>
+          {errorMessage}
+        </span>
+      ) : (
+        <span>
+          {' '}
+          {selectedFiles}{' '}
+          {selectedFiles > 1
+            ? 'Files selected'
+            : selectedFiles < 1
+            ? 'No File Selected'
+            : 'File Selected'}
+        </span>
+      )}
     </label>
   );
 };

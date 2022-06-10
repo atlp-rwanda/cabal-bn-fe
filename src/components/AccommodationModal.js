@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import React, { useState, useEffect } from 'react';
 import {
   Box,
@@ -90,7 +91,6 @@ export const AccommodationModal = ({ open, title, handleClose, inputData }) => {
       description: '',
       services: '',
       amenities: '',
-      images: '',
       location_id: '',
     },
     resolver: yupResolver(accommodationSchema),
@@ -154,12 +154,13 @@ export const AccommodationModal = ({ open, title, handleClose, inputData }) => {
               container
               sx={{ display: 'flex' }}
               justifyContent="space-between"
+              alignItems="center"
             >
               <Typography
                 id="modal-modal-title"
                 variant="h5"
                 sx={{
-                  fontSize: '26px',
+                  fontSize: { xs: '20px', md: '26px' },
                   fontWeight: '400',
                   fontFamily: 'Josefin Sans, sans-serif',
                   color: '#00095E',
@@ -171,7 +172,6 @@ export const AccommodationModal = ({ open, title, handleClose, inputData }) => {
                 onClick={handleClose}
                 sx={{
                   color: '#00095E',
-                  left: { xs: '20px', lg: '50px', xl: '50px' },
                   bottom: '20px',
                 }}
               >
@@ -243,7 +243,11 @@ export const AccommodationModal = ({ open, title, handleClose, inputData }) => {
                 )}
               />
             </FormControl>
-            <ControlledMultipleFileInput name="images" control={control} />
+            <ControlledMultipleFileInput
+              name="images"
+              control={control}
+              errorMessage={errors?.images?.message}
+            />
 
             <SignupBtn variant="contained" type="submit">
               {loading || updateLoading ? (

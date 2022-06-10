@@ -12,7 +12,7 @@ import { useTheme } from '@mui/styles';
 /* istanbul ignore next */
 export const TablePaginationActions = (props) => {
   const theme = useTheme();
-  const { count, page, rowsPerPage, onPageChange } = props;
+  const { count, page, rowsPerPage, onPageChange, data } = props;
   const handleBackButtonClick = (event) => {
     onPageChange(event, page - 1);
   };

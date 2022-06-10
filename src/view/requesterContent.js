@@ -25,22 +25,24 @@ import { getAcc } from '../redux/actions/accommodation.action';
 import { getAllLocations } from '../redux/actions/location.action';
 import { CreateTrip } from '../redux/actions/CreateTrip.action';
 import { updateTrip } from '../redux/actions/UpdateTrip.action';
-
+import { CreateTripSelector, FormControlSX } from '../helpers/signup.helper';
+import {
+  retrieveRequests,
+} from '../redux/actions/requester.action';
 import InputField from '../components/input';
 import Buttons from '../components/button';
 import Header from '../components/header';
 import RequesterTable from './requester-table';
-import { FormControlSX } from '../helpers/signup.helper';
 
-const format = 'YYYY-MM-DD';
+const format = 'yyyy-MM-dd';
 /* istanbul ignore next */
 const ListItem = styled('span')(({ theme }) => ({
   margin: theme.spacing(1),
 }));
 const style = {
   position: 'relative',
-  top: '390px',
-  left: { xs: '200px', sm: '400px', md: '700px', lg: '700px' },
+  top: { xs: '390px', md: '50%' },
+  left: '50%',
   transform: 'translate(-50%, -50%)',
   width: {
     xs: 350,
@@ -57,10 +59,10 @@ const style = {
   borderRadius: '10px',
   boxShadow: 24,
   p: 4,
+  paddingTop: 1,
 };
 const useStyles = makeStyles((theme) => ({
   formControl: {
-    margin: theme.spacing(1),
     minWidth: 300,
   },
   selectEmpty: {
@@ -105,16 +107,22 @@ const RequesterContent = () => {
       accommodation_id: accommodationId,
       days,
     };
+
     const accomodationExist = arrivalLocations.find(
       (accommodation) =>
         accommodation.accommodation_id === newAccomodation.accommodation_id,
     );
 
+    if (!accommodationId) {
+      toast.error('accommodation is required');
+      return;
+    }
     if (validate()) {
       if (!accomodationExist) {
         setArrivalLocations([...arrivalLocations, newAccomodation]);
         return;
       }
+
       toast.error("You can't choose the same accommodation twice");
     }
   };
@@ -128,7 +136,7 @@ const RequesterContent = () => {
         : reason.match(regexLetter)
         ? ''
         : 'Invalid input for Reason';
-    const dayError = days > 0 ? '' : 'Day can be greater than Zero';
+    const dayError = days > 0 ? '' : 'Day should be greater than Zero';
     setValidationError(() => ({
       reason: reasonError,
       days: dayError,
@@ -156,7 +164,7 @@ const RequesterContent = () => {
     if (departLocationId) {
       setLocationAccommodations(
         accommodations.filter(
-          (acmdtn) => acmdtn.location_id == departLocationId,
+          (acmdtn) => acmdtn.location_id === departLocationId,
         ),
       );
     }
@@ -191,10 +199,12 @@ const RequesterContent = () => {
         const form = document.getElementById('modalForm');
         form.reset();
         handleClose();
+        await dispatch(retrieveRequests(1, 5));
       } else {
         const update = await updateTrip(data, tripTobeEdited.id)(dispatch);
         toast.success(update.data.message);
         handleClose();
+        dispatch(retrieveRequests(1, 5));
       }
     } catch (error) {
       toast.error(error.message);
@@ -226,7 +236,14 @@ const RequesterContent = () => {
         >
           <Box sx={style}>
             <form id="modalForm" onSubmit={handleSubmitone}>
-              <div style={{ display: 'flex' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  paddingBottom: '20px',
+                }}
+              >
                 <Typography
                   id="modal-modal-title"
                   variant="h5"
@@ -243,10 +260,6 @@ const RequesterContent = () => {
                   onClick={handleClose}
                   sx={{
                     color: '#00095E',
-                    position: 'relative',
-                    left: { sm: '70%', xs: '48%' },
-                    float: 'left',
-                    bottom: '30px',
                   }}
                 >
                   <CloseIcon data-testid="close-icon" />
@@ -255,7 +268,7 @@ const RequesterContent = () => {
               <FormControl
                 fullWidth
                 className={classes.formControl}
-                sx={FormControlSX}
+                sx={CreateTripSelector}
               >
                 <InputLabel id="demo-simple-select-label">Location</InputLabel>
                 <Select
@@ -289,7 +302,7 @@ const RequesterContent = () => {
               <FormControl
                 fullWidth
                 className={classes.formControl}
-                sx={FormControlSX}
+                sx={CreateTripSelector}
               >
                 <InputLabel id="demo-simple-select-label">
                   Accomodation
@@ -316,7 +329,7 @@ const RequesterContent = () => {
                 onChange={(e) => setDays(parseInt(e.target.value))}
                 {...(validationError.days && {
                   error: true,
-                  helperText: validationError.dayError,
+                  helperText: validationError.days,
                 })}
               />
               <Buttons
@@ -368,7 +381,7 @@ const RequesterContent = () => {
               </Typography>
               <Stack component="form" noValidate spacing={3}>
                 <TextField
-                  sx={FormControlSX}
+                  sx={CreateTripSelector}
                   fullWidth
                   id="date"
                   label=" "

@@ -6,13 +6,15 @@ import MenuItem from '@mui/material/MenuItem';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { deleteComment } from '../../redux/actions/accommodation.action';
+import store from '../../redux/store';
 
 export default function PositionedMenu({
   commentId,
   accommodationId,
   handleEditComment,
+  userId,
 }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -28,7 +30,8 @@ export default function PositionedMenu({
     dispatch(deleteComment(accommodationId, commentId));
     setAnchorEl(null);
   };
-
+  const userProfile = store.getState().loggedInUser?.data?.data?.user?.profile;
+  console.log(userProfile);
   return (
     <div style={{ marginLeft: '20px' }}>
       <Button
@@ -54,6 +57,7 @@ export default function PositionedMenu({
           vertical: 'top',
           horizontal: 'left',
         }}
+        hidden={userId === userProfile?.user_id ? false : true}
       >
         <MenuItem onClick={handleEditComment}>
           {' '}

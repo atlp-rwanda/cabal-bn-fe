@@ -11,8 +11,6 @@ import {
 import { Link, matchPath } from 'react-router-dom';
 import React from 'react';
 
-const role = JSON.parse(localStorage.getItem('userCredentials'))?.role_id;
-
 const MobLink = ({ sideBarLinks }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -22,6 +20,8 @@ const MobLink = ({ sideBarLinks }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const role = JSON.parse(localStorage.getItem('userCredentials'))?.role_id;
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
@@ -75,6 +75,17 @@ const MobLink = ({ sideBarLinks }) => {
           >
             Settings
           </Typography>
+          <Container
+            sx={{
+              height: '0.5vh',
+              backgroundColor: '#FFC800',
+              display:
+                matchPath(window.location.pathname, '/dashboard/settings') ||
+                matchPath(window.location.pathname, '/dashboard/roles')
+                  ? 'block'
+                  : 'none',
+            }}
+          />
         </Paper>
       ) : null}
       <Menu

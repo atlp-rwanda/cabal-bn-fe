@@ -104,7 +104,6 @@ function Assignmanager() {
     })
     .map((result) => result.email);
 
-
   const handleClick = async () => {
     setLoading(true);
 
